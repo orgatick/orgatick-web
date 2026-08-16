@@ -8,6 +8,8 @@ out/
 # Turborepo
 .turbo/
 
+.vscode/
+
 # Environment
 .env
 .env.local

@@ -11,14 +11,14 @@ import { IconBook, IconCheck, IconRocket } from "@tabler/icons-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-8 gap-8">
+    <div className="h-dvh bg-background text-foreground flex flex-col items-center justify-center p-8 gap-8">
       <header className="text-center space-y-2 max-w-xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-2">
           <IconBook className="size-4 text-blue-500" />
-          <span>Documentation App</span>
+          <span>Orgatick Main App</span>
         </div>
         <h1 className="text-4xl font-bold tracking-tight">
-          Orgatick <span className="text-primary">Docs</span>
+          Orgatick <span className="text-primary">Client</span>
         </h1>
         <p className="text-muted-foreground text-sm">
           Sharing shadcn/ui components from{" "}

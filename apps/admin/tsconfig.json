@@ -1,7 +1,6 @@
 {
   "extends": "@orgatick/typescript-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@orgatick/ui/*": ["../../packages/ui/src/*"]
