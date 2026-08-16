@@ -2,7 +2,6 @@ import { Badge } from "@orgatick/ui/components/badge";
 import { Card } from "@orgatick/ui/components/card";
 import { IconStarFilled } from "@tabler/icons-react";
 
-
 export function TrustSection() {
   const testimonials = [
     {
@@ -61,18 +60,14 @@ export function TrustSection() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex gap-0.5 text-amber-500">
-                    {[
-                      "first",
-                      "second",
-                      "third",
-                      "fourth",
-                      "fifth",
-                    ].map((starName) => (
-                      <IconStarFilled
-                        key={`${t.author}-star-${starName}`}
-                        className="size-4"
-                      />
-                    ))}
+                    {["first", "second", "third", "fourth", "fifth"].map(
+                      (starName) => (
+                        <IconStarFilled
+                          key={`${t.author}-star-${starName}`}
+                          className="size-4"
+                        />
+                      ),
+                    )}
                   </div>
                   <Badge
                     variant="outline"

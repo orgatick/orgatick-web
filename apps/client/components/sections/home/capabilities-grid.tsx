@@ -1,5 +1,11 @@
 import { Badge } from "@orgatick/ui/components/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@orgatick/ui/components/card";
 import {
   IconBrandWhatsapp,
   IconCalendarEvent,
