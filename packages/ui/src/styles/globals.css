@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #f4f7fc;
+  --foreground: #1a2b4c;
+  --card: #ffffff;
+  --card-foreground: #1a2b4c;
+  --popover: #ffffff;
+  --popover-foreground: #1a2b4c;
+
+  --primary: #204b90;
+  --primary-foreground: #ffffff;
+
+  --secondary: #6355a4;
+  --secondary-foreground: #ffffff;
+
+  --accent: #5d82d9;
+  --accent-foreground: #ffffff;
+
+  --success: #2ecc71;
+  --warning: #f1c40f;
+  --info: #3498db;
+
+  --destructive: #d9534f;
+  --destructive-foreground: #ffffff;
+
+  --muted: #e7ecf3;
+  --muted-foreground: #6c7480;
+
+  --border: #c6ccd5;
+  --input: #d8dde6;
+  --ring: #2a56a5;
+
+  --chart-1: #1c458f;
+  --chart-2: #5f82d9;
+  --chart-3: #819ed0;
+  --chart-4: #476fb4;
+  --chart-5: #0f3475;
+
+  --sidebar: #f4f7fc;
+  --sidebar-foreground: #1a2b4c;
+  --sidebar-primary: #204b90;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e9eef8;
+  --sidebar-accent-foreground: #1a2b4c;
+  --sidebar-border: #c6ccd5;
+  --sidebar-ring: #2a56a5;
+
+  --radius: 10px;
+
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --background: #090f1a;
+  --foreground: #eaf2ff;
+  --card: #0d141f;
+  --card-foreground: #ffffff;
+  --popover: #0d141f;
+  --popover-foreground: #ffffff;
+  --primary: #5d8ff4;
+  --primary-foreground: #000000;
+  --secondary: #8a7af2;
+  --secondary-foreground: #000000;
+  --accent: #3d5fb2;
+  --accent-foreground: #ffffff;
+  --success: #3ad578;
+  --warning: #f4c542;
+  --info: #58a6ff;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #000000;
+  --muted: #1b2433;
+  --muted-foreground: #b6c1d6;
+  --border: #2c364a;
+  --input: #37435a;
+  --ring: #4d76d1;
+  --chart-1: #5d8ff4;
+  --chart-2: #8a7af2;
+  --chart-3: #6ea7ff;
+  --chart-4: #3d5fb2;
+  --chart-5: #2b4d94;
+  --sidebar: #090f1a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #5d8ff4;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #0f1625;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #2c364a;
+  --sidebar-ring: #4d76d1;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    height: 100dvh;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+}

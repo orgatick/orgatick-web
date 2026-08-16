@@ -1,0 +1,13 @@
+{
+  "extends": "@orgatick/typescript-config/react-library.json",
+  "compilerOptions": {
+    "paths": {
+      "@orgatick/ui/*": ["./src/*"]
+    },
+    "rootDir": ".",
+    "outDir": "dist",
+    "strictNullChecks": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

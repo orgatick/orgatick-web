@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "tabler",
+  "rtl": true,
+  "aliases": {
+    "components": "@orgatick/ui/components",
+    "utils": "@orgatick/ui/lib/utils",
+    "hooks": "@orgatick/ui/hooks",
+    "lib": "@orgatick/ui/lib",
+    "ui": "@orgatick/ui/components"
+  },
+  "menuColor": "default",
+  "menuAccent": "bold",
+  "registries": {}
+}
