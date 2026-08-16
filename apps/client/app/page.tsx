@@ -1,54 +1,33 @@
-import { Button } from "@orgatick/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@orgatick/ui/components/card";
-import { IconBook, IconCheck, IconRocket } from "@tabler/icons-react";
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { CapabilitiesGrid } from "@/components/sections/home/capabilities-grid";
+import { FAQSection } from "@/components/sections/home/faq";
+import { HeroSection } from "@/components/sections/home/hero";
+import { PersonaMatrixSection } from "@/components/sections/home/persona-matrix";
+import { PricingSection } from "@/components/sections/home/pricing";
+import { ProblemSolutionSection } from "@/components/sections/home/problem-solution";
+import { TechArchitectureSection } from "@/components/sections/home/tech-architecture";
+import { ThreePillarsSection } from "@/components/sections/home/three-pillars";
+import { TrustSection } from "@/components/sections/home/trust-section";
+import { UserJourneySection } from "@/components/sections/home/user-journey";
 
 export default function Home() {
   return (
-    <div className="h-dvh bg-background text-foreground flex flex-col items-center justify-center p-8 gap-8">
-      <header className="text-center space-y-2 max-w-xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-2">
-          <IconBook className="size-4 text-blue-500" />
-          <span>Orgatick Main App</span>
-        </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Orgatick <span className="text-primary">Client</span>
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          Sharing shadcn/ui components from{" "}
-          <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">
-            @orgatick/ui
-          </code>
-          .
-        </p>
-      </header>
-
-      <Card className="w-full max-w-md shadow-lg border">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <IconRocket className="size-5 text-primary" />
-            Shared UI System
-          </CardTitle>
-          <CardDescription>
-            Components imported directly across monorepo apps.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-center gap-2 text-sm">
-            <IconCheck className="size-4 text-emerald-500" />
-            <span>@orgatick/ui components ready</span>
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-end gap-2">
-          <Button variant="default">View Docs</Button>
-        </CardFooter>
-      </Card>
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
+      <Navbar />
+      <main className="flex-1">
+        <HeroSection />
+        <ProblemSolutionSection />
+        <ThreePillarsSection />
+        <CapabilitiesGrid />
+        <UserJourneySection />
+        <PersonaMatrixSection />
+        <TechArchitectureSection />
+        <PricingSection />
+        <TrustSection />
+        <FAQSection />
+      </main>
+      <Footer />
     </div>
   );
 }

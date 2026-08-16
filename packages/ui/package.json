@@ -9,6 +9,7 @@
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./utils": "./src/lib/utils.ts",
+    "./assets/*": "./src/assets/*.tsx",
     "./*": "./src/*.tsx"
   },
   "scripts": {
