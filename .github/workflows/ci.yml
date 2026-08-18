@@ -13,12 +13,19 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.0.0 --activate
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,22 +33,19 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
-      - name: Install pnpm (corepack)
-        run: corepack enable && corepack prepare pnpm@latest --activate
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run lint (if available)
+      - name: Run lint
         run: pnpm -w -r --if-present run lint
 
-      - name: Run typecheck (if available)
-        run: pnpm -w -r --if-present run typecheck
+      - name: Run typecheck
+        run: pnpm -w -r --if-present run check-types
 
-      - name: Run tests (if available)
+      - name: Run tests
         run: pnpm -w -r --if-present test
 
-      - name: Build packages (if available)
+      - name: Build packages
         run: pnpm -w -r --if-present run build
 
       - name: Upload build artifacts
