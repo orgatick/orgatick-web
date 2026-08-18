@@ -1,4 +1,4 @@
-import { cn } from "@orgatick/ui/lib/utils"
+import { cn } from "@orgatick/ui/lib/utils";
 import type { ComponentPropsWithoutRef } from "react";
 
 interface LogoProps extends ComponentPropsWithoutRef<"svg"> {

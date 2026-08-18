@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "features/**"
+  pull_request:
+    branches:
+      - main
+      - "features/**"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install pnpm (corepack)
+        run: corepack enable && corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run lint (if available)
+        run: pnpm -w -r --if-present run lint
+
+      - name: Run typecheck (if available)
+        run: pnpm -w -r --if-present run typecheck
+
+      - name: Run tests (if available)
+        run: pnpm -w -r --if-present test
+
+      - name: Build packages (if available)
+        run: pnpm -w -r --if-present run build
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            apps/**/.next
+            packages/**/dist
+            dist

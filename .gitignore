@@ -21,3 +21,13 @@ pnpm-debug.log*
 
 # OS
 .DS_Store
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+.agents
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

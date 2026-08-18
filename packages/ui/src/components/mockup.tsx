@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type React from "react";
-import { cn } from "@orgatick/ui/lib/utils"
+import { cn } from "@orgatick/ui/lib/utils";
 
 const mockupVariants = cva(
   "flex relative z-10 overflow-hidden shadow-2xl border border-border/70 dark:border-border/5 dark:border-t-border/15",
@@ -18,8 +18,7 @@ const mockupVariants = cva(
 );
 
 export interface MockupProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
+  extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof mockupVariants> {}
 
 function Mockup({ className, type, ...props }: MockupProps) {
@@ -48,8 +47,7 @@ const frameVariants = cva(
 );
 
 export interface MockupFrameProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
+  extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof frameVariants> {}
 
 function MockupFrame({ className, size, ...props }: MockupFrameProps) {
