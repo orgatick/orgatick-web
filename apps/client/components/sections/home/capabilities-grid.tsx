@@ -14,6 +14,7 @@ import {
   IconUsersGroup,
   IconWallet,
 } from "@tabler/icons-react";
+import * as motion from "motion/react-client";
 
 export function CapabilitiesGrid() {
   const capabilities = [
@@ -110,7 +111,13 @@ export function CapabilitiesGrid() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -125,50 +132,57 @@ export function CapabilitiesGrid() {
             backend systems required to manage registrations, money, entry
             gates, communication, and insights.
           </p>
-        </div>
+        </motion.div>
 
         {/* 6 Capabilities Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((cap) => {
+          {capabilities.map((cap, idx) => {
             const Icon = cap.icon;
             return (
-              <Card
+              <motion.div
                 key={cap.title}
-                className="bg-card border border-border/60 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="flex"
               >
-                <CardHeader className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-                      <Icon className="size-6" />
-                    </div>
-                    <span
-                      className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${cap.badgeColor}`}
-                    >
-                      {cap.category}
-                    </span>
-                  </div>
-                  <CardTitle className="text-xl font-bold text-foreground">
-                    {cap.title}
-                  </CardTitle>
-                  <CardDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {cap.description}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="pt-2">
-                  <div className="space-y-2 border-t border-border/40 pt-4">
-                    {cap.highlights.map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-2 text-xs font-medium text-foreground"
-                      >
-                        <div className="size-1.5 rounded-full bg-primary" />
-                        <span>{item}</span>
+                <Card className="bg-card border-border/60 shadow-xs hover:shadow-md hover:border-primary/40 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group w-full">
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0">
+                        <Icon className="size-6" />
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                      <Badge
+                        variant="outline"
+                        className={`text-[11px] font-semibold ${cap.badgeColor}`}
+                      >
+                        {cap.category}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-xl font-bold text-foreground">
+                      {cap.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {cap.description}
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardContent className="pt-2">
+                    <div className="space-y-2 border-t border-border/40 pt-4">
+                      {cap.highlights.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-2 text-xs font-medium text-foreground"
+                        >
+                          <div className="size-1.5 rounded-full bg-primary shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             );
           })}
         </div>

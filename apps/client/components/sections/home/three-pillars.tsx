@@ -1,9 +1,4 @@
-import {
-  IconAdjustmentsHorizontal,
-  IconArrowRight,
-  IconChartBar,
-  IconCompass,
-} from "@tabler/icons-react";
+import { Badge } from "@orgatick/ui/components/badge";
 import {
   Card,
   CardContent,
@@ -11,7 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@orgatick/ui/components/card";
-import { Badge } from "@orgatick/ui/components/badge";
+import {
+  IconAdjustmentsHorizontal,
+  IconArrowRight,
+  IconChartBar,
+  IconCompass,
+} from "@tabler/icons-react";
+import * as motion from "motion/react-client";
 
 export function ThreePillarsSection() {
   const pillars = [
@@ -103,11 +104,17 @@ export function ThreePillarsSection() {
   return (
     <section
       id="solutions"
-      className="py-20 md:py-28 border-b border-border/40 relative"
+      className="py-20 md:py-28 border-b border-border/40 relative bg-background"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -121,79 +128,87 @@ export function ThreePillarsSection() {
             Orgatick positions itself as the operational layer connecting every
             activity from attendee discovery to post-event financial reporting.
           </p>
-        </div>
+        </motion.div>
 
-        {/* 3 Pillars Grid */}
+        {/* 3 Pillars Grid with Motion Stagger */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pillars.map((pillar) => {
+          {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <Card
+              <motion.div
                 key={pillar.id}
-                className={`relative flex flex-col justify-between border ${pillar.borderColor} shadow-lg hover:shadow-xl transition-all group overflow-hidden bg-card`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                className="flex"
               >
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${pillar.color}`}
-                />
+                <Card
+                  className={`relative flex flex-col justify-between w-full border ${pillar.borderColor} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group overflow-hidden bg-card`}
+                >
+                  <div
+                    className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${pillar.color}`}
+                  />
 
-                <CardHeader className="space-y-4 pt-6">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-xs font-mono">
-                      {pillar.badge}
-                    </Badge>
-                    <div
-                      className={`size-12 rounded-2xl ${pillar.lightBg} flex items-center justify-center group-hover:scale-110 transition-transform`}
-                    >
-                      <Icon className="size-6" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <CardTitle className="text-2xl font-bold text-foreground">
-                      {pillar.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs font-medium text-primary mt-1">
-                      {pillar.tagline}
-                    </CardDescription>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-6 pt-2">
-                  <div className="space-y-4">
-                    {pillar.features.map((feat) => (
-                      <div key={feat.label} className="space-y-1">
-                        <p className="text-sm font-semibold text-foreground flex items-center gap-2">
-                          <span className="size-1.5 rounded-full bg-primary" />
-                          {feat.label}
-                        </p>
-                        <p className="text-xs text-muted-foreground leading-relaxed pl-3.5">
-                          {feat.desc}
-                        </p>
+                  <CardHeader className="space-y-4 pt-6">
+                    <div className="flex items-center justify-between">
+                      <Badge variant="outline" className="text-xs font-mono">
+                        {pillar.badge}
+                      </Badge>
+                      <div
+                        className={`size-12 rounded-2xl ${pillar.lightBg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shrink-0`}
+                      >
+                        <Icon className="size-6" />
                       </div>
-                    ))}
-                  </div>
+                    </div>
 
-                  {/* Flow Pills */}
-                  <div className="pt-4 border-t border-border/40">
-                    <p className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                      Workflow Sequence
-                    </p>
-                    <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                      {pillar.flowSteps.map((step, idx) => (
-                        <span
-                          key={step}
-                          className="flex items-center gap-1 bg-muted/60 px-2 py-1 rounded-md text-foreground font-medium"
-                        >
-                          {step}
-                          {idx < pillar.flowSteps.length - 1 && (
-                            <IconArrowRight className="size-3 text-muted-foreground ml-0.5" />
-                          )}
-                        </span>
+                    <div>
+                      <CardTitle className="text-2xl font-bold text-foreground">
+                        {pillar.title}
+                      </CardTitle>
+                      <CardDescription className="text-xs font-medium text-primary mt-1">
+                        {pillar.tagline}
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="space-y-6 pt-2 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      {pillar.features.map((feat) => (
+                        <div key={feat.label} className="space-y-1">
+                          <p className="text-sm font-semibold text-foreground flex items-center gap-2">
+                            <span className="size-1.5 rounded-full bg-primary shrink-0" />
+                            {feat.label}
+                          </p>
+                          <p className="text-xs text-muted-foreground leading-relaxed pl-3.5">
+                            {feat.desc}
+                          </p>
+                        </div>
                       ))}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+
+                    {/* Flow Pills */}
+                    <div className="pt-4 border-t border-border/40">
+                      <p className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mb-2 font-semibold">
+                        Workflow Sequence
+                      </p>
+                      <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+                        {pillar.flowSteps.map((step, stepIdx) => (
+                          <span
+                            key={step}
+                            className="flex items-center gap-1 bg-muted/60 px-2 py-1 rounded-md text-foreground font-medium transition-colors duration-200 hover:bg-muted"
+                          >
+                            {step}
+                            {stepIdx < pillar.flowSteps.length - 1 && (
+                              <IconArrowRight className="size-3 text-muted-foreground ml-0.5 shrink-0" />
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             );
           })}
         </div>

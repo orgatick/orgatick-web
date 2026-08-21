@@ -1,5 +1,12 @@
 import { Badge } from "@orgatick/ui/components/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@orgatick/ui/components/card";
 import { IconCheck, IconGitBranch, IconServer } from "@tabler/icons-react";
+import * as motion from "motion/react-client";
 
 export function TechArchitectureSection() {
   const stack = [
@@ -59,7 +66,13 @@ export function TechArchitectureSection() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -74,12 +87,18 @@ export function TechArchitectureSection() {
             transaction consistency, zero double-bookings, and sub-second venue
             check-in speeds.
           </p>
-        </div>
+        </motion.div>
 
         {/* Stack Table & State Machine Grid */}
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Tech Stack Breakdown (2 Cols) */}
-          <div className="lg:col-span-2 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-2 space-y-4"
+          >
             <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
               <IconServer className="size-5 text-primary" />
               Core Technology Stack
@@ -87,63 +106,72 @@ export function TechArchitectureSection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {stack.map((item) => (
-                <div
+                <Card
                   key={item.layer}
-                  className="bg-card border border-border/60 p-4 rounded-xl space-y-1.5 hover:border-primary/40 transition-colors"
+                  className="bg-card border-border/60 p-4 rounded-xl space-y-1.5 hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 shadow-xs"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-primary uppercase tracking-wider font-semibold">
-                      {item.layer}
-                    </span>
-                    <IconCheck className="size-4 text-emerald-500" />
-                  </div>
-                  <h4 className="font-bold text-sm text-foreground">
-                    {item.tech}
-                  </h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
+                  <CardContent className="p-0 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-mono text-primary uppercase tracking-wider font-semibold">
+                        {item.layer}
+                      </span>
+                      <IconCheck className="size-4 text-emerald-500 shrink-0" />
+                    </div>
+                    <h4 className="font-bold text-sm text-foreground">
+                      {item.tech}
+                    </h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Event State Machine Workflow (1 Col) */}
-          <div className="bg-card border border-border/60 p-6 rounded-2xl space-y-6 flex flex-col justify-between shadow-sm">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-primary font-bold text-lg">
-                <IconGitBranch className="size-5" />
-                State Machine Reliability
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Card className="bg-card border-border/60 p-6 rounded-2xl space-y-6 flex flex-col justify-between shadow-xs h-full hover:border-primary/40 transition-all duration-300">
+              <CardHeader className="p-0 space-y-2">
+                <CardTitle className="flex items-center gap-2 text-primary font-bold text-lg">
+                  <IconGitBranch className="size-5" />
+                  State Machine Reliability
+                </CardTitle>
+                <p className="text-xs text-muted-foreground leading-relaxed font-normal">
+                  Every event moves through strict state transitions, keeping
+                  ticket counts, payments, and gate passes synchronized across
+                  all nodes.
+                </p>
+              </CardHeader>
+
+              <CardContent className="p-0 space-y-3 my-2">
+                {stateMachine.map((sm) => (
+                  <div
+                    key={sm.state}
+                    className="flex items-start gap-3 bg-muted/40 p-2.5 rounded-lg border border-border/40 text-xs transition-colors duration-200 hover:bg-muted/70"
+                  >
+                    <span className="font-mono font-bold text-primary shrink-0">
+                      {sm.state}
+                    </span>
+                    <span className="text-muted-foreground">{sm.desc}</span>
+                  </div>
+                ))}
+              </CardContent>
+
+              <div className="pt-3 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground font-mono">
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Audit-Ready Consistency
+                </span>
+                <span>100% Uptime</span>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Every event moves through strict state transitions, keeping
-                ticket counts, payments, and gate passes synchronized across all
-                nodes.
-              </p>
-            </div>
-
-            <div className="space-y-3 my-2">
-              {stateMachine.map((sm) => (
-                <div
-                  key={sm.state}
-                  className="flex items-start gap-3 bg-muted/40 p-2.5 rounded-lg border border-border/40 text-xs"
-                >
-                  <span className="font-mono font-bold text-primary shrink-0">
-                    {sm.state}
-                  </span>
-                  <span className="text-muted-foreground">{sm.desc}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-3 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground font-mono">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                Audit-Ready Consistency
-              </span>
-              <span>100% Uptime</span>
-            </div>
-          </div>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </section>

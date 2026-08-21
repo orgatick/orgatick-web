@@ -1,4 +1,5 @@
 import { LinkButton } from "@/components/ui/link-button";
+import { Badge } from "@orgatick/ui/components/badge";
 import Glow from "@orgatick/ui/components/glow";
 import { Mockup, MockupFrame } from "@orgatick/ui/components/mockup";
 import {
@@ -7,25 +8,36 @@ import {
   IconBrandWhatsapp,
   IconCheck,
   IconQrcode,
+  IconSparkles,
 } from "@tabler/icons-react";
+import * as motion from "motion/react-client";
 import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden border-b border-border/40">
-      {/* Ambient background glow & grid overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(32,75,144,0.25),rgba(255,255,255,0))]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+    <section className="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden border-b border-border/40 bg-background">
+      {/* Dynamic ambient background glow & refined grid pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.18),rgba(255,255,255,0))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm font-medium backdrop-blur-md shadow-inner">
-            <span>The Operating Platform for Events</span>
+        {/* Above-the-fold Hero Content - Rendered immediately in SSR HTML for sub-second LCP */}
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
+          {/* Tagline Badge */}
+          <div>
+            <Badge
+              variant="outline"
+              className="px-4 py-1.5 rounded-full border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm font-medium backdrop-blur-md shadow-xs hover:bg-primary/15 transition-colors cursor-default"
+            >
+              <IconSparkles className="size-3.5 mr-1.5 animate-pulse text-primary shrink-0" />
+              The Operating Platform for Events
+            </Badge>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-foreground leading-[1.1] text-balance">
+          {/* Hero Main Heading - Immediate SSR paint for LCP */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-foreground leading-[1.08] text-balance">
             One Platform to{" "}
-            <span className="bg-linear-to-r from-primary via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-indigo-500 to-purple-600 bg-clip-text text-transparent">
               Discover, Operate & Measure
             </span>{" "}
             Events.
@@ -44,44 +56,44 @@ export function HeroSection() {
               href="#pricing"
               size="lg"
               variant="default"
-              className="h-12 px-7 text-base font-semibold shadow-lg shadow-primary/25 rounded-xl group"
+              className="h-12 px-7 text-base font-semibold shadow-lg shadow-primary/25 rounded-xl group transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Launch Your Event</span>
-              <IconArrowRight className="size-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <IconArrowRight className="size-5 ml-2 transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
             </LinkButton>
             <LinkButton
               href="#capabilities"
               size="lg"
               variant="outline"
-              className="h-12 px-7 text-base font-medium rounded-xl border-border hover:bg-muted/60"
+              className="h-12 px-7 text-base font-medium rounded-xl border-border hover:bg-muted/60 transition-colors duration-200"
             >
-              <IconBolt className="size-5 mr-2 text-primary" />
+              <IconBolt className="size-5 mr-2 text-primary shrink-0" />
               <span>Explore Platform Capabilities</span>
             </LinkButton>
           </div>
 
-          {/* Bullet highlights */}
+          {/* Highlight badges */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
-              <IconCheck className="size-4 text-emerald-500" />
+              <IconCheck className="size-4 text-emerald-500 shrink-0" />
               <span>Instant Digital Tickets & QR Verification</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <IconCheck className="size-4 text-emerald-500" />
+              <IconCheck className="size-4 text-emerald-500 shrink-0" />
               <span>Automated WhatsApp & Email Updates</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <IconCheck className="size-4 text-emerald-500" />
+              <IconCheck className="size-4 text-emerald-500 shrink-0" />
               <span>Real-Time Attendance Analytics</span>
             </div>
           </div>
         </div>
 
-        {/* Dashboard Product Preview */}
-        <div className="mt-14 sm:mt-18 relative max-w-5xl mx-auto">
-          {/* Decorative side pill indicators */}
-          <div className="hidden lg:flex absolute -left-12 top-1/4 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md animate-bounce-slow">
-            <div className="size-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+        {/* Dashboard Product Preview - Prioritized Image for LCP */}
+        <div className="mt-14 sm:mt-18 relative max-w-5xl mx-auto group">
+          {/* Floating Pill Indicators */}
+          <div className="hidden lg:flex absolute -left-12 top-1/4 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-105">
+            <div className="size-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
               <IconQrcode className="size-5" />
             </div>
             <div className="text-left text-xs">
@@ -92,8 +104,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="hidden lg:flex absolute -right-10 bottom-1/3 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md">
-            <div className="size-9 rounded-xl bg-emerald-600/10 flex items-center justify-center text-emerald-600">
+          <div className="hidden lg:flex absolute -right-10 bottom-1/3 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-105">
+            <div className="size-9 rounded-xl bg-emerald-600/10 flex items-center justify-center text-emerald-600 shrink-0">
               <IconBrandWhatsapp className="size-5" />
             </div>
             <div className="text-left text-xs">
@@ -106,7 +118,7 @@ export function HeroSection() {
 
           <MockupFrame
             size="small"
-            className="shadow-2xl border border-primary/20 rounded-2xl overflow-hidden bg-card"
+            className="shadow-2xl border border-primary/20 rounded-2xl overflow-hidden bg-card transition-shadow duration-300 group-hover:shadow-primary/10"
           >
             <Mockup
               type="responsive"
@@ -118,6 +130,8 @@ export function HeroSection() {
                 width={1200}
                 height={675}
                 priority
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                 className="w-full h-auto rounded-lg shadow-2xl object-cover"
               />
             </Mockup>
@@ -126,8 +140,14 @@ export function HeroSection() {
         </div>
 
         {/* Trust Metrics Bar */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-border/40 text-center max-w-5xl mx-auto">
-          <div className="space-y-1">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-border/40 text-center max-w-5xl mx-auto"
+        >
+          <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
             <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
               500+
             </p>
@@ -135,7 +155,7 @@ export function HeroSection() {
               College Events Hosted
             </p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
             <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
               1.2M+
             </p>
@@ -143,7 +163,7 @@ export function HeroSection() {
               Digital Tickets Verified
             </p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
             <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
               4.2s
             </p>
@@ -151,7 +171,7 @@ export function HeroSection() {
               Average Venue Check-In
             </p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
             <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
               99.9%
             </p>
@@ -159,7 +179,7 @@ export function HeroSection() {
               Reconciliation Accuracy
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

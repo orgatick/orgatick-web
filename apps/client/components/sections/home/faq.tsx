@@ -1,4 +1,11 @@
 import { Badge } from "@orgatick/ui/components/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@orgatick/ui/components/card";
+import * as motion from "motion/react-client";
 
 export function FAQSection() {
   const faqs = [
@@ -31,7 +38,13 @@ export function FAQSection() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -45,25 +58,34 @@ export function FAQSection() {
             Everything you need to know about deploying Orgatick for your next
             college fest or community event.
           </p>
-        </div>
+        </motion.div>
 
         {/* FAQ List */}
         <div className="mt-14 space-y-4">
           {faqs.map((faq, idx) => (
-            <div
+            <motion.div
               key={faq.q}
-              className="bg-card border border-border/60 p-6 rounded-2xl space-y-2 hover:border-primary/40 transition-colors shadow-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
             >
-              <h3 className="font-bold text-base sm:text-lg text-foreground flex items-start gap-3">
-                <span className="text-primary font-mono text-sm font-semibold mt-0.5">
-                  0{idx + 1}.
-                </span>
-                <span>{faq.q}</span>
-              </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pl-8">
-                {faq.a}
-              </p>
-            </div>
+              <Card className="bg-card border-border/60 p-6 rounded-2xl space-y-2 hover:border-primary/40 transition-all duration-300 shadow-xs">
+                <CardHeader className="p-0 space-y-0">
+                  <CardTitle className="font-bold text-base sm:text-lg text-foreground flex items-start gap-3">
+                    <span className="text-primary font-mono text-sm font-semibold mt-0.5 shrink-0">
+                      0{idx + 1}.
+                    </span>
+                    <span>{faq.q}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 pl-8">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    {faq.a}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>

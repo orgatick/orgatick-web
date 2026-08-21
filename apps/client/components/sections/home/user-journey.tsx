@@ -1,8 +1,11 @@
 import { Badge } from "@orgatick/ui/components/badge";
+import { Card, CardContent } from "@orgatick/ui/components/card";
 import {
   IconUserCheck as IconOrganizer,
   IconUserCheck,
 } from "@tabler/icons-react";
+import * as motion from "motion/react-client";
+
 export function UserJourneySection() {
   const attendeeSteps = [
     {
@@ -83,11 +86,17 @@ export function UserJourneySection() {
   return (
     <section
       id="lifecycle"
-      className="py-20 md:py-28 border-b border-border/40 relative"
+      className="py-20 md:py-28 border-b border-border/40 relative bg-muted/20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -101,21 +110,27 @@ export function UserJourneySection() {
             A frictionless digital pass journey for attendees paired with a
             powerful operational command center for organizers.
           </p>
-        </div>
+        </motion.div>
 
         {/* Journey Grid */}
         <div className="mt-16 space-y-16">
           {/* Attendee Journey */}
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold">
+              <div className="size-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold shrink-0">
                 <IconUserCheck className="size-6" />
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-foreground">
                   The Attendee Journey
                 </h3>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground font-normal">
                   Frictionless 6-Step Digital Experience
                 </p>
               </div>
@@ -123,35 +138,43 @@ export function UserJourneySection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
               {attendeeSteps.map((step) => (
-                <div
+                <Card
                   key={step.num}
-                  className="bg-card border border-border/60 p-4 rounded-xl space-y-2 relative group hover:border-primary/40 transition-colors"
+                  className="bg-card border-border/60 p-4 rounded-xl space-y-2 relative group hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-xs"
                 >
-                  <span className="font-mono text-2xl font-black text-primary/30 group-hover:text-primary transition-colors">
-                    {step.num}
-                  </span>
-                  <h4 className="font-bold text-sm text-foreground">
-                    {step.title}
-                  </h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
+                  <CardContent className="p-0 space-y-2">
+                    <span className="font-mono text-2xl font-black text-primary/30 group-hover:text-primary transition-colors duration-200 block">
+                      {step.num}
+                    </span>
+                    <h4 className="font-bold text-sm text-foreground">
+                      {step.title}
+                    </h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Organizer Journey */}
-          <div className="space-y-6 pt-4 border-t border-border/40">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-6 pt-4 border-t border-border/40"
+          >
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold">
+              <div className="size-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold shrink-0">
                 <IconOrganizer className="size-6" />
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-foreground">
                   The Organizer Operational Lifecycle
                 </h3>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground font-normal">
                   Full 8-Stage Command & Control System
                 </p>
               </div>
@@ -159,26 +182,28 @@ export function UserJourneySection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {organizerSteps.map((step) => (
-                <div
+                <Card
                   key={step.num}
-                  className="bg-card border border-border/60 p-5 rounded-xl space-y-2 relative group hover:border-indigo-500/40 transition-colors"
+                  className="bg-card border-border/60 p-5 rounded-xl space-y-2 relative group hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-1 shadow-xs"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-2xl font-black text-indigo-500/30 group-hover:text-indigo-600 transition-colors">
-                      {step.num}
-                    </span>
-                    <span className="size-2 rounded-full bg-indigo-500" />
-                  </div>
-                  <h4 className="font-bold text-base text-foreground">
-                    {step.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
+                  <CardContent className="p-0 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-2xl font-black text-indigo-500/30 group-hover:text-indigo-600 transition-colors duration-200">
+                        {step.num}
+                      </span>
+                      <span className="size-2 rounded-full bg-indigo-500 shrink-0" />
+                    </div>
+                    <h4 className="font-bold text-base text-foreground">
+                      {step.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

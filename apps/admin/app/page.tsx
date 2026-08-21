@@ -1,3 +1,4 @@
+import { Pattern } from "@/components/examples/c-breadcrumb-2";
 import { Button } from "@orgatick/ui/components/button";
 import {
   Card,
@@ -30,6 +31,7 @@ export default function Home() {
         </p>
       </header>
 
+      <Pattern />
       <Card className="w-full max-w-md shadow-lg border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

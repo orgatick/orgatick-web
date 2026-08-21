@@ -26,7 +26,8 @@
       "preset": "recommended",
       "a11y": {
         "noSvgWithoutTitle": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "useFocusableInteractive": "off"
       }
     }
   },

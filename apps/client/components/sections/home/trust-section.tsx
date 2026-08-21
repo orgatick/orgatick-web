@@ -1,6 +1,12 @@
 import { Badge } from "@orgatick/ui/components/badge";
-import { Card } from "@orgatick/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@orgatick/ui/components/card";
 import { IconStarFilled } from "@tabler/icons-react";
+import * as motion from "motion/react-client";
 
 export function TrustSection() {
   const testimonials = [
@@ -31,10 +37,16 @@ export function TrustSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 border-b border-border/40 relative">
+    <section className="py-20 md:py-28 border-b border-border/40 relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto space-y-4"
+        >
           <Badge
             variant="outline"
             className="border-primary/30 text-primary bg-primary/10"
@@ -48,57 +60,65 @@ export function TrustSection() {
             See how leading colleges use Orgatick to replace fragmented chaos
             with streamlined event operations.
           </p>
-        </div>
+        </motion.div>
 
         {/* Testimonials Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t) => (
-            <Card
+          {testimonials.map((t, idx) => (
+            <motion.div
               key={t.author}
-              className="bg-card border border-border/60 p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-6 hover:border-primary/40 transition-colors shadow-sm"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="flex"
             >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-0.5 text-amber-500">
-                    {["first", "second", "third", "fourth", "fifth"].map(
-                      (starName) => (
-                        <IconStarFilled
-                          key={`${t.author}-star-${starName}`}
-                          className="size-4"
-                        />
-                      ),
-                    )}
+              <Card className="bg-card border-border/60 p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-6 hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 shadow-xs w-full">
+                <CardHeader className="p-0 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-0.5 text-amber-500">
+                      {["first", "second", "third", "fourth", "fifth"].map(
+                        (starName) => (
+                          <IconStarFilled
+                            key={`${t.author}-star-${starName}`}
+                            className="size-4"
+                          />
+                        ),
+                      )}
+                    </div>
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] font-mono border-emerald-500/30 text-emerald-600 bg-emerald-500/10"
+                    >
+                      {t.stat}
+                    </Badge>
                   </div>
-                  <Badge
-                    variant="outline"
-                    className="text-[10px] font-mono border-emerald-500/30 text-emerald-600 bg-emerald-500/10"
-                  >
-                    {t.stat}
-                  </Badge>
-                </div>
 
-                <p className="text-xs sm:text-sm text-foreground leading-relaxed italic">
-                  "{t.quote}"
-                </p>
-              </div>
+                  <CardContent className="p-0">
+                    <p className="text-xs sm:text-sm text-foreground leading-relaxed italic">
+                      "{t.quote}"
+                    </p>
+                  </CardContent>
+                </CardHeader>
 
-              <div className="pt-4 border-t border-border/40 flex items-center gap-3">
-                <div className="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
-                  {t.author.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm text-foreground">
-                    {t.author}
-                  </h4>
-                  <p className="text-xs text-muted-foreground">
-                    {t.title}{" "}
-                    <span className="font-semibold text-primary">
-                      {t.college}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </Card>
+                <CardFooter className="p-0 pt-4 border-t border-border/40 flex items-center gap-3">
+                  <div className="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm shrink-0">
+                    {t.author.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-foreground">
+                      {t.author}
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      {t.title}{" "}
+                      <span className="font-semibold text-primary">
+                        {t.college}
+                      </span>
+                    </p>
+                  </div>
+                </CardFooter>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
