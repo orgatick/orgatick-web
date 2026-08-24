@@ -1,9 +1,9 @@
 import { Controller, type UseFormReturn } from "react-hook-form";
 import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
-import { Input } from "@orgatick/ui/components/input";
 import EmailView from "@/app/(auth)/components/EmailView";
 import type { SignupData } from "@orgatick/contracts";
+import PasswordInput from "@orgatick/ui/components/password-input";
 
 interface Step2FormProps {
   form: UseFormReturn<SignupData>;
@@ -26,13 +26,13 @@ export default function Step2Form({ form, setStep }: Step2FormProps) {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel className="text-md">Password</FieldLabel>
-            <Input
+            <PasswordInput
               {...field}
-              type="password"
               aria-invalid={fieldState.invalid}
               placeholder="Enter your password"
               autoComplete="new-password"
               className="text-xl h-10"
+              iconClassName="size-12"
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
@@ -46,13 +46,13 @@ export default function Step2Form({ form, setStep }: Step2FormProps) {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel className="text-md">Confirm Password</FieldLabel>
 
-            <Input
+            <PasswordInput
               {...field}
-              type="password"
               aria-invalid={fieldState.invalid}
               placeholder="Confirm your password"
               className="text-xl h-10"
               autoComplete="new-password"
+              iconClassName="size-16"
             />
 
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
