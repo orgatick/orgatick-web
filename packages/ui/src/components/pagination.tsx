@@ -2,11 +2,7 @@ import type * as React from "react";
 
 import { cn } from "@orgatick/ui/lib/utils";
 import { Button } from "@orgatick/ui/components/button";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconDots,
-} from "@tabler/icons-react";
+import { IconChevronLeft, IconChevronRight, IconDots } from "@tabler/icons-react";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -19,10 +15,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   );
 }
 
-function PaginationContent({
-  className,
-  ...props
-}: React.ComponentProps<"ul">) {
+function PaginationContent({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="pagination-content"
@@ -41,12 +34,7 @@ type PaginationLinkProps = {
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
   React.ComponentProps<"a">;
 
-function PaginationLink({
-  className,
-  isActive,
-  size = "icon",
-  ...props
-}: PaginationLinkProps) {
+function PaginationLink({ className, isActive, size = "icon", ...props }: PaginationLinkProps) {
   return (
     <Button
       variant={isActive ? "outline" : "ghost"}
@@ -101,10 +89,7 @@ function PaginationNext({
   );
 }
 
-function PaginationEllipsis({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       aria-hidden

@@ -22,8 +22,7 @@ export default function Home() {
           Welcome to <span className="text-primary">Orgatick</span>
         </h1>
         <p className="text-muted-foreground text-sm">
-          Configured with Tailwind CSS v4, Base Nova styling, and Tabler Icons
-          under the{" "}
+          Configured with Tailwind CSS v4, Base Nova styling, and Tabler Icons under the{" "}
           <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">
             @orgatick/ui
           </code>{" "}
@@ -39,8 +38,7 @@ export default function Home() {
             Monorepo UI System
           </CardTitle>
           <CardDescription>
-            Components and utilities are shared across workspace applications
-            seamlessly.
+            Components and utilities are shared across workspace applications seamlessly.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">

@@ -22,13 +22,7 @@ export interface MockupProps
     VariantProps<typeof mockupVariants> {}
 
 function Mockup({ className, type, ...props }: MockupProps) {
-  return (
-    <div
-      data-slot="mockup"
-      className={cn(mockupVariants({ type, className }))}
-      {...props}
-    />
-  );
+  return <div data-slot="mockup" className={cn(mockupVariants({ type, className }))} {...props} />;
 }
 
 const frameVariants = cva(
@@ -52,11 +46,7 @@ export interface MockupFrameProps
 
 function MockupFrame({ className, size, ...props }: MockupFrameProps) {
   return (
-    <div
-      data-slot="mockup-frame"
-      className={cn(frameVariants({ size, className }))}
-      {...props}
-    />
+    <div data-slot="mockup-frame" className={cn(frameVariants({ size, className }))} {...props} />
   );
 }
 

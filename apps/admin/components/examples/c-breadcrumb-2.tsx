@@ -29,9 +29,7 @@ export function Pattern() {
 
         <BreadcrumbItem>
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<Button size="icon-sm" variant="ghost" />}
-            >
+            <DropdownMenuTrigger render={<Button size="icon-sm" variant="ghost" />}>
               <BreadcrumbEllipsis aria-hidden="true" />
               <span className="sr-only">Toggle menu</span>
             </DropdownMenuTrigger>
@@ -47,9 +45,7 @@ export function Pattern() {
         <BreadcrumbSeparator />
 
         <BreadcrumbItem>
-          <BreadcrumbLink render={<Link href="/components" />}>
-            Components
-          </BreadcrumbLink>
+          <BreadcrumbLink render={<Link href="/components" />}>Components</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbSeparator />

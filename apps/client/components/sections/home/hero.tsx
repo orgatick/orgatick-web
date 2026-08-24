@@ -1,7 +1,7 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { Badge } from "@orgatick/ui/components/badge";
 import Glow from "@orgatick/ui/components/glow";
-import { Mockup, MockupFrame } from "@orgatick/ui/components/mockup";
+// import { Mockup, MockupFrame } from "@orgatick/ui/components/mockup";
 import {
   IconArrowRight,
   IconBolt,
@@ -11,14 +11,14 @@ import {
   IconSparkles,
 } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
-import Image from "next/image";
+// import Image from "next/image";
 
 export function HeroSection() {
   return (
     <section className="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden border-b border-border/40 bg-background">
       {/* Dynamic ambient background glow & refined grid pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.18),rgba(255,255,255,0))]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[32px_32px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Above-the-fold Hero Content - Rendered immediately in SSR HTML for sub-second LCP */}
@@ -45,9 +45,9 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl text-balance leading-relaxed font-normal">
-            Eliminate fragmented Google forms, lost payments, chaotic WhatsApp
-            groups, and venue check-in bottlenecks. Orgatick unites the complete
-            event lifecycle into one seamless SaaS workspace.
+            Eliminate fragmented Google forms, lost payments, chaotic WhatsApp groups, and venue
+            check-in bottlenecks. Orgatick unites the complete event lifecycle into one seamless
+            SaaS workspace.
           </p>
 
           {/* CTAs */}
@@ -98,9 +98,7 @@ export function HeroSection() {
             </div>
             <div className="text-left text-xs">
               <p className="font-semibold text-foreground">QR Scanner Active</p>
-              <p className="text-muted-foreground font-mono">
-                1,304 scanned • 4.2s avg
-              </p>
+              <p className="text-muted-foreground font-mono">1,304 scanned • 4.2s avg</p>
             </div>
           </div>
 
@@ -110,13 +108,11 @@ export function HeroSection() {
             </div>
             <div className="text-left text-xs">
               <p className="font-semibold text-foreground">WhatsApp Hub</p>
-              <p className="text-emerald-600 font-medium">
-                98.4% Broadcast Delivered
-              </p>
+              <p className="text-emerald-600 font-medium">98.4% Broadcast Delivered</p>
             </div>
           </div>
 
-          <MockupFrame
+          {/*<MockupFrame
             size="small"
             className="shadow-2xl border border-primary/20 rounded-2xl overflow-hidden bg-card transition-shadow duration-300 group-hover:shadow-primary/10"
           >
@@ -135,7 +131,7 @@ export function HeroSection() {
                 className="w-full h-auto rounded-lg shadow-2xl object-cover"
               />
             </Mockup>
-          </MockupFrame>
+          </MockupFrame>*/}
           <Glow variant="center" className="opacity-40" />
         </div>
 

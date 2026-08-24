@@ -5,11 +5,7 @@ interface LogoProps extends ComponentPropsWithoutRef<"svg"> {
   title?: string;
 }
 
-const OrgatickLogo = ({
-  className = "h-20 w-20",
-  title = "Logo",
-  ...props
-}: LogoProps) => {
+const OrgatickLogo = ({ className = "h-20 w-20", title = "Logo", ...props }: LogoProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

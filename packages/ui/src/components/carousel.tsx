@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import useEmblaCarousel, {
-  type UseEmblaCarouselType,
-} from "embla-carousel-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 
 import { cn } from "@orgatick/ui/lib/utils";
 import { Button } from "@orgatick/ui/components/button";
@@ -110,8 +108,7 @@ function Carousel({
         carouselRef,
         api: api,
         opts,
-        orientation:
-          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+        orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -134,27 +131,16 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div
-      ref={carouselRef}
-      className="overflow-hidden"
-      data-slot="carousel-content"
-    >
+    <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
       <div
-        className={cn(
-          "flex",
-          orientation === "horizontal" ? "-ms-4" : "-mt-4 flex-col",
-          className,
-        )}
+        className={cn("flex", orientation === "horizontal" ? "-ms-4" : "-mt-4 flex-col", className)}
         {...props}
       />
     </div>
   );
 }
 
-function CarouselItem({
-  className,
-  ...props
-}: React.ComponentProps<"fieldset">) {
+function CarouselItem({ className, ...props }: React.ComponentProps<"fieldset">) {
   const { orientation } = useCarousel();
 
   return (
