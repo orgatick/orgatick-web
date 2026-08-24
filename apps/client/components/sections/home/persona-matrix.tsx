@@ -11,8 +11,7 @@ export function PersonaMatrixSection() {
       color: "bg-blue-500/10 text-blue-600 border-blue-500/20",
       needs:
         "Discover events, register in 2 clicks, pay securely, receive digital passes instantly, enjoy <4s venue check-in.",
-      value:
-        "Frictionless digital journey with calendar integration and real-time event alerts on WhatsApp.",
+      value: "Frictionless digital journey with calendar integration and real-time event alerts on WhatsApp.",
     },
     {
       role: "Event Organizer",
@@ -29,8 +28,7 @@ export function PersonaMatrixSection() {
       color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
       needs:
         "Scan QR tickets at gate entrances, handle manual fallback check-in, monitor gate queues, and assist attendees.",
-      value:
-        "Role-based operational mobile interface with real-time sync and anti-duplicate pass validation.",
+      value: "Role-based operational mobile interface with real-time sync and anti-duplicate pass validation.",
     },
     {
       role: "Campus Organization",
@@ -61,8 +59,8 @@ export function PersonaMatrixSection() {
             Tailored Power for Every Role
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            Whether you are a student attendee, a fest president, a gate volunteer, or a university
-            dean, Orgatick provides customized interfaces for your needs.
+            Whether you are a student attendee, a fest president, a gate volunteer, or a university dean, Orgatick
+            provides customized interfaces for your needs.
           </p>
         </motion.div>
 
@@ -88,12 +86,8 @@ export function PersonaMatrixSection() {
                         <Icon className="size-6" />
                       </div>
                       <div>
-                        <CardTitle className="font-bold text-xl text-foreground">
-                          {item.role}
-                        </CardTitle>
-                        <p className="text-xs text-muted-foreground font-mono font-normal">
-                          Primary Ecosystem Actor
-                        </p>
+                        <CardTitle className="font-bold text-xl text-foreground">{item.role}</CardTitle>
+                        <p className="text-xs text-muted-foreground font-mono font-normal">Primary Ecosystem Actor</p>
                       </div>
                     </div>
                   </CardHeader>
@@ -103,18 +97,14 @@ export function PersonaMatrixSection() {
                       <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-semibold">
                         Primary Operational Needs
                       </p>
-                      <p className="text-xs sm:text-sm text-foreground leading-relaxed">
-                        {item.needs}
-                      </p>
+                      <p className="text-xs sm:text-sm text-foreground leading-relaxed">{item.needs}</p>
                     </div>
 
                     <div className="bg-primary/5 p-3.5 rounded-xl border border-primary/20 space-y-1">
                       <p className="text-[11px] font-mono uppercase tracking-wider text-primary font-semibold">
                         Orgatick Platform Value
                       </p>
-                      <p className="text-xs sm:text-sm font-medium text-foreground leading-relaxed">
-                        {item.value}
-                      </p>
+                      <p className="text-xs sm:text-sm font-medium text-foreground leading-relaxed">{item.value}</p>
                     </div>
                   </CardContent>
                 </Card>

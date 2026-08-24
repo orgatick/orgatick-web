@@ -1,8 +1,8 @@
 import { Controller, type UseFormReturn } from "react-hook-form";
-import type { SignupData } from "../../schema";
 import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
 import { Input } from "@orgatick/ui/components/input";
+import type { SignupData } from "@orgatick/contracts";
 
 interface Step1FormProps {
   form: UseFormReturn<SignupData>;

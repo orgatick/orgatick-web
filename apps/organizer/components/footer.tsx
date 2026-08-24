@@ -10,22 +10,17 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
               <OrgatickLogo className="h-12 w-12" />
-              <span className="font-heading text-xl font-bold tracking-tight text-foreground">
-                Orgatick
-              </span>
+              <span className="font-heading text-xl font-bold tracking-tight text-foreground">Orgatick</span>
             </Link>
 
             <p className="text-muted-foreground text-xs sm:text-sm max-w-sm leading-relaxed">
-              Orgatick is the unified SaaS operating platform bringing event discovery,
-              registration, ticketing, payments, WhatsApp communication, QR verification, and
-              analytics into one seamless experience.
+              Orgatick is the unified SaaS operating platform bringing event discovery, registration, ticketing,
+              payments, WhatsApp communication, QR verification, and analytics into one seamless experience.
             </p>
 
             <div className="flex items-center gap-2 pt-1">
               <span className="flex size-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-mono text-foreground font-medium">
-                All Systems Operational
-              </span>
+              <span className="text-xs font-mono text-foreground font-medium">All Systems Operational</span>
               <span className="text-muted-foreground">•</span>
               <span className="text-xs font-mono text-muted-foreground">v2.4.0 Engine</span>
             </div>
@@ -33,9 +28,7 @@ export function Footer() {
 
           {/* Col 1: Platform */}
           <div className="space-y-3">
-            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">
-              Platform
-            </h4>
+            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">Platform</h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="#capabilities" className="hover:text-foreground transition-colors">
@@ -67,9 +60,7 @@ export function Footer() {
 
           {/* Col 2: Lifecycle */}
           <div className="space-y-3">
-            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">
-              Pillars
-            </h4>
+            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">Pillars</h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="#solutions" className="hover:text-foreground transition-colors">
@@ -101,9 +92,7 @@ export function Footer() {
 
           {/* Col 3: Architecture & Legal */}
           <div className="space-y-3">
-            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">
-              Architecture
-            </h4>
+            <h4 className="font-bold text-sm text-foreground uppercase tracking-wider font-mono">Architecture</h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="#architecture" className="hover:text-foreground transition-colors">

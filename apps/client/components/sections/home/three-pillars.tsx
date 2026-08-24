@@ -1,17 +1,6 @@
 import { Badge } from "@orgatick/ui/components/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@orgatick/ui/components/card";
-import {
-  IconAdjustmentsHorizontal,
-  IconArrowRight,
-  IconChartBar,
-  IconCompass,
-} from "@tabler/icons-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { IconAdjustmentsHorizontal, IconArrowRight, IconChartBar, IconCompass } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
 
 export function ThreePillarsSection() {
@@ -94,10 +83,7 @@ export function ThreePillarsSection() {
   ];
 
   return (
-    <section
-      id="solutions"
-      className="py-20 md:py-28 border-b border-border/40 relative bg-background"
-    >
+    <section id="solutions" className="py-20 md:py-28 border-b border-border/40 relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <motion.div
@@ -114,8 +100,8 @@ export function ThreePillarsSection() {
             Discover. Operate. Measure.
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            Orgatick positions itself as the operational layer connecting every activity from
-            attendee discovery to post-event financial reporting.
+            Orgatick positions itself as the operational layer connecting every activity from attendee discovery to
+            post-event financial reporting.
           </p>
         </motion.div>
 
@@ -135,9 +121,7 @@ export function ThreePillarsSection() {
                 <Card
                   className={`relative flex flex-col justify-between w-full border ${pillar.borderColor} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group overflow-hidden bg-card`}
                 >
-                  <div
-                    className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${pillar.color}`}
-                  />
+                  <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${pillar.color}`} />
 
                   <CardHeader className="space-y-4 pt-6">
                     <div className="flex items-center justify-between">
@@ -152,9 +136,7 @@ export function ThreePillarsSection() {
                     </div>
 
                     <div>
-                      <CardTitle className="text-2xl font-bold text-foreground">
-                        {pillar.title}
-                      </CardTitle>
+                      <CardTitle className="text-2xl font-bold text-foreground">{pillar.title}</CardTitle>
                       <CardDescription className="text-xs font-medium text-primary mt-1">
                         {pillar.tagline}
                       </CardDescription>
@@ -169,9 +151,7 @@ export function ThreePillarsSection() {
                             <span className="size-1.5 rounded-full bg-primary shrink-0" />
                             {feat.label}
                           </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed pl-3.5">
-                            {feat.desc}
-                          </p>
+                          <p className="text-xs text-muted-foreground leading-relaxed pl-3.5">{feat.desc}</p>
                         </div>
                       ))}
                     </div>

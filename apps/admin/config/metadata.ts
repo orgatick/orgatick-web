@@ -57,8 +57,7 @@ const metadataConfig: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Orgatick - Event Hosting Platform",
-    description:
-      "A modern platform to host and manage events with registrations, tickets, and analytics.",
+    description: "A modern platform to host and manage events with registrations, tickets, and analytics.",
     images: ["https://orgatick.in/og_image.png"],
   },
 

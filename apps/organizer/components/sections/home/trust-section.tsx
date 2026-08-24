@@ -49,8 +49,7 @@ export function TrustSection() {
             Trusted by Top Student Bodies & Fest Committees
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            See how leading colleges use Orgatick to replace fragmented chaos with streamlined event
-            operations.
+            See how leading colleges use Orgatick to replace fragmented chaos with streamlined event operations.
           </p>
         </motion.div>
 
@@ -82,9 +81,7 @@ export function TrustSection() {
                   </div>
 
                   <CardContent className="p-0">
-                    <p className="text-xs sm:text-sm text-foreground leading-relaxed italic">
-                      "{t.quote}"
-                    </p>
+                    <p className="text-xs sm:text-sm text-foreground leading-relaxed italic">"{t.quote}"</p>
                   </CardContent>
                 </CardHeader>
 

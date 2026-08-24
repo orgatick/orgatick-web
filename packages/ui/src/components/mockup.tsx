@@ -17,37 +17,28 @@ const mockupVariants = cva(
   },
 );
 
-export interface MockupProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof mockupVariants> {}
+export interface MockupProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof mockupVariants> {}
 
 function Mockup({ className, type, ...props }: MockupProps) {
   return <div data-slot="mockup" className={cn(mockupVariants({ type, className }))} {...props} />;
 }
 
-const frameVariants = cva(
-  "bg-border/50 flex relative z-10 overflow-hidden rounded-2xl dark:bg-border/10",
-  {
-    variants: {
-      size: {
-        small: "p-2",
-        large: "p-4",
-      },
-    },
-    defaultVariants: {
-      size: "small",
+const frameVariants = cva("bg-border/50 flex relative z-10 overflow-hidden rounded-2xl dark:bg-border/10", {
+  variants: {
+    size: {
+      small: "p-2",
+      large: "p-4",
     },
   },
-);
+  defaultVariants: {
+    size: "small",
+  },
+});
 
-export interface MockupFrameProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof frameVariants> {}
+export interface MockupFrameProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof frameVariants> {}
 
 function MockupFrame({ className, size, ...props }: MockupFrameProps) {
-  return (
-    <div data-slot="mockup-frame" className={cn(frameVariants({ size, className }))} {...props} />
-  );
+  return <div data-slot="mockup-frame" className={cn(frameVariants({ size, className }))} {...props} />;
 }
 
 export { Mockup, MockupFrame };

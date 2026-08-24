@@ -44,8 +44,7 @@ export function FAQSection() {
             Got Questions? We Have Answers.
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            Everything you need to know about deploying Orgatick for your next college fest or
-            community event.
+            Everything you need to know about deploying Orgatick for your next college fest or community event.
           </p>
         </motion.div>
 
@@ -62,16 +61,12 @@ export function FAQSection() {
               <Card className="bg-card border-border/60 p-6 rounded-2xl space-y-2 hover:border-primary/40 transition-all duration-300 shadow-xs">
                 <CardHeader className="p-0 space-y-0">
                   <CardTitle className="font-bold text-base sm:text-lg text-foreground flex items-start gap-3">
-                    <span className="text-primary font-mono text-sm font-semibold mt-0.5 shrink-0">
-                      0{idx + 1}.
-                    </span>
+                    <span className="text-primary font-mono text-sm font-semibold mt-0.5 shrink-0">0{idx + 1}.</span>
                     <span>{faq.q}</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 pl-8">
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {faq.a}
-                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
                 </CardContent>
               </Card>
             </motion.div>

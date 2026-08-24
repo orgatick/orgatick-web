@@ -72,8 +72,8 @@ export function TechArchitectureSection() {
             Built for Peak Festival Traffic
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            Orgatick is built on state-machine architecture to ensure transaction consistency, zero
-            double-bookings, and sub-second venue check-in speeds.
+            Orgatick is built on state-machine architecture to ensure transaction consistency, zero double-bookings, and
+            sub-second venue check-in speeds.
           </p>
         </motion.div>
 
@@ -127,8 +127,8 @@ export function TechArchitectureSection() {
                   State Machine Reliability
                 </CardTitle>
                 <p className="text-xs text-muted-foreground leading-relaxed font-normal">
-                  Every event moves through strict state transitions, keeping ticket counts,
-                  payments, and gate passes synchronized across all nodes.
+                  Every event moves through strict state transitions, keeping ticket counts, payments, and gate passes
+                  synchronized across all nodes.
                 </p>
               </CardHeader>
 

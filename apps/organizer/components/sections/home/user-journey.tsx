@@ -81,10 +81,7 @@ export function UserJourneySection() {
   ];
 
   return (
-    <section
-      id="lifecycle"
-      className="py-20 md:py-28 border-b border-border/40 relative bg-muted/20"
-    >
+    <section id="lifecycle" className="py-20 md:py-28 border-b border-border/40 relative bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -101,8 +98,8 @@ export function UserJourneySection() {
             Designed for Both Sides of the Gate
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            A frictionless digital pass journey for attendees paired with a powerful operational
-            command center for organizers.
+            A frictionless digital pass journey for attendees paired with a powerful operational command center for
+            organizers.
           </p>
         </motion.div>
 
@@ -122,9 +119,7 @@ export function UserJourneySection() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-foreground">The Attendee Journey</h3>
-                <p className="text-xs text-muted-foreground font-normal">
-                  Frictionless 6-Step Digital Experience
-                </p>
+                <p className="text-xs text-muted-foreground font-normal">Frictionless 6-Step Digital Experience</p>
               </div>
             </div>
 
@@ -159,12 +154,8 @@ export function UserJourneySection() {
                 <IconOrganizer className="size-6" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  The Organizer Operational Lifecycle
-                </h3>
-                <p className="text-xs text-muted-foreground font-normal">
-                  Full 8-Stage Command & Control System
-                </p>
+                <h3 className="text-2xl font-bold text-foreground">The Organizer Operational Lifecycle</h3>
+                <p className="text-xs text-muted-foreground font-normal">Full 8-Stage Command & Control System</p>
               </div>
             </div>
 
@@ -182,9 +173,7 @@ export function UserJourneySection() {
                       <span className="size-2 rounded-full bg-indigo-500 shrink-0" />
                     </div>
                     <h4 className="font-bold text-base text-foreground">{step.title}</h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      {step.desc}
-                    </p>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                   </CardContent>
                 </Card>
               ))}

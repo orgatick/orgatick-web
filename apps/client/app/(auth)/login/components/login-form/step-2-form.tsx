@@ -3,7 +3,7 @@ import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
 import { Input } from "@orgatick/ui/components/input";
 import EmailView from "@/app/(auth)/components/EmailView";
-import type { LoginData } from "../../schema";
+import type { LoginData } from "@orgatick/contracts";
 
 interface Step2FormProps {
   form: UseFormReturn<LoginData>;
@@ -13,11 +13,7 @@ interface Step2FormProps {
 export default function Step2Form({ form, setStep }: Step2FormProps) {
   return (
     <FieldGroup>
-      <EmailView
-        email={form.getValues("email")}
-        onBack={() => setStep(1)}
-        message="Logging using email"
-      />
+      <EmailView email={form.getValues("email")} onBack={() => setStep(1)} message="Logging using email" />
 
       <Controller
         name="password"

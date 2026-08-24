@@ -17,11 +17,7 @@ const glowVariants = cva("absolute w-full", {
   },
 });
 
-function Glow({
-  className,
-  variant,
-  ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof glowVariants>) {
+function Glow({ className, variant, ...props }: React.ComponentProps<"div"> & VariantProps<typeof glowVariants>) {
   return (
     <div data-slot="glow" className={cn(glowVariants({ variant }), className)} {...props}>
       <div

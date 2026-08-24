@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import signupSchema, { type SignupData } from "../schema";
+// import signupSchema, { type SignupData } from "../schema";
 import Step1Form from "./signup-form/step-1-form";
 import Step2Form from "./signup-form/step-2-form";
+import { signupSchema, type SignupData } from "@orgatick/contracts";
 
 const SignupForm = () => {
   const [step, setStep] = useState(1);

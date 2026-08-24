@@ -23,13 +23,7 @@ export function LinkButton({
   className,
 }: LinkButtonProps) {
   return (
-    <Button
-      variant={variant}
-      size={size}
-      className={className}
-      nativeButton={false}
-      render={<Link href={href} />}
-    >
+    <Button variant={variant} size={size} className={className} nativeButton={false} render={<Link href={href} />}>
       {icon}
       {children}
       {iconRight}

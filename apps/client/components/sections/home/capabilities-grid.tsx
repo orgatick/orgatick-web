@@ -1,11 +1,5 @@
 import { Badge } from "@orgatick/ui/components/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@orgatick/ui/components/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
 import {
   IconBrandWhatsapp,
   IconCalendarEvent,
@@ -122,8 +116,8 @@ export function CapabilitiesGrid() {
             Engineered for the Full Event Spectrum
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            Orgatick is not merely an event listing page. It provides the deep backend systems
-            required to manage registrations, money, entry gates, communication, and insights.
+            Orgatick is not merely an event listing page. It provides the deep backend systems required to manage
+            registrations, money, entry gates, communication, and insights.
           </p>
         </motion.div>
 
@@ -146,10 +140,7 @@ export function CapabilitiesGrid() {
                       <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0">
                         <Icon className="size-6" />
                       </div>
-                      <Badge
-                        variant="outline"
-                        className={`text-[11px] font-semibold ${cap.badgeColor}`}
-                      >
+                      <Badge variant="outline" className={`text-[11px] font-semibold ${cap.badgeColor}`}>
                         {cap.category}
                       </Badge>
                     </div>
@@ -162,10 +153,7 @@ export function CapabilitiesGrid() {
                   <CardContent className="pt-2">
                     <div className="space-y-2 border-t border-border/40 pt-4">
                       {cap.highlights.map((item) => (
-                        <div
-                          key={item}
-                          className="flex items-center gap-2 text-xs font-medium text-foreground"
-                        >
+                        <div key={item} className="flex items-center gap-2 text-xs font-medium text-foreground">
                           <div className="size-1.5 rounded-full bg-primary shrink-0" />
                           <span>{item}</span>
                         </div>

@@ -61,10 +61,7 @@ export function ProblemSolutionSection() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto space-y-4"
         >
-          <Badge
-            variant="outline"
-            className="border-destructive/30 text-destructive bg-destructive/10"
-          >
+          <Badge variant="outline" className="border-destructive/30 text-destructive bg-destructive/10">
             <IconAlertTriangle className="size-3.5 mr-1" />
             The Operational Reality
           </Badge>
@@ -72,8 +69,8 @@ export function ProblemSolutionSection() {
             Stop Juggling 5 Tools for One College Event
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            College events are operationally complex even when they look simple to attendees.
-            Orgatick eliminates manual operational handoffs and unites the complete workflow.
+            College events are operationally complex even when they look simple to attendees. Orgatick eliminates manual
+            operational handoffs and unites the complete workflow.
           </p>
         </motion.div>
 
@@ -93,12 +90,8 @@ export function ProblemSolutionSection() {
                     <IconX className="size-6" />
                   </div>
                   <div>
-                    <CardTitle className="font-bold text-lg text-foreground">
-                      The Fragmented Chaos
-                    </CardTitle>
-                    <p className="text-xs text-muted-foreground font-normal">
-                      Legacy Multi-Tool Handoffs
-                    </p>
+                    <CardTitle className="font-bold text-lg text-foreground">The Fragmented Chaos</CardTitle>
+                    <p className="text-xs text-muted-foreground font-normal">Legacy Multi-Tool Handoffs</p>
                   </div>
                 </div>
                 <Badge variant="destructive" className="text-xs">
@@ -139,18 +132,11 @@ export function ProblemSolutionSection() {
                     <IconSparkles className="size-6" />
                   </div>
                   <div>
-                    <CardTitle className="font-bold text-lg text-foreground">
-                      The Orgatick Standard
-                    </CardTitle>
-                    <p className="text-xs text-muted-foreground font-normal">
-                      Unified SaaS Operating System
-                    </p>
+                    <CardTitle className="font-bold text-lg text-foreground">The Orgatick Standard</CardTitle>
+                    <p className="text-xs text-muted-foreground font-normal">Unified SaaS Operating System</p>
                   </div>
                 </div>
-                <Badge
-                  variant="default"
-                  className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
-                >
+                <Badge variant="default" className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">
                   Zero Friction
                 </Badge>
               </CardHeader>

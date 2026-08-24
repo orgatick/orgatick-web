@@ -40,11 +40,7 @@ function Footer() {
           ) : (
             <IconMoonStars size={16} aria-hidden="true" />
           )}
-          {!mounted
-            ? "Switch theme"
-            : theme === "dark"
-              ? "Switch to light mode"
-              : "Switch to dark mode"}
+          {!mounted ? "Switch theme" : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
         </Button>
       </div>
     </div>

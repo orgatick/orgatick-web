@@ -12,8 +12,7 @@ export function PricingSection() {
       price: "Free",
       period: "for free events",
       fee: "+ 2% on paid tickets",
-      description:
-        "Everything needed to host student workshops, webinars, and single-session club meetups.",
+      description: "Everything needed to host student workshops, webinars, and single-session club meetups.",
       features: [
         "Up to 500 Attendees per event",
         "Digital Ticket Pass Generation",
@@ -32,8 +31,7 @@ export function PricingSection() {
       price: "$49",
       period: "per flagship event",
       fee: "+ 1.5% low transaction fee",
-      description:
-        "The complete operational stack for college hackathons, cultural carnivals, and tech summits.",
+      description: "The complete operational stack for college hackathons, cultural carnivals, and tech summits.",
       features: [
         "Unlimited Attendees & Custom Capacity",
         "Official WhatsApp API Announcements",
@@ -54,8 +52,7 @@ export function PricingSection() {
       price: "Custom",
       period: "annual university plan",
       fee: "volume-based pricing",
-      description:
-        "Dedicated SaaS infrastructure for University Dean offices, managing 100+ campus events annually.",
+      description: "Dedicated SaaS infrastructure for University Dean offices, managing 100+ campus events annually.",
       features: [
         "Unlimited Events & Student Bodies",
         "Custom Institutional SSO / SAML",
@@ -90,8 +87,8 @@ export function PricingSection() {
             Simple Plans for Every College Event Scale
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            No hidden setup costs or manual reconciliation pain. Pay only for the operational
-            capabilities your event demands.
+            No hidden setup costs or manual reconciliation pain. Pay only for the operational capabilities your event
+            demands.
           </p>
         </motion.div>
 
@@ -124,27 +121,19 @@ export function PricingSection() {
                   {/* Title & Badge */}
                   <CardHeader className="p-0 space-y-2">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-2xl font-bold text-foreground">
-                        {plan.name}
-                      </CardTitle>
+                      <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
                       <Badge variant="outline" className="text-[11px] font-mono">
                         {plan.badge}
                       </Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed font-normal">
-                      {plan.description}
-                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed font-normal">{plan.description}</p>
                   </CardHeader>
 
                   {/* Price Display */}
                   <div className="space-y-1 pb-4 border-b border-border/40">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-extrabold text-foreground font-mono">
-                        {plan.price}
-                      </span>
-                      <span className="text-xs text-muted-foreground font-medium">
-                        {plan.period}
-                      </span>
+                      <span className="text-4xl font-extrabold text-foreground font-mono">{plan.price}</span>
+                      <span className="text-xs text-muted-foreground font-medium">{plan.period}</span>
                     </div>
                     <p className="text-xs font-mono text-primary font-medium">{plan.fee}</p>
                   </div>
@@ -156,10 +145,7 @@ export function PricingSection() {
                     </p>
                     <ul className="space-y-2.5">
                       {plan.features.map((feat) => (
-                        <li
-                          key={feat}
-                          className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground"
-                        >
+                        <li key={feat} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground">
                           <IconCheck className="size-4 text-emerald-500 shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </li>

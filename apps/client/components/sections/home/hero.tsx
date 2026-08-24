@@ -2,14 +2,7 @@ import { LinkButton } from "@/components/ui/link-button";
 import { Badge } from "@orgatick/ui/components/badge";
 import Glow from "@orgatick/ui/components/glow";
 // import { Mockup, MockupFrame } from "@orgatick/ui/components/mockup";
-import {
-  IconArrowRight,
-  IconBolt,
-  IconBrandWhatsapp,
-  IconCheck,
-  IconQrcode,
-  IconSparkles,
-} from "@tabler/icons-react";
+import { IconArrowRight, IconBolt, IconBrandWhatsapp, IconCheck, IconQrcode, IconSparkles } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
 // import Image from "next/image";
 
@@ -45,9 +38,8 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl text-balance leading-relaxed font-normal">
-            Eliminate fragmented Google forms, lost payments, chaotic WhatsApp groups, and venue
-            check-in bottlenecks. Orgatick unites the complete event lifecycle into one seamless
-            SaaS workspace.
+            Eliminate fragmented Google forms, lost payments, chaotic WhatsApp groups, and venue check-in bottlenecks.
+            Orgatick unites the complete event lifecycle into one seamless SaaS workspace.
           </p>
 
           {/* CTAs */}
@@ -144,36 +136,20 @@ export function HeroSection() {
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-border/40 text-center max-w-5xl mx-auto"
         >
           <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
-            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
-              500+
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-              College Events Hosted
-            </p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">500+</p>
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">College Events Hosted</p>
           </div>
           <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
-            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
-              1.2M+
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-              Digital Tickets Verified
-            </p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">1.2M+</p>
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">Digital Tickets Verified</p>
           </div>
           <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
-            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
-              4.2s
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-              Average Venue Check-In
-            </p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">4.2s</p>
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">Average Venue Check-In</p>
           </div>
           <div className="space-y-1 transition-transform duration-200 hover:-translate-y-0.5">
-            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">
-              99.9%
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-              Reconciliation Accuracy
-            </p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight font-mono">99.9%</p>
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">Reconciliation Accuracy</p>
           </div>
         </motion.div>
       </div>

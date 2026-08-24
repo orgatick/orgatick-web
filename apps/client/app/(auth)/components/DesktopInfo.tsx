@@ -5,15 +5,13 @@ function DesktopInfo() {
       <div className="absolute bottom-0 left-0 h-72 w-72 -translate-x-1/3 translate-y-1/4 rounded-full border border-primary-foreground/20" />
 
       <div className="relative space-y-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary-foreground/85">
-          Orgatick Access
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary-foreground/85">Orgatick Access</p>
         <h2 className="max-w-sm text-4xl font-semibold leading-tight">
           Join, explore, and manage events from one secure platform.
         </h2>
         <p className="max-w-md text-sm leading-relaxed text-primary-foreground/85">
-          Sign in to discover events, book your spot in seconds, or switch to admin tools to create
-          and manage everything smoothly.
+          Sign in to discover events, book your spot in seconds, or switch to admin tools to create and manage
+          everything smoothly.
         </p>
       </div>
 
@@ -28,8 +26,7 @@ function DesktopInfo() {
         </div>
         <div className="col-span-2 rounded-2xl border border-primary-foreground/20 bg-primary-foreground/10 p-4 backdrop-blur-sm">
           <p className="font-medium">
-            Built for attendees and admins: explore events, join confidently, and manage operations
-            with ease.
+            Built for attendees and admins: explore events, join confidently, and manage operations with ease.
           </p>
         </div>
       </div>

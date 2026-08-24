@@ -1,13 +1,6 @@
 import { Pattern } from "@/components/examples/c-breadcrumb-2";
 import { Button } from "@orgatick/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@orgatick/ui/components/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@orgatick/ui/components/card";
 import { IconSparkles, IconRocket, IconCheck } from "@tabler/icons-react";
 
 export default function Home() {
@@ -23,10 +16,8 @@ export default function Home() {
         </h1>
         <p className="text-muted-foreground text-sm">
           Configured with Tailwind CSS v4, Base Nova styling, and Tabler Icons under the{" "}
-          <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">
-            @orgatick/ui
-          </code>{" "}
-          workspace package.
+          <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">@orgatick/ui</code> workspace
+          package.
         </p>
       </header>
 

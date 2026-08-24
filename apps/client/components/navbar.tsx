@@ -16,10 +16,7 @@ export function Navbar() {
 
         {/* Navigation Links */}
         <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-          <Link
-            href="#capabilities"
-            className="hover:text-foreground transition-colors flex items-center gap-1"
-          >
+          <Link href="#capabilities" className="hover:text-foreground transition-colors flex items-center gap-1">
             Capabilities
           </Link>
           <Link href="#lifecycle" className="hover:text-foreground transition-colors">
@@ -49,11 +46,7 @@ export function Navbar() {
           >
             Sign In
           </LinkButton>
-          <LinkButton
-            href="#pricing"
-            variant="default"
-            className="shadow-sm shadow-primary/30 font-semibold"
-          >
+          <LinkButton href="#pricing" variant="default" className="shadow-sm shadow-primary/30 font-semibold">
             <span>Host an Event</span>
             <IconArrowUpRight className="size-4 ml-1" />
           </LinkButton>
