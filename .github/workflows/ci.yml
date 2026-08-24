@@ -13,6 +13,9 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
 
     concurrency:
       group: ci-${{ github.ref }}
@@ -31,10 +34,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@orgatick"
           cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run lint
         run: pnpm -w -r --if-present run lint
