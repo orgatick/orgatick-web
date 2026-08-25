@@ -59,7 +59,7 @@ function page() {
           </div>
           <LoginForm />
           <div>
-            <Link href="/reset-password" className="text-primary hover:underline">
+            <Link href="/forgot-password" className="text-primary hover:underline">
               Forgot your password?
             </Link>
           </div>

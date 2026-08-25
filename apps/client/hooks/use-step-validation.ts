@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
