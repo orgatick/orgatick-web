@@ -1,9 +1,7 @@
 "use client";
-
-import Link from "next/link";
 import * as motion from "motion/react-client";
 import { IconCheck } from "@tabler/icons-react";
-import { buttonVariants } from "@orgatick/ui/components/button";
+import { LinkButton } from "@/components/ui/link-button";
 
 interface SuccessStateProps {
   email?: string;
@@ -42,15 +40,9 @@ export default function SuccessState({ email }: SuccessStateProps) {
       )}
 
       <div className="pt-2">
-        <Link
-          href="/login"
-          className={buttonVariants({
-            variant: "default",
-            className: "w-full rounded-full text-xl h-14",
-          })}
-        >
+        <LinkButton href="/login" variant="default" className="w-full rounded-full text-xl h-14">
           Continue to Log in
-        </Link>
+        </LinkButton>
       </div>
     </motion.div>
   );

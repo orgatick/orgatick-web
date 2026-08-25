@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { IconCheck } from "@tabler/icons-react";
-import { buttonVariants } from "@orgatick/ui/components/button";
 
 export default function Step2Form() {
   return (
@@ -17,13 +16,7 @@ export default function Step2Form() {
       </div>
 
       <div className="pt-2">
-        <Link
-          href="/login"
-          className={buttonVariants({
-            variant: "default",
-            className: "w-full rounded-full text-base h-11",
-          })}
-        >
+        <Link href="/login" className="w-full rounded-full text-base h-11">
           Back to login
         </Link>
       </div>

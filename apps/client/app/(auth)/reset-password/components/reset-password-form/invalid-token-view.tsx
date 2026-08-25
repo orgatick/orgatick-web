@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { IconAlertTriangle } from "@tabler/icons-react";
-import { buttonVariants } from "@orgatick/ui/components/button";
+import { LinkButton } from "@/components/ui/link-button";
 
 export default function InvalidTokenView() {
   return (
@@ -17,23 +17,11 @@ export default function InvalidTokenView() {
       </div>
 
       <div className="flex flex-col gap-2 pt-2">
-        <Link
-          href="/forgot-password"
-          className={buttonVariants({
-            variant: "default",
-            className: "w-full rounded-full text-base h-11",
-          })}
-        >
+        <LinkButton href="/forgot-password" className="w-full rounded-full text-base h-11">
           Request new reset link
-        </Link>
+        </LinkButton>
 
-        <Link
-          href="/login"
-          className={buttonVariants({
-            variant: "outline",
-            className: "w-full rounded-full text-base h-11",
-          })}
-        >
+        <Link href="/login" className="w-full rounded-full text-base h-11">
           Back to login
         </Link>
       </div>

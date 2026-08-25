@@ -1,7 +1,7 @@
-import Link from "next/link";
 import * as motion from "motion/react-client";
 import { IconAlertTriangle, IconLoader2 } from "@tabler/icons-react";
-import { Button, buttonVariants } from "@orgatick/ui/components/button";
+import { Button } from "@orgatick/ui/components/button";
+import { LinkButton } from "@/components/ui/link-button";
 
 interface ErrorStateProps {
   email?: string;
@@ -65,15 +65,9 @@ export default function ErrorState({
           </Button>
         )}
 
-        <Link
-          href="/login"
-          className={buttonVariants({
-            variant: onResend && email ? "outline" : "default",
-            className: "w-full rounded-full text-base h-12",
-          })}
-        >
+        <LinkButton href="/login" className="w-full rounded-full text-base h-11">
           Back to Log in
-        </Link>
+        </LinkButton>
       </div>
     </motion.div>
   );

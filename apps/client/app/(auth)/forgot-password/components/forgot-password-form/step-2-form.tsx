@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { IconCheck, IconLoader2, IconMail } from "@tabler/icons-react";
-import { Button, buttonVariants } from "@orgatick/ui/components/button";
+import { Button } from "@orgatick/ui/components/button";
+import { LinkButton } from "@/components/ui/link-button";
 
 interface Step2FormProps {
   email: string;
@@ -39,15 +39,9 @@ export default function Step2Form({ email, onResend, isResending, setStep }: Ste
           {isResending ? <IconLoader2 className="animate-spin" /> : "Resend link"}
         </Button>
 
-        <Link
-          href="/login"
-          className={buttonVariants({
-            variant: "outline",
-            className: "w-full rounded-full text-base h-11",
-          })}
-        >
+        <LinkButton href="/login" className="w-full rounded-full text-base h-11">
           Back to login
-        </Link>
+        </LinkButton>
 
         <Button
           type="button"
