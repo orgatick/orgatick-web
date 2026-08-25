@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Step1Form from "./forgot-password-form/step-1-form";
 import Step2Form from "./forgot-password-form/step-2-form";
-import { forgotPasswordSchema, type ForgotPasswordData } from "../schema";
 import { useStepValidation } from "@/hooks/use-step-validation";
+import { type ForgotPasswordData, forgotPasswordSchema } from "@orgatick/contracts";
 
 const ForgotPasswordForm = () => {
   const [step, setStep] = useState(1);

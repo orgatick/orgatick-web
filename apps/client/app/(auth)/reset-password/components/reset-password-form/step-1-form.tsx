@@ -4,7 +4,7 @@ import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
 import PasswordInput from "@orgatick/ui/components/password-input";
 import EmailView from "@/app/(auth)/components/EmailView";
-import type { ResetPasswordData } from "../../schema";
+import type { ResetPasswordData } from "@orgatick/contracts";
 
 interface Step1FormProps {
   form: UseFormReturn<ResetPasswordData>;

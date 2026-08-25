@@ -3,7 +3,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
 import { Input } from "@orgatick/ui/components/input";
-import type { ForgotPasswordData } from "../../schema";
+import type { ForgotPasswordData } from "@orgatick/contracts";
 
 interface Step1FormProps {
   form: UseFormReturn<ForgotPasswordData>;

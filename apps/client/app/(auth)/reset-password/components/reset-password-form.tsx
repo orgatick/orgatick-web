@@ -8,7 +8,7 @@ import Step1Form from "./reset-password-form/step-1-form";
 import Step2Form from "./reset-password-form/step-2-form";
 import InvalidTokenView from "./reset-password-form/invalid-token-view";
 import ResetPasswordSkeleton from "./reset-password-skeleton";
-import { resetPasswordSchema, type ResetPasswordData } from "../schema";
+import { resetPasswordSchema, type ResetPasswordData } from "@orgatick/contracts";
 import { useStepValidation } from "@/hooks/use-step-validation";
 
 const ResetPasswordForm = () => {
