@@ -46,7 +46,7 @@ export default function Step2Form({ email, onResend, isResending, setStep }: Ste
         <Button
           type="button"
           variant="ghost"
-          className="w-full text-sm text-muted-foreground hover:text-foreground"
+          className="w-full text-sm text-muted-foreground hover:text-foreground rounded-full"
           onClick={() => setStep(1)}
         >
           Try a different email
