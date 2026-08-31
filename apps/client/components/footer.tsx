@@ -2,7 +2,6 @@ import OrgatickLogo from "@orgatick/ui/assets/logo/orgatick-logo";
 import {
   IconCopyright,
   IconFileCertificate,
-  IconLock,
   IconMail,
   IconReceiptRefund,
   IconShieldCheck,
