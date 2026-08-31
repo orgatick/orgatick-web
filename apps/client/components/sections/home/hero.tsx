@@ -1,14 +1,11 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { Badge } from "@orgatick/ui/components/badge";
-import Glow from "@orgatick/ui/components/glow";
-// import { Mockup, MockupFrame } from "@orgatick/ui/components/mockup";
-import { IconArrowRight, IconBolt, IconBrandWhatsapp, IconCheck, IconQrcode, IconSparkles } from "@tabler/icons-react";
+import { IconArrowRight, IconBolt, IconCheck, IconSparkles } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
-// import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden border-b border-border/40 bg-background">
+    <section className="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden border-b border-border/40 bg-background min-h-dvh">
       {/* Dynamic ambient background glow & refined grid pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.18),rgba(255,255,255,0))]" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[32px_32px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
@@ -79,52 +76,6 @@ export function HeroSection() {
               <span>Real-Time Attendance Analytics</span>
             </div>
           </div>
-        </div>
-
-        {/* Dashboard Product Preview - Prioritized Image for LCP */}
-        <div className="mt-14 sm:mt-18 relative max-w-5xl mx-auto group">
-          {/* Floating Pill Indicators */}
-          <div className="hidden lg:flex absolute -left-12 top-1/4 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-105">
-            <div className="size-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
-              <IconQrcode className="size-5" />
-            </div>
-            <div className="text-left text-xs">
-              <p className="font-semibold text-foreground">QR Scanner Active</p>
-              <p className="text-muted-foreground font-mono">1,304 scanned • 4.2s avg</p>
-            </div>
-          </div>
-
-          <div className="hidden lg:flex absolute -right-10 bottom-1/3 z-20 items-center gap-3 bg-card/90 border border-border/80 p-3 rounded-2xl shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-105">
-            <div className="size-9 rounded-xl bg-emerald-600/10 flex items-center justify-center text-emerald-600 shrink-0">
-              <IconBrandWhatsapp className="size-5" />
-            </div>
-            <div className="text-left text-xs">
-              <p className="font-semibold text-foreground">WhatsApp Hub</p>
-              <p className="text-emerald-600 font-medium">98.4% Broadcast Delivered</p>
-            </div>
-          </div>
-
-          {/*<MockupFrame
-            size="small"
-            className="shadow-2xl border border-primary/20 rounded-2xl overflow-hidden bg-card transition-shadow duration-300 group-hover:shadow-primary/10"
-          >
-            <Mockup
-              type="responsive"
-              className="bg-background/95 w-full rounded-xl border-0 p-1"
-            >
-              <Image
-                src="/dashboard-mockup.png"
-                alt="Orgatick Event Operating System Dashboard"
-                width={1200}
-                height={675}
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                className="w-full h-auto rounded-lg shadow-2xl object-cover"
-              />
-            </Mockup>
-          </MockupFrame>*/}
-          <Glow variant="center" className="opacity-40" />
         </div>
 
         {/* Trust Metrics Bar */}

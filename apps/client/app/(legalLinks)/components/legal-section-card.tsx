@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { IconCheck, IconHash, IconSparkles } from "@tabler/icons-react";
+import { IconCheck, IconHash } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@orgatick/ui/components/card";
 
@@ -66,7 +66,6 @@ export function LegalSectionCard({ id, number, title, icon, takeaway, children }
           {/* Key Takeaway Callout Pill */}
           {takeaway && (
             <div className="mt-3 flex items-start gap-2 rounded-xl bg-muted/40 p-2.5 sm:p-3 border border-border/40 text-xs sm:text-sm text-foreground/80">
-              <IconSparkles className="size-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <strong className="text-primary font-semibold mr-1">In summary:</strong>
                 <span>{takeaway}</span>

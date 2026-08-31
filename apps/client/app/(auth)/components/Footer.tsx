@@ -41,7 +41,7 @@ function Footer() {
         </nav>
       </div>
 
-      <div>
+      <div className="w-full items-end justify-end flex">
         <Button variant="ghost" size="sm" onClick={toggleTheme} className="h-8 px-2.5 gap-2 text-xs">
           {mounted && theme === "dark" ? (
             <IconSun size={15} aria-hidden="true" />
