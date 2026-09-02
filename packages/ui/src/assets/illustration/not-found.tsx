@@ -3,10 +3,7 @@ import type { ComponentPropsWithoutRef } from "react";
 interface LogoProps extends ComponentPropsWithoutRef<"svg"> {
   title?: string;
 }
-const Icon404 = ({
-  title = "Not found 404 illustration",
-  ...props
-}: LogoProps) => (
+const Icon404 = ({ title = "Not found 404 illustration", ...props }: LogoProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
