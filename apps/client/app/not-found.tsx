@@ -62,7 +62,7 @@ const Error404 = () => {
           transition={{ delay: 0.35, duration: 0.5 }}
         >
           Lost in the{" "}
-          <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             Digital Void
           </span>
           ?
