@@ -34,6 +34,9 @@ export function Navbar() {
           <Link href="#faq" className="hover:text-foreground transition-colors">
             FAQ
           </Link>
+          <Link href="/contact" className="hover:text-foreground transition-colors">
+            Contact
+          </Link>
         </nav>
 
         {/* Action Buttons */}
