@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../_components/Header";
 import VerifyEmailView from "./components/verify-email-view";
 
 interface PageProps {

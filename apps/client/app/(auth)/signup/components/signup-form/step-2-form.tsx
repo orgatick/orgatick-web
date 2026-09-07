@@ -1,7 +1,7 @@
 import { Controller, type UseFormReturn } from "react-hook-form";
 import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@orgatick/ui/components/field";
-import EmailView from "@/app/(auth)/components/EmailView";
+import EmailView from "@/app/(auth)/_components/EmailView";
 import type { SignupData } from "@orgatick/contracts";
 import PasswordInput from "@orgatick/ui/components/password-input";
 

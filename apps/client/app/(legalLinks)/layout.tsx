@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-import { ReadingProgressBar } from "./components/reading-progress-bar";
+import { ReadingProgressBar } from "./_components/reading-progress-bar";
 
 export default function LegalLinksLayout({ children }: { children: ReactNode }) {
   return (

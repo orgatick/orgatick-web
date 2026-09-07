@@ -1,5 +1,5 @@
-import Footer from "./components/Footer";
-import DesktopInfo from "./components/DesktopInfo";
+import Footer from "./_components/Footer";
+import DesktopInfo from "./_components/DesktopInfo";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

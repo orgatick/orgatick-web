@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../_components/Header";
 import Link from "next/link";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { Button } from "@orgatick/ui/components/button";

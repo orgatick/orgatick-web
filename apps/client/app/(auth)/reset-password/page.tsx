@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Header from "../components/Header";
+import Header from "../_components/Header";
 import ResetPasswordForm from "./components/reset-password-form";
 import ResetPasswordSkeleton from "./components/reset-password-skeleton";
 

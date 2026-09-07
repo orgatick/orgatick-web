@@ -10,11 +10,11 @@ import {
   IconReceiptRefund,
   IconTicket,
 } from "@tabler/icons-react";
-import { LegalFaqHelp } from "../components/legal-faq-help";
-import { LegalHeader } from "../components/legal-header";
-import { LegalSectionCard } from "../components/legal-section-card";
-import { LegalSidebar } from "../components/legal-sidebar";
-import { PlainEnglishSummary } from "../components/plain-english-summary";
+import { LegalFaqHelp } from "../_components/legal-faq-help";
+import { LegalHeader } from "../_components/legal-header";
+import { LegalSectionCard } from "../_components/legal-section-card";
+import { LegalSidebar } from "../_components/legal-sidebar";
+import { PlainEnglishSummary } from "../_components/plain-english-summary";
 
 export const metadata: Metadata = {
   title: "Refund Policy",

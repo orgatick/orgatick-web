@@ -5,12 +5,8 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { DEFAULT_CATEGORY } from "./contact-constants";
-import {
-  ContactFormFooter,
-  ContactIdentityFields,
-  ContactMessageField,
-  ContactTopicFields,
-} from "./contact-form-fields";
+import { ContactIdentityFields, ContactMessageField, ContactTopicFields } from "./contact-form-fields";
+import { ContactFormFooter } from "./contact-form-footer";
 import { type ContactFormData, contactFormSchema } from "./contact-schema";
 import { ContactSuccess, type SubmissionResult } from "./contact-success";
 

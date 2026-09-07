@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us | Orgatick Support & Sales",
   description:
-    "Contact Orgatick for event platform support, product questions, partnership enquiries, and help hosting your next event.",
+    "Get in touch with Orgatick for event ticketing support, partnership inquiries, and platform onboarding for your campus or flagship event.",
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact Orgatick",
-    description: "Talk to the Orgatick team about event operations, ticketing, support, or partnerships.",
+    title: "Contact Orgatick - Event Operations & Support",
+    description:
+      "Talk to the Orgatick team about event ticketing, sub-second QR scanners, WhatsApp passes, and custom partnership solutions.",
     url: "https://orgatick.in/contact",
     type: "website",
   },
@@ -57,11 +56,9 @@ const contactPageJsonLd = {
 
 export default function ContactLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col overflow-x-clip bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary">
+    <>
       <script type="application/ld+json">{JSON.stringify(contactPageJsonLd).replace(/</g, "\\u003c")}</script>
-      <Navbar />
-      <main className="flex-1 min-w-0 pt-4">{children}</main>
-      <Footer />
-    </div>
+      <div className="pt-6 sm:pt-10 pb-16">{children}</div>
+    </>
   );
 }
