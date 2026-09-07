@@ -12,7 +12,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <DesktopInfo />
         {children}
       </div>
-
       <Footer />
     </div>
   );

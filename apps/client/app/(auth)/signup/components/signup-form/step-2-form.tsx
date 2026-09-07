@@ -60,8 +60,8 @@ export default function Step2Form({ form, setStep }: Step2FormProps) {
         )}
       />
       <div className="flex gap-2">
-        <Button type="submit" className="w-full rounded-full text-xl h-14">
-          Create Account
+        <Button type="submit" className="w-full rounded-full text-xl h-14" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "Creating Account..." : "Create Account"}
         </Button>
       </div>
     </FieldGroup>

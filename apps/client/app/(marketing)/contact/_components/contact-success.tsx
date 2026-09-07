@@ -11,9 +11,9 @@ import {
 } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
 import { useState } from "react";
-import { toast } from "sonner";
 import { WHATSAPP_PHONE } from "./contact-constants";
 import type { ContactFormData } from "./contact-schema";
+import { toast } from "@orgatick/ui/components/toast";
 
 export interface SubmissionResult {
   ticketId: string;
@@ -38,10 +38,10 @@ export function ContactSuccess({ result, onReset }: ContactSuccessProps) {
     try {
       await navigator.clipboard.writeText(ticketId);
       setCopiedTicket(true);
-      toast.success("Ticket ID copied to clipboard!");
+      toast.add({ type: "success", description: "Ticket ID copied to clipboard!" });
       setTimeout(() => setCopiedTicket(false), 2000);
     } catch {
-      toast.error("Failed to copy Ticket ID");
+      toast.add({ type: "error", description: "Failed to copy Ticket ID" });
     }
   };
 

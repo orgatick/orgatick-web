@@ -3,12 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { DEFAULT_CATEGORY } from "./contact-constants";
 import { ContactIdentityFields, ContactMessageField, ContactTopicFields } from "./contact-form-fields";
 import { ContactFormFooter } from "./contact-form-footer";
 import { type ContactFormData, contactFormSchema } from "./contact-schema";
 import { ContactSuccess, type SubmissionResult } from "./contact-success";
+import { toast } from "@orgatick/ui/components/toast";
 
 export function ContactForm() {
   const [submissionResult, setSubmissionResult] = useState<SubmissionResult | null>(null);
@@ -40,11 +40,9 @@ export function ContactForm() {
       };
 
       setSubmissionResult(result);
-      toast.success("Inquiry submitted successfully!", {
-        description: `Your support ticket #${generatedTicketId} has been created.`,
-      });
+      toast.add({ type: "success", description: "Inquiry submitted successfully!" });
     } catch {
-      toast.error("Failed to submit inquiry. Please try again or reach out on WhatsApp.");
+      toast.add({ type: "error", description: "Failed to submit inquiry. Please try again or reach out on WhatsApp." });
     }
   }
 

@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Step1Form from "./signup-form/step-1-form";
 import Step2Form from "./signup-form/step-2-form";
 import { signupSchema, type SignupData } from "@orgatick/contracts";
+import baseApi from "@/lib/apis/base.api";
+import { toast } from "@orgatick/ui/components/toast";
 
 const SignupForm = () => {
   const [step, setStep] = useState(1);
@@ -24,7 +26,12 @@ const SignupForm = () => {
   };
 
   const handleSubmit = async (data: SignupData) => {
-    console.log(data);
+    try {
+      const _response = await baseApi.post("/auth/register", data);
+      toast.add({ type: "success", description: "Account created successfully!" });
+    } catch (_error) {
+      toast.add({ type: "error", description: "Failed to create account." });
+    }
   };
 
   return (

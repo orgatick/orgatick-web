@@ -3,8 +3,8 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { IconCheck, IconHash } from "@tabler/icons-react";
-import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { toast } from "@orgatick/ui/components/toast";
 
 interface LegalSectionCardProps {
   id: string;
@@ -24,10 +24,10 @@ export function LegalSectionCard({ id, number, title, icon, takeaway, children }
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
-      toast.success(`Copied link to section ${number}`);
+      toast.add({ type: "success", description: `Copied link to section ${number}` });
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.error("Failed to copy link");
+      toast.add({ type: "error", description: "Failed to copy link" });
     }
   };
 

@@ -11,6 +11,7 @@ export interface LinkButtonProps {
   iconRight?: ReactNode;
   size?: ComponentProps<typeof Button>["size"];
   className?: string;
+  onClick?: () => void;
 }
 
 export function LinkButton({
@@ -21,9 +22,16 @@ export function LinkButton({
   iconRight,
   size = "lg",
   className,
+  onClick,
 }: LinkButtonProps) {
   return (
-    <Button variant={variant} size={size} className={className} nativeButton={false} render={<Link href={href} />}>
+    <Button
+      variant={variant}
+      size={size}
+      className={className}
+      nativeButton={false}
+      render={<Link href={href} onClick={onClick} />}
+    >
       {icon}
       {children}
       {iconRight}
