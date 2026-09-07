@@ -50,7 +50,7 @@ const metadataConfig: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://orgatick.in/og_image.png",
+        url: "https://assets.orgatick.in/public/og_image.png",
         width: 1200,
         height: 630,
         alt: "Orgatick Event Operating System Dashboard",
@@ -63,7 +63,7 @@ const metadataConfig: Metadata = {
     title: "Orgatick - All-in-One College Event Operating System",
     description:
       "Streamline registrations, instant WhatsApp ticket delivery, offline QR venue check-ins, and automated financial ledgers.",
-    images: ["https://orgatick.in/og_image.png"],
+    images: ["https://assets.orgatick.in/public/og_image.png"],
   },
 
   icons: {
