@@ -102,4 +102,24 @@ export const authService = {
     }
     return user;
   },
+
+  async getGoogleAuthUrl(redirect = "/dashboard"): Promise<string> {
+    const response = await baseApi.get<{
+      url?: string;
+      data?: { url?: string };
+    }>(`/auth/google/url?redirect=${encodeURIComponent(redirect)}`);
+    const url = response.data?.data?.url || response.data?.url;
+    if (!url) {
+      throw new Error("Failed to obtain Google authentication URL");
+    }
+    return url;
+  },
+
+  async handleGoogleCallback(code: string): Promise<AuthSuccessResponse> {
+    const response = await baseApi.post<AuthSuccessResponse>("/auth/google/callback", { code });
+    const token =
+      response.data.token || response.data.accessToken || response.data.data?.token || response.data.data?.accessToken;
+    if (token) setAccessToken(token);
+    return response.data;
+  },
 };

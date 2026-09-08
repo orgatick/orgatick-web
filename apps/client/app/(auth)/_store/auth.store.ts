@@ -118,6 +118,47 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
+      googleLogin: async (code: string) => {
+        set({ isLoading: true });
+        try {
+          const response = await authService.handleGoogleCallback(code);
+          const token =
+            response.token || response.accessToken || response.data?.token || response.data?.accessToken || null;
+          let user = response.user || response.data?.user || null;
+
+          if (token) {
+            setAccessToken(token);
+          }
+
+          if (!user) {
+            try {
+              user = await authService.getCurrentUser();
+            } catch {
+              // fallback
+            }
+          }
+
+          set({
+            user,
+            token,
+            isAuthenticated: Boolean(token || user),
+            isLoading: false,
+          });
+
+          const welcomeName = user?.name ? `, ${user.name}` : "";
+          toast.success(`Welcome back${welcomeName}!`);
+
+          return { success: true, data: response };
+        } catch (error) {
+          set({ isLoading: false });
+          const errorMessage = handleApiError(error, "Failed to authenticate with Google. Please try again.");
+          return {
+            success: false,
+            message: errorMessage,
+          };
+        }
+      },
+
       register: async (data: SignupData) => {
         set({ isLoading: true });
         try {

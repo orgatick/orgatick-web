@@ -30,6 +30,7 @@ export interface AuthState {
 
   // Auth Operations
   login: (credentials: LoginData) => Promise<LoginResult>;
+  googleLogin: (code: string) => Promise<LoginResult>;
   register: (data: SignupData) => Promise<{ success: boolean; data?: AuthSuccessResponse }>;
   forgotPassword: (data: ForgotPasswordData) => Promise<{ success: boolean }>;
   resendVerification: (email: string) => Promise<{ success: boolean }>;
