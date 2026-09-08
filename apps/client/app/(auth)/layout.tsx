@@ -1,7 +1,19 @@
+import { redirect } from "next/navigation";
 import Footer from "./_components/Footer";
 import DesktopInfo from "./_components/DesktopInfo";
+import { serverApi } from "@/lib/apis/server-auth-api";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
+  let isAuthenticated = false;
+  try {
+    const api = await serverApi();
+    const response = await api.get("/users/me");
+    if (response?.data) isAuthenticated = true;
+  } catch {
+    isAuthenticated = false;
+  }
+  if (isAuthenticated) redirect("/");
+
   return (
     <div className="h-full relative flex flex-col items-center justify-center w-full space-y-5 pb-4 sm:pb-0">
       <div className="pointer-events-none absolute inset-0 hidden lg:block">

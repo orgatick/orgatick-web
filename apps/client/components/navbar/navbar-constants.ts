@@ -1,4 +1,11 @@
-import { IconHelpCircle, IconLayoutDashboard, IconReceipt2, IconSettings, IconTicket } from "@tabler/icons-react";
+import {
+  IconHelpCircle,
+  IconLayoutDashboard,
+  IconReceipt2,
+  IconSettings,
+  IconTicket,
+  IconUser,
+} from "@tabler/icons-react";
 
 export interface NavLinkItem {
   label: string;
@@ -24,6 +31,11 @@ export const MAIN_NAV_LINKS: NavLinkItem[] = [
 ];
 
 export const USER_MENU_ITEMS = [
+  {
+    label: "My Profile",
+    href: "/profile",
+    icon: IconUser,
+  },
   {
     label: "My Passes & Tickets",
     href: "/my-tickets",
