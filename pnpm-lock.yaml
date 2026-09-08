@@ -83,8 +83,8 @@ importers:
         specifier: ^5.9.1
         version: 5.9.1(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
       '@orgatick/contracts':
-        specifier: 0.1.0-dev.12
-        version: 0.1.0-dev.12(zod@4.4.3)
+        specifier: ^0.1.14
+        version: 0.1.14(zod@4.4.3)
       '@orgatick/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -245,6 +245,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      cn:
+        specifier: ^0.2.6
+        version: 0.2.6
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.2.8)
@@ -870,8 +873,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@orgatick/contracts@0.1.0-dev.12':
-    resolution: {integrity: sha512-XlJlOdLOCZYgUjzHh7+HboBMFxJXArb9vl5p+qRVTi5oEtjmTrwZR7yrVdsFMIzLZqYWptb9rz6OLw2FCardxw==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.0-dev.12/fa8f87b208985e7b17b426ee16c8ee89727ec088}
+  '@orgatick/contracts@0.1.14':
+    resolution: {integrity: sha512-zhaN5SnF1HVl6Oy5C9TEhS29Q1DjGMZuE0yYGrQ6vmHAQpbe3Z6LrDiJt/XfYh+vmKxrTFsmtV/eLddx+m2fwA==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.14/7a4340610c90d2cfd5b6d571f7974d62d98cd394}
     peerDependencies:
       zod: '>=3.20.0'
 
@@ -1161,6 +1164,11 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  cn@0.2.6:
+    resolution: {integrity: sha512-+i4L0zUGgRcEnhsxueVrP7iBGxBx5iD0WOTYg1MwFEu2ZyCmH5Ov2V1cul2Ht5UchRQQgftCf4be/RxspuW6QQ==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   code-block-writer@13.0.3:
     resolution: {integrity: sha512-Oofo0pq3IKnsFtuHqSF7TqBfr71aeyZDVJ0HpmqB7FBM2qEigL0iPONSCZSO9pE9dZTAxANe5XHG9Uy0YMv8cg==}
@@ -2925,7 +2933,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@orgatick/contracts@0.1.0-dev.12(zod@4.4.3)':
+  '@orgatick/contracts@0.1.14(zod@4.4.3)':
     dependencies:
       zod: 4.4.3
 
@@ -3174,6 +3182,8 @@ snapshots:
   client-only@0.0.1: {}
 
   clsx@2.1.1: {}
+
+  cn@0.2.6: {}
 
   code-block-writer@13.0.3: {}
 

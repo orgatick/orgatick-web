@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 min-w-0 overflow-x-clip">
         <HeroSection />
         <ProblemSolutionSection />
         <ThreePillarsSection />

@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../_components/Header";
 import Link from "next/link";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { Button } from "@orgatick/ui/components/button";
@@ -13,7 +13,7 @@ function page() {
         <div className="w-full gap-4 flex flex-col items-center justify-center">
           <div>
             Already have an account?{" "}
-            <Link href="/login" className="text-primary hover:underline">
+            <Link href="/login" className="text-primary hover:underline font-semibold">
               Log in
             </Link>
           </div>

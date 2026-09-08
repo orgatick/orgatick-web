@@ -10,15 +10,18 @@ import InvalidTokenView from "./reset-password-form/invalid-token-view";
 import ResetPasswordSkeleton from "./reset-password-skeleton";
 import { resetPasswordSchema, type ResetPasswordData } from "@orgatick/contracts";
 import { useStepValidation } from "@/hooks/use-step-validation";
+import { useAuthStore } from "@/app/(auth)/_store";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
 
   const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [email, setEmail] = useState<string>("");
   const [isTokenChecked, setIsTokenChecked] = useState(false);
+
+  const resetPassword = useAuthStore((state) => state.resetPassword);
+  const loading = useAuthStore((state) => state.isLoading);
 
   const form = useForm<ResetPasswordData>({
     resolver: zodResolver(resetPasswordSchema),
@@ -58,20 +61,9 @@ const ResetPasswordForm = () => {
     const valid = await validate(["password", "confirmPassword"]);
     if (!valid) return;
 
-    setLoading(true);
-    try {
-      // Simulate API call to reset password with { email: data.email, token: data.token, password: data.password }
-      console.log("Simulating reset password with payload:", {
-        email: data.email,
-        token: data.token,
-        password: data.password,
-      });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await resetPassword(data);
+    if (result.success) {
       setStep(2);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 

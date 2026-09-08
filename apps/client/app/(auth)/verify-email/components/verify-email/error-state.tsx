@@ -1,22 +1,26 @@
 import * as motion from "motion/react-client";
-import { IconAlertTriangle, IconLoader2 } from "@tabler/icons-react";
+import { IconAlertTriangle, IconLoader2, IconMailCheck } from "@tabler/icons-react";
 import { Button } from "@orgatick/ui/components/button";
 import { LinkButton } from "@/components/ui/link-button";
 
 interface ErrorStateProps {
   email?: string;
+  title?: string;
   errorMessage?: string;
   onResend?: () => Promise<void>;
   isResending?: boolean;
   resendSuccess?: boolean;
+  isNoticeOnly?: boolean;
 }
 
 export default function ErrorState({
   email,
+  title = "Verification Failed",
   errorMessage = "This verification link is invalid, incomplete, or has expired.",
   onResend,
   isResending = false,
   resendSuccess = false,
+  isNoticeOnly = false,
 }: ErrorStateProps) {
   return (
     <motion.div
@@ -25,19 +29,23 @@ export default function ErrorState({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -12, scale: 0.96 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="w-full rounded-2xl border border-destructive/30 bg-card/80 p-6 sm:p-8 space-y-5 shadow-sm text-center"
+      className={`w-full rounded-2xl border ${
+        isNoticeOnly ? "border-primary/30" : "border-destructive/30"
+      } bg-card/80 p-6 sm:p-8 space-y-5 shadow-sm text-center`}
     >
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-        className="mx-auto h-16 w-16 rounded-full bg-destructive/15 text-destructive flex items-center justify-center"
+        className={`mx-auto h-16 w-16 rounded-full ${
+          isNoticeOnly ? "bg-primary/15 text-primary" : "bg-destructive/15 text-destructive"
+        } flex items-center justify-center`}
       >
-        <IconAlertTriangle size={32} />
+        {isNoticeOnly ? <IconMailCheck size={32} /> : <IconAlertTriangle size={32} />}
       </motion.div>
 
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Verification Failed</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
         <p className="text-sm text-muted-foreground">{errorMessage}</p>
       </div>
 
