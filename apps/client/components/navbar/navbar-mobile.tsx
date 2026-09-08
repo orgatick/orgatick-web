@@ -2,6 +2,7 @@
 
 import { LinkButton } from "@/components/ui/link-button";
 import OrgatickLogo from "@orgatick/ui/assets/logo/orgatick-logo";
+import { Avatar, AvatarFallback } from "@orgatick/ui/components/avatar";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@orgatick/ui/components/sheet";
@@ -19,7 +20,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MAIN_NAV_LINKS } from "./navbar-constants";
 import { useAuthStore } from "@/app/(auth)/_store";
 
@@ -35,24 +36,22 @@ function getInitials(name?: string): string {
 export function NavbarMobile() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const logout = useAuthStore((state) => state.logout);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isUserAuthenticated = mounted && isAuthenticated && Boolean(user);
+
   return (
     <div className="lg:hidden flex items-center">
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger
-          render={
-            <Button
-              variant="outline"
-              size="icon-sm"
-              className="rounded-xl border-border/80 bg-muted/20"
-              aria-label="Open Navigation Menu"
-            />
-          }
-        >
+        <SheetTrigger render={<Button variant="ghost" size="icon" aria-label="Open Navigation Menu" />}>
           <IconMenu2 className="size-5 text-foreground" />
         </SheetTrigger>
 
@@ -67,22 +66,24 @@ export function NavbarMobile() {
             </SheetHeader>
 
             {/* Authenticated User Card */}
-            {isAuthenticated && user && (
+            {isUserAuthenticated && user && (
               <div className="flex items-center gap-3 p-3 rounded-2xl border border-border/70 bg-muted/30">
-                {user.avatar ? (
-                  <Image
-                    src={user.avatar}
-                    alt={user.name || "User Avatar"}
-                    width={40}
-                    height={40}
-                    unoptimized
-                    className="size-10 rounded-full object-cover border border-border shadow-xs shrink-0"
-                  />
-                ) : (
-                  <div className="flex size-10 items-center justify-center rounded-full bg-linear-to-br from-primary to-indigo-600 font-mono text-sm font-bold text-white shadow-xs shrink-0">
-                    {getInitials(user.name)}
-                  </div>
-                )}
+                <Avatar className="size-10 rounded-full border border-border shadow-xs shrink-0">
+                  {user.avatar ? (
+                    <Image
+                      src={user.avatar}
+                      alt={user.name || "User Avatar"}
+                      width={40}
+                      height={40}
+                      unoptimized
+                      className="aspect-square size-full rounded-full object-cover"
+                    />
+                  ) : (
+                    <AvatarFallback className="bg-linear-to-br from-primary to-indigo-600 font-mono text-sm font-bold text-white">
+                      {getInitials(user.name)}
+                    </AvatarFallback>
+                  )}
+                </Avatar>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
                     <p className="text-sm font-semibold text-foreground truncate">{user.name}</p>
@@ -125,7 +126,7 @@ export function NavbarMobile() {
                 );
               })}
 
-              {isAuthenticated && (
+              {isUserAuthenticated && (
                 <Link
                   href="/my-tickets"
                   onClick={() => setOpen(false)}
@@ -167,7 +168,7 @@ export function NavbarMobile() {
 
           {/* Drawer Footer Actions */}
           <div className="p-6 border-t border-border/50 space-y-3 bg-muted/15">
-            {isAuthenticated ? (
+            {isUserAuthenticated ? (
               <Button
                 variant="destructive"
                 size="default"
