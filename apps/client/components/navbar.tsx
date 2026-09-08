@@ -1,4 +1,3 @@
-import { NavbarAuth } from "./navbar/navbar-auth";
 import { NavbarBrand } from "./navbar/navbar-brand";
 import { NavbarLinks } from "./navbar/navbar-links";
 import { NavbarMobile } from "./navbar/navbar-mobile";
@@ -15,7 +14,6 @@ export function Navbar() {
 
         {/* Right: Auth Actions / User Menu & Mobile Drawer */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <NavbarAuth />
           <NavbarMobile />
         </div>
       </div>
