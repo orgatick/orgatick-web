@@ -5,6 +5,7 @@ import { AnimatePresence } from "motion/react";
 import VerifyingState from "./verify-email/verifying-state";
 import SuccessState from "./verify-email/success-state";
 import ErrorState from "./verify-email/error-state";
+import { useAuthStore } from "@/app/(auth)/_store";
 
 interface VerifyEmailViewProps {
   initialToken?: string;
@@ -21,44 +22,46 @@ export default function VerifyEmailView({ initialToken = "", initialEmail = "" }
   const [resendSuccess, setResendSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const verifyEmail = useAuthStore((state) => state.verifyEmail);
+  const resendVerification = useAuthStore((state) => state.resendVerification);
+
   useEffect(() => {
-    // Scrub sensitive token and email from browser URL / history immediately
-    if (typeof window !== "undefined" && (initialToken || initialEmail)) {
-      window.history.replaceState(null, "", window.location.pathname);
+    // Scrub sensitive token from browser URL / history immediately
+    if (typeof window !== "undefined" && initialToken) {
+      const cleanUrl = initialEmail
+        ? `${window.location.pathname}?email=${encodeURIComponent(initialEmail)}`
+        : window.location.pathname;
+      window.history.replaceState(null, "", cleanUrl);
     }
 
-    if (!initialToken) {
+    if (!token) {
       setStatus("missing_token");
       return;
     }
 
     const verify = async () => {
       setStatus("checking");
-      try {
-        // Simulate API call to verify token and email
-        console.log("Simulating email verification with token:", token, "email:", email);
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await verifyEmail({ email, token });
+      if (result.success) {
         setStatus("success");
-      } catch (err) {
-        console.error(err);
-        setErrorMessage("We could not verify your email. The link may have expired or is invalid.");
+      } else {
+        setErrorMessage(result.message || "We could not verify your email. The link may have expired or is invalid.");
         setStatus("error");
       }
     };
 
     void verify();
-  }, [initialToken, initialEmail, token, email]);
+  }, [token, email, verifyEmail, initialToken, initialEmail]);
 
   const handleResend = async () => {
+    if (!email) return;
     setIsResending(true);
     setResendSuccess(false);
     try {
-      // Simulate API call to resend verification email
-      console.log("Resending verification email to:", email);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setResendSuccess(true);
-    } catch (err) {
-      console.error(err);
+      const result = await resendVerification(email);
+      if (result.success) {
+        setResendSuccess(true);
+      }
     } finally {
       setIsResending(false);
     }
@@ -74,8 +77,9 @@ export default function VerifyEmailView({ initialToken = "", initialEmail = "" }
         {status === "error" && (
           <ErrorState
             email={email}
+            title="Verification Failed"
             errorMessage={errorMessage}
-            onResend={handleResend}
+            onResend={email ? handleResend : undefined}
             isResending={isResending}
             resendSuccess={resendSuccess}
             key="error"
@@ -85,10 +89,16 @@ export default function VerifyEmailView({ initialToken = "", initialEmail = "" }
         {status === "missing_token" && (
           <ErrorState
             email={email}
-            errorMessage="No verification token was found in the link. Please check the link or request a new verification email."
+            title={email ? "Email Verification Required" : "Verification Link Required"}
+            errorMessage={
+              email
+                ? "Please verify your email before logging in. Click below to receive a new verification link."
+                : "No verification token was found in the link. Please check the link or request a new verification email."
+            }
             onResend={email ? handleResend : undefined}
             isResending={isResending}
             resendSuccess={resendSuccess}
+            isNoticeOnly={Boolean(email)}
             key="missing_token"
           />
         )}

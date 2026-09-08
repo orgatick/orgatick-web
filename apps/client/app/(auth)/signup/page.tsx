@@ -13,7 +13,7 @@ function page() {
         <div className="w-full gap-4 flex flex-col items-center justify-center">
           <div>
             Already have an account?{" "}
-            <Link href="/login" className="text-primary hover:underline">
+            <Link href="/login" className="text-primary hover:underline font-semibold">
               Log in
             </Link>
           </div>

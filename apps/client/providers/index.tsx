@@ -8,3 +8,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     </ThemeProvider>
   );
 }
+
+// export default function Providers({ children }: { children: React.ReactNode }) {
+//   return <ToastProvider>{children}</ToastProvider>;
+// }

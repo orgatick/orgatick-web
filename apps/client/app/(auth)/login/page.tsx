@@ -1,50 +1,12 @@
+import { Suspense } from "react";
 import Header from "../_components/Header";
 import Link from "next/link";
 import { IconBrandGoogle } from "@tabler/icons-react";
-// import { IconPasswordFingerprint } from "@tabler/icons-react";
 import { Button } from "@orgatick/ui/components/button";
 import LoginForm from "./components/login-form";
+import LoginSkeleton from "./components/login-skeleton";
 
 function page() {
-  // const { email, emailDraft, loading, handleEmailSubmit, handleGoogleLogin } =
-  //   authStore();
-
-  // // const { fetchUser } = useUserStore();
-  // const router = useRouter();
-  // const [passkeyError, setPasskeyError] = useState(null);
-
-  // const handlePasskeyClick = async () => {
-  //   setPasskeyError(null);
-  //   const candidateEmail = (email || emailDraft || "").trim();
-
-  //   if (!candidateEmail) {
-  //     setPasskeyError("Please enter your email first.");
-  //     return;
-  //   }
-
-  //   try {
-  //     const res = await handleEmailSubmit(candidateEmail);
-  //     const externalAuth = localStorage.getItem("redirect");
-  //     if (res && externalAuth) {
-  //       localStorage.removeItem("redirect");
-  //       router.replace(externalAuth);
-  //     } else if (res) {
-  //       fetchUser();
-  //       router.replace("/events");
-  //     } else {
-  //       toast.error("Passkey authentication failed. Please try again.");
-  //       setPasskeyError("Passkey authentication failed. Please try again.");
-  //     }
-  //   } catch (err) {
-  //     setPasskeyError(err.message || "Unable to continue with passkey");
-  //   }
-  // };
-
-  // const googleLogin = async () => {
-  //   const redirectUrl = await handleGoogleLogin();
-  //   router.push(redirectUrl);
-  // };
-
   return (
     <div className="h-full flex flex-col items-center pt-6">
       <Header />
@@ -53,11 +15,13 @@ function page() {
         <div className="w-full gap-4 flex flex-col items-center justify-center">
           <div>
             Don't have an account?{" "}
-            <Link href="/signup" className="text-primary hover:underline">
+            <Link href="/signup" className="text-primary hover:underline font-semibold">
               Sign up
             </Link>
           </div>
-          <LoginForm />
+          <Suspense fallback={<LoginSkeleton />}>
+            <LoginForm />
+          </Suspense>
           <div>
             <Link href="/forgot-password" className="text-primary hover:underline">
               Forgot your password?
@@ -66,28 +30,11 @@ function page() {
         </div>
         <div className="w-full flex flex-col gap-4">
           <div>
-            <Button
-              className="w-full rounded-full text-xl h-14"
-              variant={"outline"}
-              // onClick={googleLogin}
-            >
+            <Button className="w-full rounded-full text-xl h-14" variant={"outline"}>
               <IconBrandGoogle size={18} className="mr-2" />
               Continue with Google
             </Button>
           </div>
-          {/*{!email && (
-            <div>
-              <Button
-                className="w-full rounded-full text-xl h-14"
-                variant={"outline"}
-                disabled={loading}
-                onClick={handlePasskeyClick}
-              >
-                <IconPasswordFingerprint size={18} className="mr-2" />
-                Continue with Passkey
-              </Button>
-            </div>
-          )}*/}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { IconCheck, IconCopy, IconPrinter, IconShare } from "@tabler/icons-react";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
-import { toast } from "@orgatick/ui/components/toast";
+import { toast } from "@/components/ui/sonner";
 
 interface LegalHeaderProps {
   title: string;
@@ -24,10 +24,10 @@ export function LegalHeader({ title, description, effectiveDate, badgeText, icon
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
-      toast.add({ type: "success", description: "Page link copied to clipboard" });
+      toast.success("Page link copied to clipboard");
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.add({ type: "error", description: "Failed to copy link" });
+      toast.error("Failed to copy link");
     }
   };
 

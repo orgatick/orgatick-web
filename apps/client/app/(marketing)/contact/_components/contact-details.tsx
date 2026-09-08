@@ -2,10 +2,10 @@
 
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
-import { toast } from "@orgatick/ui/components/toast";
 import { IconArrowUpRight, IconBrandWhatsapp, IconCheck, IconCopy, IconHeadset, IconMail } from "@tabler/icons-react";
 import * as motion from "motion/react-client";
 import { useState } from "react";
+import { toast } from "@/components/ui/sonner";
 
 export function ContactDetails() {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
@@ -14,10 +14,10 @@ export function ContactDetails() {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedItem(text);
-      toast.add({ type: "success", description: `${label} copied to clipboard!` });
+      toast.success(`${label} copied to clipboard!`);
       setTimeout(() => setCopiedItem(null), 2000);
     } catch {
-      toast.add({ type: "error", description: "Failed to copy to clipboard." });
+      toast.error("Failed to copy to clipboard.");
     }
   };
 

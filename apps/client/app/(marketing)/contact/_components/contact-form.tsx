@@ -8,7 +8,7 @@ import { ContactIdentityFields, ContactMessageField, ContactTopicFields } from "
 import { ContactFormFooter } from "./contact-form-footer";
 import { type ContactFormData, contactFormSchema } from "./contact-schema";
 import { ContactSuccess, type SubmissionResult } from "./contact-success";
-import { toast } from "@orgatick/ui/components/toast";
+import { toast } from "@/components/ui/sonner";
 
 export function ContactForm() {
   const [submissionResult, setSubmissionResult] = useState<SubmissionResult | null>(null);
@@ -40,9 +40,9 @@ export function ContactForm() {
       };
 
       setSubmissionResult(result);
-      toast.add({ type: "success", description: "Inquiry submitted successfully!" });
+      toast.success("Inquiry submitted successfully!");
     } catch {
-      toast.add({ type: "error", description: "Failed to submit inquiry. Please try again or reach out on WhatsApp." });
+      toast.error("Failed to submit inquiry. Please try again or reach out on WhatsApp.");
     }
   }
 

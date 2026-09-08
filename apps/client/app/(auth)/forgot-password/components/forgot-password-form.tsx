@@ -7,12 +7,16 @@ import Step1Form from "./forgot-password-form/step-1-form";
 import Step2Form from "./forgot-password-form/step-2-form";
 import { useStepValidation } from "@/hooks/use-step-validation";
 import { type ForgotPasswordData, forgotPasswordSchema } from "@orgatick/contracts";
+import { useAuthStore } from "@/app/(auth)/_store";
 
 const ForgotPasswordForm = () => {
   const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
+
+  const forgotPassword = useAuthStore((state) => state.forgotPassword);
+  const resendVerification = useAuthStore((state) => state.resendVerification);
+  const loading = useAuthStore((state) => state.isLoading);
 
   const form = useForm<ForgotPasswordData>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -27,26 +31,20 @@ const ForgotPasswordForm = () => {
     const valid = await validate(["email"]);
     if (!valid) return;
 
-    setLoading(true);
-    try {
-      // Simulate API call to send password reset email
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await forgotPassword(data);
+    if (result.success) {
       setSubmittedEmail(data.email);
       setStep(2);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleResend = async () => {
+    const targetEmail = submittedEmail || form.getValues("email");
+    if (!targetEmail) return;
+
     setIsResending(true);
     try {
-      // Simulate API call to resend password reset email
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error(error);
+      await resendVerification(targetEmail);
     } finally {
       setIsResending(false);
     }
