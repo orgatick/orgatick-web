@@ -13,10 +13,6 @@ import type { AuthSuccessResponse, GenericMessageResponse } from "../_types";
 export type { AuthSuccessResponse, GenericMessageResponse };
 
 export const authService = {
-  /**
-   * Log in user with email and password
-   * POST /auth/login
-   */
   async login(credentials: LoginData): Promise<AuthSuccessResponse> {
     const response = await baseApi.post<AuthSuccessResponse>("/auth/login", {
       email: credentials.email,
@@ -32,16 +28,8 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Register a new user
-   * POST /auth/register
-   */
   async register(data: SignupData): Promise<AuthSuccessResponse> {
-    const response = await baseApi.post<AuthSuccessResponse>("/auth/register", {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    });
+    const response = await baseApi.post<AuthSuccessResponse>("/auth/register", data);
     const token =
       response.data.token || response.data.accessToken || response.data.data?.token || response.data.data?.accessToken;
     if (token) {
@@ -51,10 +39,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Request password reset link
-   * POST /auth/forgot-password
-   */
   async forgotPassword(data: ForgotPasswordData): Promise<GenericMessageResponse> {
     const response = await baseApi.post<GenericMessageResponse>("/auth/forgot-password", {
       email: data.email,
@@ -62,10 +46,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Resend email verification link
-   * POST /auth/resend-verification
-   */
   async resendVerification(email: string): Promise<GenericMessageResponse> {
     const response = await baseApi.post<GenericMessageResponse>("/auth/resend-verification", {
       email,
@@ -73,10 +53,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Verify email address with verification token
-   * POST /auth/verify-email
-   */
   async verifyEmail(data: VerifyEmailData): Promise<GenericMessageResponse> {
     const response = await baseApi.post<GenericMessageResponse>("/auth/verify-email", {
       email: data.email,
@@ -85,10 +61,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Reset password with reset token
-   * POST /auth/reset-password
-   */
   async resetPassword(data: ResetPasswordData): Promise<GenericMessageResponse> {
     const response = await baseApi.post<GenericMessageResponse>("/auth/reset-password", {
       email: data.email,
@@ -98,10 +70,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Refresh session access token
-   * POST /auth/refresh
-   */
   async refreshToken(): Promise<AuthSuccessResponse> {
     const response = await baseApi.post<AuthSuccessResponse>("/auth/refresh", {});
     const token =
@@ -112,10 +80,6 @@ export const authService = {
     return response.data;
   },
 
-  /**
-   * Log out user session
-   * POST /auth/logout
-   */
   async logout(): Promise<GenericMessageResponse> {
     try {
       const response = await api.post<GenericMessageResponse>("/auth/logout", {});
@@ -125,10 +89,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Get current authenticated user profile
-   * GET /users/me
-   */
   async getCurrentUser(): Promise<UserResponse> {
     const response = await api.get<{
       success?: boolean;
