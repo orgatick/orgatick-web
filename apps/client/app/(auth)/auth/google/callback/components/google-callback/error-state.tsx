@@ -30,9 +30,7 @@ export default function ErrorState({ error, onRetry, isRetrying }: ErrorStatePro
 
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold tracking-tight">Authentication Failed</h2>
-        <p className="text-sm text-muted-foreground">
-          We could not complete your sign-in with Google.
-        </p>
+        <p className="text-sm text-muted-foreground">We could not complete your sign-in with Google.</p>
       </div>
 
       {error && (

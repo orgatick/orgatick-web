@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
-    "@orgatick/contracts": "^0.1.14",
+    "@orgatick/contracts": "^0.1.18",
     "@orgatick/ui": "workspace:*",
+    "@orgatick/address": "workspace:*",
     "@tabler/icons-react": "^3.46.0",
     "axios": "^1.19.0",
     "class-variance-authority": "^0.7.1",

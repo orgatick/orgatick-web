@@ -103,12 +103,7 @@ export default function GoogleCallbackView() {
             {status === "success" && <SuccessState key="success" />}
 
             {status === "error" && (
-              <ErrorState
-                key="error"
-                error={error}
-                onRetry={handleRetry}
-                isRetrying={isRetrying}
-              />
+              <ErrorState key="error" error={error} onRetry={handleRetry} isRetrying={isRetrying} />
             )}
           </AnimatePresence>
         </div>

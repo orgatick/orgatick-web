@@ -1,0 +1,15 @@
+{
+  "extends": "@orgatick/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@orgatick/address/*": ["./src/*"]
+    },
+    "rootDir": ".",
+    "outDir": "dist",
+    "strictNullChecks": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
