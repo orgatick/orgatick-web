@@ -25,9 +25,6 @@ function extractArray<T>(data: unknown): T[] {
 }
 
 export const addressApi = {
-  /**
-   * GET /countries?search=...
-   */
   async getCountries(search?: string): Promise<AddressCountryRef[]> {
     const res = await api.get("/countries", {
       params: {

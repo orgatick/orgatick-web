@@ -8,10 +8,27 @@ import type {
 
 export type AddressVariant = "user" | "organization" | "event_venue" | "generic";
 
+export interface DivisionQueryOptions {
+  level?: number;
+  parentUuid?: string;
+}
+
+export interface CityQueryOptions {
+  countryUuid?: string;
+}
+
 export interface AddressDataLoader {
   loadCountries: (search?: string) => Promise<AddressCountryRef[]>;
-  loadDivisions: (countryUuid: string, search?: string) => Promise<AddressDivisionRef[]>;
-  loadCities: (divisionUuid: string, search?: string) => Promise<AddressCityRef[]>;
+  loadDivisions: (
+    countryUuid: string,
+    search?: string,
+    options?: DivisionQueryOptions,
+  ) => Promise<AddressDivisionRef[]>;
+  loadCities: (
+    divisionUuid?: string,
+    search?: string,
+    countryUuidOrOptions?: string | CityQueryOptions,
+  ) => Promise<AddressCityRef[]>;
 }
 
 export interface AddressFormValues extends CreateAddressDto {

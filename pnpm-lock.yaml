@@ -234,9 +234,6 @@ importers:
 
   packages/address:
     dependencies:
-      '@base-ui/react':
-        specifier: ^1.7.0
-        version: 1.7.0(@types/react@19.2.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@hookform/resolvers':
         specifier: ^5.9.1
         version: 5.9.1(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
@@ -249,6 +246,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.30.0
         version: 3.46.0(react@19.2.8)
+      axios:
+        specifier: ^1.19.0
+        version: 1.19.0(debug@4.4.3)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

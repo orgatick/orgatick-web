@@ -16,11 +16,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@base-ui/react": "^1.7.0",
     "@hookform/resolvers": "^5.9.1",
     "@orgatick/contracts": "^0.1.18",
     "@orgatick/ui": "workspace:*",
     "@tabler/icons-react": "^3.30.0",
+    "axios": "^1.19.0",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",

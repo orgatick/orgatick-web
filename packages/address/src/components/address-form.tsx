@@ -1,24 +1,18 @@
 "use client";
 
 import { useTransition } from "react";
-import { Controller, type Resolver, useForm } from "react-hook-form";
+import { type Resolver, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { AddressCityRef, AddressCountryRef, AddressDivisionRef } from "@orgatick/contracts";
 import { CreateAddressSchema } from "@orgatick/contracts";
 import { Button } from "@orgatick/ui/components/button";
 import { Field, FieldError, FieldLabel } from "@orgatick/ui/components/field";
 import { Input } from "@orgatick/ui/components/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@orgatick/ui/components/select";
 import { IconBuilding, IconBuildingSkyscraper, IconHome, IconLoader2, IconMapPin } from "@tabler/icons-react";
 import { useAddressHierarchy } from "@orgatick/address/hooks/use-address-hierarchy";
 import type { AddressFormProps, AddressFormValues } from "@orgatick/address/types";
+import { CitySelector } from "./city-selector";
+import { StateSelector } from "./state-selector";
+import {CountrySelector} from "./country-select";
 
 export function AddressForm({
   variant = "generic",
@@ -48,13 +42,15 @@ export function AddressForm({
     (initialValues && "city" in initialValues && initialValues.city?.uuid) ||
     null;
 
-  const initialLabel: string | null =
-    initialValues && "label" in initialValues && typeof initialValues.label === "string" ? initialValues.label : null;
+  const initialLabel: string =
+    (initialValues && "label" in initialValues && typeof initialValues.label === "string" && initialValues.label) || "";
 
-  const initialVenueName: string | null =
-    initialValues && "venueName" in initialValues && typeof initialValues.venueName === "string"
-      ? initialValues.venueName
-      : null;
+  const initialVenueName: string =
+    (initialValues &&
+      "venueName" in initialValues &&
+      typeof initialValues.venueName === "string" &&
+      initialValues.venueName) ||
+    "";
 
   const initialIsDefault: boolean =
     initialValues && "isDefault" in initialValues ? Boolean(initialValues.isDefault) : false;
@@ -174,111 +170,47 @@ export function AddressForm({
         </Field>
       )}
 
-      {/* Cascading Geographic Selects */}
+      <CountrySelector />
+      
+      
+      {/* Cascading Geographic Autocomplete Comboboxes */}
       <div className="grid gap-4 sm:grid-cols-3">
         {/* Country */}
-        <Field data-invalid={!!errors.countryUuid}>
-          <FieldLabel htmlFor="country-select">
-            Country <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Controller
-            name="countryUuid"
-            control={control}
-            render={({ field }) => (
-              <Select
-                value={field.value || ""}
-                onValueChange={handleCountryChange}
-                disabled={disabled || loadingCountries}
-              >
-                <SelectTrigger id="country-select" className="w-full">
-                  <SelectValue placeholder={loadingCountries ? "Loading countries..." : "Select Country"} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {countries.map((c: AddressCountryRef) => (
-                      <SelectItem key={c.uuid} value={c.uuid}>
-                        {c.name} ({c.code})
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-          <FieldError errors={[errors.countryUuid]} />
-        </Field>
+        {/*<CountrySelector
+          name="countryUuid"
+          control={control}
+          dataLoader={dataLoader}
+          initialCountries={countries}
+          loading={loadingCountries}
+          onChange={handleCountryChange}
+          disabled={disabled || loadingCountries}
+          required
+        />*/}
 
-        {/* Division / State */}
-        <Field data-invalid={!!errors.divisionUuid}>
-          <FieldLabel htmlFor="division-select">State / Province</FieldLabel>
-          <Controller
-            name="divisionUuid"
-            control={control}
-            render={({ field }) => (
-              <Select
-                value={field.value || ""}
-                onValueChange={handleDivisionChange}
-                disabled={disabled || !currentCountryUuid || loadingDivisions}
-              >
-                <SelectTrigger id="division-select" className="w-full">
-                  <SelectValue
-                    placeholder={
-                      !currentCountryUuid
-                        ? "Select country first"
-                        : loadingDivisions
-                          ? "Loading states..."
-                          : "Select State / Province"
-                    }
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {divisions.map((d: AddressDivisionRef) => (
-                      <SelectItem key={d.uuid} value={d.uuid}>
-                        {d.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-          <FieldError errors={[errors.divisionUuid]} />
-        </Field>
+        {/* State / Province (Level 1) */}
+        <StateSelector
+          name="divisionUuid"
+          control={control}
+          countryUuid={currentCountryUuid}
+          dataLoader={dataLoader}
+          initialDivisions={divisions}
+          loading={loadingDivisions}
+          onChange={handleDivisionChange}
+          disabled={disabled || !currentCountryUuid || loadingDivisions}
+        />
 
         {/* City */}
-        <Field data-invalid={!!errors.cityUuid}>
-          <FieldLabel htmlFor="city-select">City</FieldLabel>
-          <Controller
-            name="cityUuid"
-            control={control}
-            render={({ field }) => (
-              <Select
-                value={field.value || ""}
-                onValueChange={(val) => setValue("cityUuid", val, { shouldValidate: true })}
-                disabled={disabled || !currentDivisionUuid || loadingCities}
-              >
-                <SelectTrigger id="city-select" className="w-full">
-                  <SelectValue
-                    placeholder={
-                      !currentDivisionUuid ? "Select state first" : loadingCities ? "Loading cities..." : "Select City"
-                    }
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {cities.map((city: AddressCityRef) => (
-                      <SelectItem key={city.uuid} value={city.uuid}>
-                        {city.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-          <FieldError errors={[errors.cityUuid]} />
-        </Field>
+        <CitySelector
+          name="cityUuid"
+          control={control}
+          divisionUuid={currentDivisionUuid}
+          countryUuid={currentCountryUuid}
+          dataLoader={dataLoader}
+          initialCities={cities}
+          loading={loadingCities}
+          onChange={(cityUuid) => setValue("cityUuid", cityUuid || null, { shouldValidate: true })}
+          disabled={disabled || !currentDivisionUuid || loadingCities}
+        />
       </div>
 
       {/* Street Address Line 1 */}
@@ -289,10 +221,9 @@ export function AddressForm({
         <div className="relative">
           <Input
             id="addressLine1"
-            placeholder="House/Flat number, building, street address"
+            placeholder="House / Flat No., Building Name, Street Name"
             disabled={disabled}
             className="pl-9"
-            aria-invalid={!!errors.addressLine1}
             {...register("addressLine1")}
           />
           <IconMapPin className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
@@ -302,10 +233,10 @@ export function AddressForm({
 
       {/* Street Address Line 2 */}
       <Field data-invalid={!!errors.addressLine2}>
-        <FieldLabel htmlFor="addressLine2">Street Address Line 2</FieldLabel>
+        <FieldLabel htmlFor="addressLine2">Street Address Line 2 (Optional)</FieldLabel>
         <Input
           id="addressLine2"
-          placeholder="Apartment, suite, unit, floor (optional)"
+          placeholder="Apartment, Suite, Unit, Area"
           disabled={disabled}
           {...register("addressLine2")}
         />
@@ -315,10 +246,10 @@ export function AddressForm({
       {/* Landmark & Postal Code */}
       <div className="grid gap-4 sm:grid-cols-2">
         <Field data-invalid={!!errors.landmark}>
-          <FieldLabel htmlFor="landmark">Landmark / Area</FieldLabel>
+          <FieldLabel htmlFor="landmark">Landmark (Optional)</FieldLabel>
           <Input
             id="landmark"
-            placeholder="Near city center, metro station, etc."
+            placeholder="e.g. Near Metro Station, Behind High School"
             disabled={disabled}
             {...register("landmark")}
           />
@@ -326,65 +257,14 @@ export function AddressForm({
         </Field>
 
         <Field data-invalid={!!errors.postalCode}>
-          <FieldLabel htmlFor="postalCode">Postal / PIN Code</FieldLabel>
-          <Input id="postalCode" placeholder="e.g. 560001, 10001" disabled={disabled} {...register("postalCode")} />
+          <FieldLabel htmlFor="postalCode">Postal Code / PIN</FieldLabel>
+          <Input id="postalCode" placeholder="e.g. 110001 or 90210" disabled={disabled} {...register("postalCode")} />
           <FieldError errors={[errors.postalCode]} />
         </Field>
       </div>
 
-      {/* Event Venue specific coordinates */}
-      {variant === "event_venue" && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field data-invalid={!!errors.latitude}>
-            <FieldLabel htmlFor="latitude">Latitude (Optional)</FieldLabel>
-            <Input
-              id="latitude"
-              type="number"
-              step="any"
-              placeholder="e.g. 12.9716"
-              disabled={disabled}
-              {...register("latitude", {
-                valueAsNumber: true,
-              })}
-            />
-            <FieldError errors={[errors.latitude]} />
-          </Field>
-
-          <Field data-invalid={!!errors.longitude}>
-            <FieldLabel htmlFor="longitude">Longitude (Optional)</FieldLabel>
-            <Input
-              id="longitude"
-              type="number"
-              step="any"
-              placeholder="e.g. 77.5946"
-              disabled={disabled}
-              {...register("longitude", {
-                valueAsNumber: true,
-              })}
-            />
-            <FieldError errors={[errors.longitude]} />
-          </Field>
-        </div>
-      )}
-
-      {/* User Default Address Toggle */}
-      {variant === "user" && (
-        <div className="flex items-center gap-2 pt-1">
-          <input
-            id="isDefault"
-            type="checkbox"
-            className="size-4 rounded border-input text-primary focus:ring-ring"
-            disabled={disabled}
-            {...register("isDefault")}
-          />
-          <label htmlFor="isDefault" className="text-sm font-medium text-foreground cursor-pointer">
-            Set as default address
-          </label>
-        </div>
-      )}
-
-      {/* Actions */}
-      <div className="flex items-center justify-end gap-3 pt-2">
+      {/* Form Action Buttons */}
+      <div className="flex items-center justify-end gap-3 pt-4">
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel} disabled={disabled}>
             {cancelLabel}
