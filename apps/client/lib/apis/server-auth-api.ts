@@ -112,6 +112,8 @@ export function mergeCookieHeader(existingCookieHeader: string, newCookies: Pars
  */
 export interface CookieStoreLike {
   toString(): string;
+  getAll?(): Array<{ name: string; value: string }>;
+  get?(name: string): { name: string; value: string } | undefined;
   set?: unknown;
 }
 
@@ -119,6 +121,7 @@ export interface CreateServerApiOptions {
   baseURL?: string;
   timeout?: number;
   cookieStore?: CookieStoreLike;
+  token?: string;
   refreshClient?: typeof axios;
 }
 
@@ -132,12 +135,60 @@ export function createServerApiClient(options: CreateServerApiOptions = {}): Axi
   const cookieStore = options.cookieStore;
   const refreshClient = options.refreshClient || axios;
 
-  let currentCookieHeader = cookieStore ? cookieStore.toString() : "";
+  let currentCookieHeader = "";
+  let extractedBearerToken = options.token || "";
+
+  if (cookieStore) {
+    if (typeof cookieStore.getAll === "function") {
+      const allCookies = cookieStore.getAll();
+      currentCookieHeader = allCookies.map((c) => `${c.name}=${c.value}`).join("; ");
+
+      if (!extractedBearerToken) {
+        const tokenCookie = allCookies.find((c) =>
+          ["accessToken", "token", "auth_token", "orgatick_session", "session_token", "jwt"].includes(c.name),
+        );
+        if (tokenCookie?.value) {
+          extractedBearerToken = tokenCookie.value;
+        }
+      }
+    } else if (typeof cookieStore.toString === "function") {
+      currentCookieHeader = cookieStore.toString();
+    }
+
+    if (!extractedBearerToken && typeof cookieStore.get === "function") {
+      for (const key of ["accessToken", "token", "auth_token", "orgatick_session", "session_token", "jwt"]) {
+        const val = cookieStore.get(key)?.value;
+        if (val) {
+          extractedBearerToken = val;
+          break;
+        }
+      }
+    }
+  }
+
+  const initialHeaders: Record<string, string> = {};
+  if (currentCookieHeader) {
+    initialHeaders.Cookie = currentCookieHeader;
+  }
+  if (extractedBearerToken) {
+    initialHeaders.Authorization = `Bearer ${extractedBearerToken}`;
+  }
 
   const api = axios.create({
     baseURL,
     timeout,
-    headers: currentCookieHeader ? { Cookie: currentCookieHeader } : {},
+    headers: initialHeaders,
+  });
+
+  // Request interceptor to keep Cookie and Authorization headers updated
+  api.interceptors.request.use((config) => {
+    if (currentCookieHeader && !config.headers.Cookie) {
+      config.headers.Cookie = currentCookieHeader;
+    }
+    if (extractedBearerToken && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${extractedBearerToken}`;
+    }
+    return config;
   });
 
   let refreshPromise: Promise<string | null> | null = null;
@@ -145,11 +196,15 @@ export function createServerApiClient(options: CreateServerApiOptions = {}): Axi
   const performRefresh = async (): Promise<string | null> => {
     try {
       const refreshUrl = `${baseURL}/auth/refresh`;
+      const refreshHeaders: Record<string, string> = {};
+      if (currentCookieHeader) refreshHeaders.Cookie = currentCookieHeader;
+      if (extractedBearerToken) refreshHeaders.Authorization = `Bearer ${extractedBearerToken}`;
+
       const response = await refreshClient.post(
         refreshUrl,
         {},
         {
-          headers: currentCookieHeader ? { Cookie: currentCookieHeader } : {},
+          headers: refreshHeaders,
           validateStatus: (status) => status >= 200 && status < 300,
         },
       );
@@ -165,12 +220,26 @@ export function createServerApiClient(options: CreateServerApiOptions = {}): Axi
       if (parsedCookies.length > 0) {
         currentCookieHeader = mergeCookieHeader(currentCookieHeader, parsedCookies);
 
+        // Update extracted bearer token if refreshed
+        const refreshedToken = parsedCookies.find((c) =>
+          ["accessToken", "token", "auth_token", "orgatick_session", "session_token", "jwt"].includes(c.name),
+        );
+        if (refreshedToken?.value) {
+          extractedBearerToken = refreshedToken.value;
+        }
+
         // Update default header on axios instance for future requests
         const defaultsHeaders = api.defaults.headers as Record<string, unknown>;
         if (typeof (defaultsHeaders as { set?: HeaderSetFn }).set === "function") {
           (defaultsHeaders as { set: HeaderSetFn }).set("Cookie", currentCookieHeader);
+          if (extractedBearerToken) {
+            (defaultsHeaders as { set: HeaderSetFn }).set("Authorization", `Bearer ${extractedBearerToken}`);
+          }
         } else {
           defaultsHeaders.Cookie = currentCookieHeader;
+          if (extractedBearerToken) {
+            defaultsHeaders.Authorization = `Bearer ${extractedBearerToken}`;
+          }
         }
 
         // Attempt to propagate to Next.js cookieStore if running in a mutable context (Server Action / Route Handler)
@@ -236,12 +305,18 @@ export function createServerApiClient(options: CreateServerApiOptions = {}): Axi
         return Promise.reject(error);
       }
 
-      // Ensure the retried request uses the refreshed cookie header
+      // Ensure the retried request uses the refreshed cookie header and Authorization
       const reqHeaders = originalRequest.headers as Record<string, unknown>;
       if (typeof (reqHeaders as { set?: HeaderSetFn })?.set === "function") {
         (reqHeaders as { set: HeaderSetFn }).set("Cookie", newCookieHeader);
+        if (extractedBearerToken) {
+          (reqHeaders as { set: HeaderSetFn }).set("Authorization", `Bearer ${extractedBearerToken}`);
+        }
       } else {
         reqHeaders.Cookie = newCookieHeader;
+        if (extractedBearerToken) {
+          reqHeaders.Authorization = `Bearer ${extractedBearerToken}`;
+        }
       }
 
       return api(originalRequest);

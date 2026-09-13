@@ -1,7 +1,7 @@
 import type { UserResponse } from "@orgatick/contracts";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
-import { IconArrowUpRight, IconCheck, IconKey, IconLock, IconShieldLock } from "@tabler/icons-react";
+import { IconArrowUpRight, IconCheck, IconDevices, IconKey, IconLock, IconShieldLock } from "@tabler/icons-react";
 import Link from "next/link";
 
 interface ProfileSecurityCardProps {
@@ -44,10 +44,10 @@ export function ProfileSecurityCard({ user }: ProfileSecurityCardProps) {
           </Badge>
         </div>
 
-        {/* Password Reset action */}
+        {/* Password Reset & Session Management */}
         <div className="space-y-2">
           <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
-            Password & Credentials
+            Password & Sessions
           </div>
 
           <Link
@@ -59,6 +59,20 @@ export function ProfileSecurityCard({ user }: ProfileSecurityCardProps) {
               <div>
                 <span className="font-medium text-foreground block">Change Password</span>
                 <span className="text-[11px] text-muted-foreground block">Send reset token to registered email</span>
+              </div>
+            </div>
+            <IconArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+          </Link>
+
+          <Link
+            href="/sessions"
+            className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 hover:border-primary/50 bg-background hover:bg-muted/40 transition-colors group"
+          >
+            <div className="flex items-center gap-2">
+              <IconDevices className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              <div>
+                <span className="font-medium text-foreground block">Active Sessions</span>
+                <span className="text-[11px] text-muted-foreground block">Manage logged-in devices & browsers</span>
               </div>
             </div>
             <IconArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />

@@ -1,4 +1,5 @@
 import {
+  IconDevices,
   IconHelpCircle,
   IconLayoutDashboard,
   IconReceipt2,
@@ -35,6 +36,11 @@ export const USER_MENU_ITEMS = [
     label: "My Profile",
     href: "/profile",
     icon: IconUser,
+  },
+  {
+    label: "Active Sessions",
+    href: "/sessions",
+    icon: IconDevices,
   },
   {
     label: "My Passes & Tickets",

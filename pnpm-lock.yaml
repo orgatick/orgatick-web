@@ -86,8 +86,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/address
       '@orgatick/contracts':
-        specifier: ^0.1.18
-        version: 0.1.18(zod@4.4.3)
+        specifier: ^0.1.19
+        version: 0.1.19(zod@4.4.3)
       '@orgatick/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -999,6 +999,11 @@ packages:
 
   '@orgatick/contracts@0.1.18':
     resolution: {integrity: sha512-7lcKKucSirjqDYrW5Boh4ojMiowsj+Wd0M6cFvFQKaXSSNqQ2dZOaFa5S6o2bXiE9Ty31hv5YnXm0C2JHavaog==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.18/ea928d7e368af1d268398f5b36f7a382a94f8e46}
+    peerDependencies:
+      zod: '>=3.20.0'
+
+  '@orgatick/contracts@0.1.19':
+    resolution: {integrity: sha512-iVSNxBQXmVRrSgOJAHZ9YT2AwilJwxQOUcIXqXHf8TTeMuCC6bXu98nl0A+0iW0oiYM+PNb/ZaHZzk+9DtnZYA==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.19/4e7d3280ce48d91a7a50926174d5a49ce0fc57a3}
     peerDependencies:
       zod: '>=3.20.0'
 
@@ -3337,6 +3342,10 @@ snapshots:
       fastq: 1.20.1
 
   '@orgatick/contracts@0.1.18(zod@4.4.3)':
+    dependencies:
+      zod: 4.4.3
+
+  '@orgatick/contracts@0.1.19(zod@4.4.3)':
     dependencies:
       zod: 4.4.3
 

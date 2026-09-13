@@ -1,6 +1,5 @@
-import { Button } from "@orgatick/ui/components/button";
+import { LinkButton } from "@/components/ui/link-button";
 import { IconSettings, IconUser } from "@tabler/icons-react";
-import Link from "next/link";
 
 export function SettingsHeader() {
   return (
@@ -27,14 +26,10 @@ export function SettingsHeader() {
         </div>
 
         <div>
-          <Button
-            variant="outline"
-            size="sm"
-            render={<Link href="/profile" className="inline-flex items-center gap-1.5 text-xs font-medium" />}
-          >
+          <LinkButton variant="outline" size="sm" href="/profile">
             <IconUser className="size-3.5 text-primary" />
             <span>View Profile</span>
-          </Button>
+          </LinkButton>
         </div>
       </div>
     </div>
