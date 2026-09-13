@@ -13,6 +13,7 @@ export function AddressDialog({
   initialValues,
   dataLoader,
   onSubmit,
+  showDistrict = false,
 }: AddressDialogProps) {
   const defaultTitle =
     title ||
@@ -50,6 +51,7 @@ export function AddressDialog({
             dataLoader={dataLoader}
             onSubmit={handleSubmit}
             onCancel={() => onOpenChange(false)}
+            showDistrict={showDistrict}
           />
         </div>
       </DialogContent>

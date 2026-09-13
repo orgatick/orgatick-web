@@ -5,6 +5,7 @@ import type {
   AddressResponse,
   CreateAddressDto,
 } from "@orgatick/contracts";
+import type * as React from "react";
 
 export type AddressVariant = "user" | "organization" | "event_venue" | "generic";
 
@@ -31,11 +32,19 @@ export interface AddressDataLoader {
   ) => Promise<AddressCityRef[]>;
 }
 
+export interface AddressOption {
+  value: string;
+  label: string;
+  subLabel?: string;
+  prefix?: React.ReactNode;
+}
+
 export interface AddressFormValues extends CreateAddressDto {
   /** Optional contextual fields for specific entity types */
   label?: string | null; // e.g. "Home", "Office", "HQ"
   venueName?: string | null; // e.g. "Royal Palace Hall" for event_venue
   isDefault?: boolean;
+  divisionUuid2?: string | null; // Optional Level 2 / District
 }
 
 export interface AddressFormProps {
@@ -48,6 +57,7 @@ export interface AddressFormProps {
   submitLabel?: string;
   cancelLabel?: string;
   className?: string;
+  showDistrict?: boolean;
 }
 
 export interface AddressCardProps {
@@ -70,6 +80,7 @@ export interface AddressDialogProps {
   initialValues?: Partial<AddressFormValues> | Partial<AddressResponse>;
   dataLoader: AddressDataLoader;
   onSubmit: (values: AddressFormValues) => Promise<void> | void;
+  showDistrict?: boolean;
 }
 
 export interface AddressPickerProps {

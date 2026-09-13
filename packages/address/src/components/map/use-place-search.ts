@@ -2,6 +2,7 @@
 
 import type { BBox, Feature, FeatureCollection, Point } from "geojson";
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../hooks/use-debounce";
 
 export interface PlaceFeatureProperties {
   osm_id: number;
@@ -95,17 +96,6 @@ export function buildSearchUrl({
   }
 
   return String(url);
-}
-
-export function useDebounce<T>(value: T, delay = 300): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-
-  return debouncedValue;
 }
 
 export function usePlaceSearch({

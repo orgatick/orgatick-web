@@ -29,7 +29,7 @@ export const addressApi = {
     const res = await api.get("/countries", {
       params: {
         search: search?.trim() || undefined,
-        limit: 100,
+        limit: 20,
       },
     });
     return extractArray<AddressCountryRef>(res.data);
