@@ -13,12 +13,13 @@ import { IconChevronRight, IconHome, IconSettings } from "@tabler/icons-react";
 import { userService } from "../_services/user.service";
 import { SettingsHeader } from "./_components/settings-header";
 import { SettingsForm } from "./_components/settings-form";
+import { ChangePasswordCard } from "./_components/change-password-card";
 import { ProfileOverviewCard } from "../profile/_components/profile-overview-card";
 import { ProfileSecurityCard } from "../profile/_components/profile-security-card";
 
 export const metadata: Metadata = {
   title: "Account Settings | Orgatick",
-  description: "Update your Orgatick account profile, avatar, contact information, and personal settings.",
+  description: "Update your Orgatick account profile, avatar, contact information, password, and personal settings.",
 };
 
 export default async function SettingsPage() {
@@ -102,9 +103,10 @@ export default async function SettingsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1, ease: "easeOut" }}
-            className="lg:col-span-8"
+            className="lg:col-span-8 space-y-6 sm:space-y-8"
           >
             <SettingsForm initialUser={initialUser} />
+            <ChangePasswordCard />
           </motion.div>
 
           {/* Sidebar Summary & Security Cards (Server Presentation) */}

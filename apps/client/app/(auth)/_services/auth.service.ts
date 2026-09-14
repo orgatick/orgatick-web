@@ -1,6 +1,7 @@
 import api, { clearAccessToken, setAccessToken } from "@/lib/apis/auth.api";
 import baseApi from "@/lib/apis/base.api";
 import type {
+  ChangePasswordInput,
   ForgotPasswordData,
   LoginData,
   ResetPasswordData,
@@ -66,6 +67,16 @@ export const authService = {
       email: data.email,
       token: data.token,
       password: data.password,
+    });
+    return response.data;
+  },
+
+  async changePassword(data: ChangePasswordInput): Promise<GenericMessageResponse> {
+    const response = await api.post<GenericMessageResponse>("/auth/password/change", {
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+      confirmPassword: data.confirmPassword,
+      revokeOtherSessions: data.revokeOtherSessions ?? true,
     });
     return response.data;
   },

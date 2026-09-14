@@ -6,6 +6,7 @@ import { clearAccessToken, setAccessToken } from "@/lib/apis/auth.api";
 import { authService } from "../_services/auth.service";
 import type { AuthState, LoginResult } from "../_types";
 import type {
+  ChangePasswordInput,
   ForgotPasswordData,
   LoginData,
   ResetPasswordData,
@@ -229,6 +230,21 @@ export const useAuthStore = create<AuthState>()(
           set({ isLoading: false });
           handleApiError(error, "Failed to reset password. The link may have expired.");
           return { success: false };
+        }
+      },
+
+      changePassword: async (data: ChangePasswordInput) => {
+        set({ isLoading: true });
+        try {
+          const response = await authService.changePassword(data);
+          set({ isLoading: false });
+
+          toast.success(response.message || "Password changed successfully!");
+          return { success: true, message: response.message };
+        } catch (error) {
+          set({ isLoading: false });
+          const errorMessage = handleApiError(error, "Failed to change password. Please check your current password.");
+          return { success: false, message: errorMessage };
         }
       },
 

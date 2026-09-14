@@ -1,4 +1,5 @@
 import type {
+  ChangePasswordInput,
   ForgotPasswordData,
   LoginData,
   ResetPasswordData,
@@ -36,6 +37,7 @@ export interface AuthState {
   resendVerification: (email: string) => Promise<{ success: boolean }>;
   verifyEmail: (data: VerifyEmailData) => Promise<{ success: boolean; message?: string }>;
   resetPassword: (data: ResetPasswordData) => Promise<{ success: boolean }>;
+  changePassword: (data: ChangePasswordInput) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   fetchCurrentUser: () => Promise<UserResponse | null>;
   initializeAuth: () => Promise<void>;

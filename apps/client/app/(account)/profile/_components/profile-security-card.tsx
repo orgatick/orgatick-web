@@ -9,10 +9,6 @@ interface ProfileSecurityCardProps {
 }
 
 export function ProfileSecurityCard({ user }: ProfileSecurityCardProps) {
-  const resetPasswordHref = user?.email
-    ? `/forgot-password?email=${encodeURIComponent(user.email)}`
-    : "/forgot-password";
-
   return (
     <Card className="border-border/80 shadow-xs">
       <CardHeader className="border-b border-border/60 pb-4">
@@ -51,14 +47,14 @@ export function ProfileSecurityCard({ user }: ProfileSecurityCardProps) {
           </div>
 
           <Link
-            href={resetPasswordHref}
+            href="/settings#change-password"
             className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 hover:border-primary/50 bg-background hover:bg-muted/40 transition-colors group"
           >
             <div className="flex items-center gap-2">
               <IconKey className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
               <div>
                 <span className="font-medium text-foreground block">Change Password</span>
-                <span className="text-[11px] text-muted-foreground block">Send reset token to registered email</span>
+                <span className="text-[11px] text-muted-foreground block">Update your current account password</span>
               </div>
             </div>
             <IconArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
