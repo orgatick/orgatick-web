@@ -1,0 +1,102 @@
+import { z } from "zod";
+import { CreateAddressSchema } from "../../address";
+import { OrganizationDocumentUploadSchema } from "./documents-upload";
+import { OrganizationSocialLinkInputSchema } from "./social-link";
+import { OrganizationSupportContactInputSchema } from "./support-contact";
+
+export const CreateOrganizationSchema = z.object({
+  name: z
+    .string()
+    .min(2, "Organization name must be at least 3 characters")
+    .max(255, "Organization name must not exceed 255 characters")
+    .trim(),
+  slug: z
+    .string()
+    .min(2, "Slug must be at least 2 characters")
+    .max(255)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase alphanumeric with hyphens")
+    .optional(),
+  categoryId: z.coerce.number().int().positive("Category ID must be a positive integer").optional().nullable(),
+  subCategoryId: z.coerce.number().int().positive("Sub-category ID must be a positive integer"),
+  address: CreateAddressSchema,
+  description: z.string().max(5000).optional().nullable(),
+  logo: z
+    .instanceof(File)
+    .refine((file) => file.size <= 5 * 1024 * 1024, "Logo must not exceed 5MB")
+    .refine(
+      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
+      "Logo must be a JPEG, PNG, or WebP image",
+    )
+    .optional()
+    .nullable(),
+  email: z.string().email("Invalid email format").max(320).optional().nullable(),
+  phoneNumber: z.string().max(30).optional().nullable(),
+  allowPaidEvents: z.boolean().default(false),
+  commissionPercentage: z.coerce.number().min(0).max(100).default(7.0).optional(),
+
+  document: z
+    .array(OrganizationDocumentUploadSchema)
+    .min(2, "At least 2 documents are required")
+    .max(5, "No more than 5 documents are allowed"),
+  socialLinks: z.array(OrganizationSocialLinkInputSchema).min(1).max(6),
+  supportContacts: z.array(OrganizationSupportContactInputSchema).min(1).max(6),
+});
+
+export type CreateOrganizationInput = z.input<typeof CreateOrganizationSchema>;
+export type CreateOrganizationOutput = z.output<typeof CreateOrganizationSchema>;
+export type CreateOrganization = z.infer<typeof CreateOrganizationSchema>;
+
+
+import z from "zod";
+import { OrganizationDocumentType } from "../enums";
+
+export const OrganizationDocumentUploadSchema = z.object({
+  type: z.enum(Object.values(OrganizationDocumentType), { message: `Invalid document type` }),
+  file: z
+    .instanceof(File)
+    .refine((file) => file.size <= 5 * 1024 * 1024, "File must not exceed 5MB")
+    .refine(
+      (file) =>
+        [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ].includes(file.type),
+      "Invalid file type. Only PDF, Word, and Excel files are allowed.",
+    )
+    .optional()
+    .nullable(),
+});
+
+
+import z from "zod";
+import { OrganizationSocialPlatform } from "../enums";
+
+export const OrganizationSocialLinkInputSchema = z.object({
+  platform: z.enum(Object.values(OrganizationSocialPlatform), { message: "Invalid social platform" }),
+  url: z.url("Must be a valid URL"),
+});
+
+
+export enum OrganizationSocialPlatform {
+  WEBSITE = "website",
+  TWITTER = "twitter",
+  INSTAGRAM = "instagram",
+  FACEBOOK = "facebook",
+  LINKEDIN = "linkedin",
+  YOUTUBE = "youtube",
+  GITHUB = "github",
+  DISCORD = "discord",
+  TELEGRAM = "telegram",
+  OTHER = "other",
+}
+
+
+import z from "zod";
+
+export const OrganizationSupportContactInputSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(255),
+  email: z.email("Invalid email format"),
+  phoneNumber: z.string().max(30),
+  isPrimary: z.boolean().default(false),
+});

@@ -164,14 +164,20 @@ importers:
 
   apps/organizer:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^5.9.1
+        version: 5.9.1(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
+      '@orgatick/address':
+        specifier: workspace:*
+        version: link:../../packages/address
       '@orgatick/contracts':
-        specifier: ^0.1.26
-        version: 0.1.26(zod@4.4.3)
+        specifier: ^0.1.28
+        version: 0.1.29(zod@4.4.3)
       '@orgatick/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tabler/icons-react':
-        specifier: ^3.30.0
+        specifier: ^3.46.0
         version: 3.46.0(react@19.2.8)
       axios:
         specifier: ^1.19.0
@@ -192,20 +198,26 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
-        specifier: ^19.2.0
+        specifier: ^19.2.8
         version: 19.2.8
       react-dom:
-        specifier: ^19.2.0
+        specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
+      react-hook-form:
+        specifier: ^7.86.0
+        version: 7.86.0(react@19.2.8)
       sonner:
         specifier: ^2.0.8
         version: 2.0.8(@types/react@19.2.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tailwind-merge:
-        specifier: ^3.0.1
+        specifier: ^3.6.0
         version: 3.6.0
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
       zustand:
         specifier: ^5.0.15
         version: 5.0.15(@types/react@19.2.2)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
@@ -214,7 +226,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
-        specifier: ^4.0.7
+        specifier: ^4.3.3
         version: 4.3.3
       '@types/node':
         specifier: ^22.20.1
@@ -226,10 +238,10 @@ importers:
         specifier: 19.2.2
         version: 19.2.2(@types/react@19.2.2)
       postcss:
-        specifier: ^8.5.2
+        specifier: ^8.5.26
         version: 8.5.26
       tailwindcss:
-        specifier: ^4.0.7
+        specifier: ^4.3.3
         version: 4.3.3
       typescript:
         specifier: 5.9.2
@@ -1010,8 +1022,8 @@ packages:
     peerDependencies:
       zod: '>=3.20.0'
 
-  '@orgatick/contracts@0.1.26':
-    resolution: {integrity: sha512-tv4LyuxWWwy+qGngmC3HWvGMm4//p8P6VCJK0c7sRZJFY3m+AtQzLTOuOTEILCrHo2UbCUlxEBY7I5r3oHEybA==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.26/29e4432b34fd436c6e6f7f1c11996328eae6ddae}
+  '@orgatick/contracts@0.1.29':
+    resolution: {integrity: sha512-9syyPu0SaCmYO4dq+MLtIPYvBmLF+KsM9jIAV1nBqNs397UhyFrNrJqJHHxhU8vQOjo/u7NDVkDYyyvKA8LvLA==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.29/28b2fd940bc067b367375b7c52a45fb5ec2d6076}
     peerDependencies:
       zod: '>=3.20.0'
 
@@ -3357,7 +3369,7 @@ snapshots:
     dependencies:
       zod: 4.4.3
 
-  '@orgatick/contracts@0.1.26(zod@4.4.3)':
+  '@orgatick/contracts@0.1.29(zod@4.4.3)':
     dependencies:
       zod: 4.4.3
 
