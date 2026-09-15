@@ -164,6 +164,9 @@ importers:
 
   apps/organizer:
     dependencies:
+      '@orgatick/contracts':
+        specifier: ^0.1.26
+        version: 0.1.26(zod@4.4.3)
       '@orgatick/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -1004,6 +1007,11 @@ packages:
 
   '@orgatick/contracts@0.1.21':
     resolution: {integrity: sha512-NV3FECY+AccjJHpUK3hvsr2Pg6zdpNQczvLxXZXacnGaC1IC1Y1SjFFraxDMOZPlV3/esngne3+ewmiXz6lgfg==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.21/86f86dcdb1194af136f9660f10c07fc81413ca08}
+    peerDependencies:
+      zod: '>=3.20.0'
+
+  '@orgatick/contracts@0.1.26':
+    resolution: {integrity: sha512-tv4LyuxWWwy+qGngmC3HWvGMm4//p8P6VCJK0c7sRZJFY3m+AtQzLTOuOTEILCrHo2UbCUlxEBY7I5r3oHEybA==, tarball: https://npm.pkg.github.com/download/@orgatick/contracts/0.1.26/29e4432b34fd436c6e6f7f1c11996328eae6ddae}
     peerDependencies:
       zod: '>=3.20.0'
 
@@ -3346,6 +3354,10 @@ snapshots:
       zod: 4.4.3
 
   '@orgatick/contracts@0.1.21(zod@4.4.3)':
+    dependencies:
+      zod: 4.4.3
+
+  '@orgatick/contracts@0.1.26(zod@4.4.3)':
     dependencies:
       zod: 4.4.3
 

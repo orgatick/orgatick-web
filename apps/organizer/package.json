@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "biome check .",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@orgatick/contracts": "^0.1.26",
     "@orgatick/ui": "workspace:*",
     "@tabler/icons-react": "^3.30.0",
     "axios": "^1.19.0",
