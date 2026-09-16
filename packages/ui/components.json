@@ -21,5 +21,8 @@
   },
   "menuColor": "default",
   "menuAccent": "bold",
-  "registries": {}
+  "registries": {
+    "@shadcn-studio": "https://shadcnstudio.com/r/{style}/{name}.json",
+    "@ss-components": "https://shadcnstudio.com/r/components/{style}/{name}.json"
+  }
 }
