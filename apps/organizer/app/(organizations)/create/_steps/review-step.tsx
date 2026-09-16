@@ -2,17 +2,17 @@
 
 import { useFormContext } from "react-hook-form";
 import type { CreateOrganizationInput } from "@orgatick/contracts";
-import { Card, CardContent, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { Card, CardContent, CardHeader, CardTitle, CardAction } from "@orgatick/ui/components/card";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
 import { Separator } from "@orgatick/ui/components/separator";
+import { Alert, AlertTitle, AlertDescription } from "@orgatick/ui/components/alert";
 import {
   IconBuilding,
   IconMapPin,
   IconFileText,
   IconShare,
   IconEdit,
-  IconCheck,
   IconCrown,
   IconShieldCheck,
 } from "@tabler/icons-react";
@@ -39,41 +39,39 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
   const logoUrl = logoFile instanceof File ? URL.createObjectURL(logoFile) : null;
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Overview Notice */}
-      <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <IconShieldCheck className="size-5" />
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-foreground">Review & Confirm Organization Application</h4>
-          <p className="text-xs text-muted-foreground">
-            Please verify all details before submitting. Once submitted, our team will review compliance documents.
-          </p>
-        </div>
-      </div>
+      <Alert>
+        <IconShieldCheck />
+        <AlertTitle>Review & Confirm Organization Application</AlertTitle>
+        <AlertDescription>
+          Please verify all details before submitting. Once submitted, our team will review compliance documents.
+        </AlertDescription>
+      </Alert>
 
       {/* 1. Basic Information Summary */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <div className="flex items-center gap-2">
+        <CardHeader className="gap-1">
+          <CardTitle className="flex items-center gap-2">
             <IconBuilding className="size-4 text-primary" />
-            <CardTitle className="text-base">Organization Profile</CardTitle>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => onEditStep(0)}
-            className="h-8 gap-1 text-xs text-primary hover:bg-primary/10"
-          >
-            <IconEdit className="size-3.5" />
-            Edit
-          </Button>
+            Organization Profile
+          </CardTitle>
+          <CardAction>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEditStep(0)}
+              className="text-primary hover:bg-primary/10"
+            >
+              <IconEdit data-icon="inline-start" />
+              Edit
+            </Button>
+          </CardAction>
         </CardHeader>
-        <CardContent className="space-y-4 text-xs">
+        <CardContent className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
-            <div className="relative flex size-14 shrink-0 items-center justify-center rounded-xl border border-border bg-muted overflow-hidden">
+            <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
               {logoUrl ? (
                 // biome-ignore lint/performance/noImgElement: user-uploaded preview object URL
                 <img src={logoUrl} alt="Logo Preview" className="size-full object-cover" />
@@ -81,7 +79,7 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
                 <IconBuilding className="size-6 text-muted-foreground" />
               )}
             </div>
-            <div className="space-y-1">
+            <div className="flex flex-col gap-1">
               <h4 className="text-sm font-bold text-foreground">{basicInfo?.name || "Untitled Organization"}</h4>
               {basicInfo?.slug && (
                 <p className="font-mono text-xs text-muted-foreground">orgatick.com/{basicInfo.slug}</p>
@@ -95,7 +93,7 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
 
           <Separator />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <span className="text-muted-foreground">Official Email:</span>
               <p className="font-medium text-foreground">{basicInfo?.email || "—"}</p>
@@ -109,7 +107,7 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
           {basicInfo?.description && (
             <div>
               <span className="text-muted-foreground">Overview:</span>
-              <p className="mt-1 text-foreground leading-relaxed">{basicInfo.description}</p>
+              <p className="mt-1 leading-relaxed text-foreground">{basicInfo.description}</p>
             </div>
           )}
         </CardContent>
@@ -117,23 +115,25 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
 
       {/* 2. Registered Address Summary */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <div className="flex items-center gap-2">
+        <CardHeader className="gap-1">
+          <CardTitle className="flex items-center gap-2">
             <IconMapPin className="size-4 text-primary" />
-            <CardTitle className="text-base">Registered Office Address</CardTitle>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => onEditStep(1)}
-            className="h-8 gap-1 text-xs text-primary hover:bg-primary/10"
-          >
-            <IconEdit className="size-3.5" />
-            Edit
-          </Button>
+            Registered Office Address
+          </CardTitle>
+          <CardAction>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEditStep(1)}
+              className="text-primary hover:bg-primary/10"
+            >
+              <IconEdit data-icon="inline-start" />
+              Edit
+            </Button>
+          </CardAction>
         </CardHeader>
-        <CardContent className="space-y-2 text-xs">
+        <CardContent className="flex flex-col gap-2">
           <p className="font-medium text-foreground">{address?.addressLine1 || "—"}</p>
           {address?.addressLine2 && <p className="text-muted-foreground">{address.addressLine2}</p>}
           {address?.landmark && <p className="text-muted-foreground">Landmark: {address.landmark}</p>}
@@ -143,44 +143,44 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
 
       {/* 3. Verification Documents Summary */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <div className="flex items-center gap-2">
+        <CardHeader className="gap-1">
+          <CardTitle className="flex items-center gap-2">
             <IconFileText className="size-4 text-primary" />
-            <CardTitle className="text-base">Verification Documents ({documents.length})</CardTitle>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => onEditStep(2)}
-            className="h-8 gap-1 text-xs text-primary hover:bg-primary/10"
-          >
-            <IconEdit className="size-3.5" />
-            Edit
-          </Button>
+            Verification Documents ({documents.length})
+          </CardTitle>
+          <CardAction>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEditStep(2)}
+              className="text-primary hover:bg-primary/10"
+            >
+              <IconEdit data-icon="inline-start" />
+              Edit
+            </Button>
+          </CardAction>
         </CardHeader>
-        <CardContent className="space-y-2 text-xs">
+        <CardContent className="flex flex-col gap-2">
           {documents.map((doc) => {
             const hasFile = doc.file instanceof File;
             return (
               <div
                 key={doc.type}
-                className="flex items-center justify-between rounded-lg border border-border p-2.5 bg-muted/20"
+                className="flex items-center justify-between rounded-lg border border-border bg-muted/20 p-2.5"
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-foreground uppercase">{doc.type}</span>
+                  <span className="font-semibold uppercase text-foreground">{doc.type}</span>
                   {hasFile ? (
                     <span className="text-muted-foreground">({(doc.file as File).name})</span>
                   ) : (
-                    <span className="text-muted-foreground italic">(No file attached)</span>
+                    <span className="italic text-muted-foreground">(No file attached)</span>
                   )}
                 </div>
                 {hasFile ? (
-                  <Badge variant="outline" className="text-emerald-600 bg-emerald-500/10 border-emerald-500/20 gap-1">
-                    <IconCheck className="size-3" /> Attached
-                  </Badge>
+                  <Badge variant="secondary">Attached</Badge>
                 ) : (
-                  <Badge variant="outline" className="text-amber-600 bg-amber-500/10 border-amber-500/20">
+                  <Badge variant="outline" className="text-muted-foreground">
                     Pending
                   </Badge>
                 )}
@@ -192,25 +192,27 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
 
       {/* 4. Social Links & Support Contacts Summary */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <div className="flex items-center gap-2">
+        <CardHeader className="gap-1">
+          <CardTitle className="flex items-center gap-2">
             <IconShare className="size-4 text-primary" />
-            <CardTitle className="text-base">Social Links & Support Team</CardTitle>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => onEditStep(3)}
-            className="h-8 gap-1 text-xs text-primary hover:bg-primary/10"
-          >
-            <IconEdit className="size-3.5" />
-            Edit
-          </Button>
+            Social Links & Support Team
+          </CardTitle>
+          <CardAction>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEditStep(3)}
+              className="text-primary hover:bg-primary/10"
+            >
+              <IconEdit data-icon="inline-start" />
+              Edit
+            </Button>
+          </CardAction>
         </CardHeader>
-        <CardContent className="space-y-4 text-xs">
+        <CardContent className="flex flex-col gap-4">
           <div>
-            <span className="font-semibold text-foreground block mb-2">Connected Channels</span>
+            <span className="mb-2 block font-semibold text-foreground">Connected Channels</span>
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((s) => (
                 <div
@@ -218,12 +220,12 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
                   className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 shadow-2xs"
                 >
                   {getSocialIcon(s.platform)}
-                  <span className="capitalize font-medium text-foreground">{s.platform}:</span>
+                  <span className="font-medium capitalize text-foreground">{s.platform}:</span>
                   <a
                     href={s.url || "#"}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-primary hover:underline max-w-[150px] truncate"
+                    className="max-w-[150px] truncate text-primary hover:underline"
                   >
                     {s.url || "—"}
                   </a>
@@ -235,18 +237,18 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
           <Separator />
 
           <div>
-            <span className="font-semibold text-foreground block mb-2">Support Contacts</span>
+            <span className="mb-2 block font-semibold text-foreground">Support Contacts</span>
             <div className="grid gap-2 sm:grid-cols-2">
               {supportContacts.map((contact) => (
                 <div
                   key={contact.name || contact.email}
-                  className="rounded-lg border border-border p-3 bg-muted/20 space-y-1"
+                  className="flex flex-col gap-1 rounded-lg border border-border bg-muted/20 p-3"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-foreground">{contact.name || "—"}</span>
                     {contact.isPrimary && (
-                      <Badge variant="secondary" className="gap-1 text-[10px] bg-primary/10 text-primary">
-                        <IconCrown className="size-3" />
+                      <Badge variant="secondary" className="gap-1 bg-primary/10 text-primary">
+                        <IconCrown />
                         Primary
                       </Badge>
                     )}

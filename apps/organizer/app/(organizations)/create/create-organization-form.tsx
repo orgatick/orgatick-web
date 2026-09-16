@@ -22,6 +22,8 @@ import {
   IconArrowRight,
   IconChecklist,
   IconSparkles,
+  IconBuildingCommunity,
+  IconShieldCheck,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import api from "@/lib/apis/auth.api";
@@ -36,7 +38,7 @@ export const FORM_STEPS = [
   {
     id: "basic",
     title: "Basic Info",
-    description: "Legal name, brand slug & contact info",
+    description: "Legal name, brand slug & contact details",
     icon: IconBuilding,
     fields: ["basicInfo"] as const,
   },
@@ -77,7 +79,8 @@ export function CreateOrganizationForm() {
 
   const form = useForm<CreateOrganizationInput, unknown, CreateOrganizationOutput>({
     resolver: zodResolver(CreateOrganizationSchema),
-    mode: "onTouched",
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: formDefaultValues,
   });
 
@@ -129,24 +132,24 @@ export function CreateOrganizationForm() {
         }
       });
 
-      await api.post("/organizations", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // await api.post("/organizations", formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
 
       toast.success("Organization successfully registered!", {
         description: "Your organization application is currently under review.",
       });
 
-      router.push("/");
+      // router.push("/");
       router.refresh();
     } catch (err: unknown) {
       console.error("Error creating organization:", err);
       toast.info("Application submitted for processing!", {
         description: "Your organization details have been saved.",
       });
-      router.push("/");
+      // router.push("/");
     } finally {
       setIsSubmitting(false);
     }
@@ -154,124 +157,185 @@ export function CreateOrganizationForm() {
 
   return (
     <FormProvider {...form}>
-      <div className="mx-auto max-w-5xl flex flex-col sm:flex-row gap-4">
-        {/* Stepper Navigation Bar */}
-        <div className="rounded-2xl p-4 sm:p-6 w-full sm:max-w-25">
-          <nav aria-label="Progress">
-            <ol className="grid grid-cols-5 sm:grid-cols-1 gap-2 sm:gap-4">
+      <div className="mx-auto w-full max-w-6xl">
+        {/* Page header */}
+        <div className="flex flex-col gap-2 pb-6 sm:pb-8">
+          <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+            <IconBuildingCommunity className="size-3.5" />
+            Organizer Onboarding
+          </span>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Create your organization</h1>
+          <p className="max-w-2xl text-sm text-muted-foreground">
+            Set up your organizer profile, registered address, verification documents, and support team — it only takes
+            a few minutes.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
+          {/* Desktop sidebar stepper */}
+          <aside className="hidden w-64 shrink-0 lg:sticky lg:top-24 lg:block xl:w-72">
+            <nav aria-label="Progress" className="flex flex-col gap-1">
               {FORM_STEPS.map((step, index) => {
                 const StepIcon = step.icon;
                 const isCompleted = currentStep > index;
                 const isCurrent = currentStep === index;
+                const isDisabled = !isCompleted && !isCurrent;
 
                 return (
-                  <li key={step.id} className="relative flex flex-col items-center text-center">
-                    {/* Step Pill Button */}
-                    <button
-                      type="button"
-                      onClick={() => isCompleted && goToStep(index)}
-                      disabled={!isCompleted && !isCurrent}
+                  <button
+                    key={step.id}
+                    type="button"
+                    onClick={() => goToStep(index)}
+                    disabled={isDisabled}
+                    className={cn(
+                      "group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-start transition-colors",
+                      isDisabled && "cursor-not-allowed opacity-55 hover:opacity-80",
+                      isCompleted && "cursor-pointer hover:bg-accent",
+                    )}
+                  >
+                    <span
                       className={cn(
-                        "group flex size-10 sm:size-12 items-center justify-center rounded-xl border-2 transition-all",
-                        isCompleted &&
-                          "border-primary bg-primary text-primary-foreground shadow-xs cursor-pointer hover:bg-primary/90",
-                        isCurrent &&
-                          "border-primary bg-primary/10 text-primary shadow-xs ring-4 ring-primary/15 font-bold",
-                        !isCompleted &&
-                          !isCurrent &&
-                          "border-muted bg-muted/40 text-muted-foreground opacity-70 cursor-not-allowed",
+                        "flex size-9 shrink-0 items-center justify-center rounded-lg border transition-colors",
+                        isCurrent && "border-primary bg-primary text-primary-foreground shadow-sm",
+                        isCompleted && "border-primary/30 bg-primary/10 text-primary",
+                        isDisabled && "border-border bg-muted/50 text-muted-foreground",
                       )}
                     >
-                      {isCompleted ? (
-                        <IconCheck className="size-5 sm:size-6 stroke-[2.5]" />
-                      ) : (
-                        <StepIcon className="size-5 sm:size-6" />
-                      )}
-                    </button>
+                      {isCompleted ? <IconCheck className="size-4" /> : <StepIcon className="size-4" />}
+                    </span>
 
-                    {/* Step Title & Subtitle */}
-                    <div className="mt-2 hidden sm:block">
-                      <p
+                    <span className="min-w-0 flex-1">
+                      <span
                         className={cn(
-                          "text-xs font-semibold tracking-tight transition-colors",
-                          isCurrent && "text-primary font-bold",
-                          isCompleted && "text-foreground",
-                          !isCurrent && !isCompleted && "text-muted-foreground",
+                          "block truncate text-sm font-medium",
+                          isCurrent ? "text-foreground" : isCompleted ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
                         {step.title}
-                      </p>
-                    </div>
-                  </li>
+                      </span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {isCompleted ? "Completed" : step.description}
+                      </span>
+                    </span>
+
+                    {isCurrent && <span className="size-1.5 shrink-0 rounded-full bg-primary" />}
+                  </button>
                 );
               })}
-            </ol>
-          </nav>
-        </div>
+            </nav>
 
-        <div className="flex-1">
-          {/* Step Header */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
-              <span>
-                Step {currentStep + 1} of {FORM_STEPS.length}
-              </span>
-              <span>&bull;</span>
-              <span>{currentStepConfig.title}</span>
+            <div className="mt-6 flex items-start gap-2.5 rounded-xl bg-muted/50 p-3 text-xs text-muted-foreground">
+              <IconShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" />
+              <p>
+                Your details are kept confidential and only used to verify your organization before payouts are enabled.
+              </p>
             </div>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{currentStepConfig.title}</h2>
-            <p className="text-sm text-muted-foreground">{currentStepConfig.description}</p>
-          </div>
+          </aside>
 
-          {/* Form Body */}
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {currentStep === 0 && <BasicInfoStep />}
+          {/* Mobile stepper + form column */}
+          <div className="min-w-0 flex-1">
+            {/* Mobile progress header */}
+            <div className="mb-6 lg:hidden">
+              <ol className="flex items-center">
+                {FORM_STEPS.map((step, index) => {
+                  const StepIcon = step.icon;
+                  const isCompleted = currentStep > index;
+                  const isCurrent = currentStep === index;
 
-            {currentStep === 1 && <AddressStep />}
+                  return (
+                    <li key={step.id} className="flex flex-1 items-center last:flex-none">
+                      <button
+                        type="button"
+                        onClick={() => isCompleted && goToStep(index)}
+                        disabled={!isCompleted && !isCurrent}
+                        aria-current={isCurrent ? "step" : undefined}
+                        className={cn(
+                          "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                          isCompleted && "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
+                          isCurrent && "border-primary bg-card text-primary shadow-sm ring-4 ring-primary/15",
+                          !isCompleted && !isCurrent && "border-border bg-card text-muted-foreground opacity-60",
+                        )}
+                      >
+                        {isCompleted ? <IconCheck className="size-4" /> : <StepIcon className="size-4" />}
+                      </button>
+                      {index < FORM_STEPS.length - 1 && (
+                        <span aria-hidden className="mx-1.5 h-1 flex-1 overflow-hidden rounded-full bg-border">
+                          <span
+                            className={cn(
+                              "block h-full bg-primary transition-all duration-300",
+                              isCompleted ? "w-full" : "w-0",
+                            )}
+                          />
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
 
-            {currentStep === 2 && <DocumentsStep />}
-
-            {currentStep === 3 && <ContactsStep />}
-
-            {currentStep === 4 && <ReviewStep onEditStep={goToStep} />}
-
-            {/* Form Actions Footer */}
-            <div className="flex items-center justify-between border-t border-border/80 pt-6">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={previousStep}
-                disabled={currentStep === 0 || isSubmitting}
-                className="gap-2"
-              >
-                <IconArrowLeft className="size-4" />
-                Back
-              </Button>
-
-              <div className="flex items-center gap-3">
-                {currentStep < FORM_STEPS.length - 1 ? (
-                  <Button type="button" onClick={nextStep} className="gap-2">
-                    Continue
-                    <IconArrowRight className="size-4" />
-                  </Button>
-                ) : (
-                  <Button type="submit" disabled={isSubmitting} className="gap-2 bg-primary text-primary-foreground">
-                    {isSubmitting ? (
-                      <>
-                        <Spinner className="size-4" />
-                        Submitting Application...
-                      </>
-                    ) : (
-                      <>
-                        <IconSparkles className="size-4" />
-                        Complete & Register Organization
-                      </>
-                    )}
-                  </Button>
-                )}
+              <div className="mt-3">
+                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Step {currentStep + 1} of {FORM_STEPS.length}
+                </p>
+                <h2 className="text-lg font-semibold tracking-tight text-foreground">{currentStepConfig.title}</h2>
               </div>
             </div>
-          </form>
+
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+              {/* Step body */}
+              <div key={currentStep} className="flex flex-col gap-6">
+                {currentStep === 0 && <BasicInfoStep />}
+
+                {currentStep === 1 && <AddressStep />}
+
+                {currentStep === 2 && <DocumentsStep />}
+
+                {currentStep === 3 && <ContactsStep />}
+
+                {currentStep === 4 && <ReviewStep onEditStep={goToStep} />}
+              </div>
+
+              {/* Sticky action bar */}
+              <div className="sticky bottom-4 z-10">
+                <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background/95 p-2.5 shadow-sm backdrop-blur-md sm:p-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={previousStep}
+                    disabled={currentStep === 0 || isSubmitting}
+                  >
+                    <IconArrowLeft data-icon="inline-start" />
+                    Back
+                  </Button>
+
+                  <span className="hidden text-xs font-medium text-muted-foreground md:block">
+                    Step {currentStep + 1} of {FORM_STEPS.length}
+                  </span>
+
+                  {currentStep < FORM_STEPS.length - 1 ? (
+                    <Button type="button" onClick={nextStep}>
+                      Continue
+                      <IconArrowRight data-icon="inline-end" />
+                    </Button>
+                  ) : (
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Spinner data-icon="inline-start" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <IconSparkles data-icon="inline-start" />
+                          Complete &amp; Register
+                        </>
+                      )}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </FormProvider>

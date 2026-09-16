@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function CreateOrganizationPage() {
   return (
-    <div className="container mx-auto">
+    <div className="py-6 sm:py-10">
       <CreateOrganizationForm />
     </div>
   );

@@ -1,24 +1,29 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import type { CreateOrganizationInput } from "@orgatick/contracts";
-import { Field, FieldError, FieldLabel, FieldDescription } from "@orgatick/ui/components/field";
-import { Input } from "@orgatick/ui/components/input";
-import { Textarea } from "@orgatick/ui/components/textarea";
+import { Field, FieldError, FieldLabel, FieldDescription, FieldGroup } from "@orgatick/ui/components/field";
 import { Button } from "@orgatick/ui/components/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
 import {
-  IconBuilding,
-  IconMail,
-  IconPhone,
-  IconUpload,
-  IconX,
-  IconSparkles,
-  IconCategory,
-  IconLink,
-} from "@tabler/icons-react";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@orgatick/ui/components/select";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@orgatick/ui/components/input-group";
+import { IconBuilding, IconMail, IconPhone, IconUpload, IconX, IconSparkles, IconLink } from "@tabler/icons-react";
 import { ORGANIZATION_CATEGORIES } from "../_constents/categories";
+import Image from "next/image";
 
 function slugify(text: string): string {
   return text
@@ -32,6 +37,7 @@ function slugify(text: string): string {
 export function BasicInfoStep() {
   const {
     register,
+    control,
     watch,
     setValue,
     formState: { errors },
@@ -43,8 +49,8 @@ export function BasicInfoStep() {
 
   const organizationName = watch("basicInfo.name");
   const selectedCategoryId = watch("basicInfo.categoryId");
-  const selectedSubCategoryId = watch("basicInfo.subCategoryId");
   const currentLogo = watch("basicInfo.logo");
+  const description = watch("basicInfo.description") || "";
 
   // Keep logo preview in sync if logo exists in state
   useEffect(() => {
@@ -66,8 +72,7 @@ export function BasicInfoStep() {
     }
   };
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const catId = Number(e.target.value);
+  const handleCategoryChange = (catId: number) => {
     setValue("basicInfo.categoryId", catId, { shouldValidate: true, shouldDirty: true });
     const cat = ORGANIZATION_CATEGORIES.find((c) => c.id === catId);
     const firstSub = cat?.subCategories[0];
@@ -79,8 +84,7 @@ export function BasicInfoStep() {
     }
   };
 
-  const handleSubCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const subCatId = Number(e.target.value);
+  const handleSubCategoryChange = (subCatId: number) => {
     setValue("basicInfo.subCategoryId", subCatId, { shouldValidate: true, shouldDirty: true });
   };
 
@@ -110,166 +114,189 @@ export function BasicInfoStep() {
   const basicErrors = errors.basicInfo;
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold">Organization Profile</CardTitle>
-          <CardDescription>
-            Provide the legal name, contact email, and branding details for your organizer entity.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          {/* Logo Upload Section */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-xl border border-dashed border-border bg-muted/20">
-            <div className="relative flex size-20 shrink-0 items-center justify-center rounded-xl border border-border bg-muted overflow-hidden shadow-xs">
-              {logoPreview ? (
-                // biome-ignore lint/performance/noImgElement: user-uploaded preview object URL
-                <img src={logoPreview} alt="Organization Logo" className="size-full object-cover" />
-              ) : (
-                <IconBuilding className="size-8 text-muted-foreground" />
-              )}
-            </div>
-
-            <div className="flex-1 space-y-1.5">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-foreground">Organization Logo</span>
-                <span className="text-xs text-muted-foreground">(Optional, Max 5MB)</span>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Upload a square logo (JPEG, PNG, or WebP) to display across your tickets, invoices, and organizer page.
-              </p>
-
-              <div className="flex items-center gap-2 pt-1">
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0] || null;
-                    handleLogoChange(file);
-                  }}
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="gap-1.5 text-xs h-8"
-                >
-                  <IconUpload className="size-3.5" />
-                  {logoPreview ? "Change Logo" : "Upload Logo"}
-                </Button>
-                {logoPreview && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      handleLogoChange(null);
-                      if (fileInputRef.current) fileInputRef.current.value = "";
-                    }}
-                    className="gap-1.5 text-xs h-8 text-destructive hover:bg-destructive/10"
-                  >
-                    <IconX className="size-3.5" />
-                    Remove
-                  </Button>
-                )}
-              </div>
-              {(logoError || basicErrors?.logo?.message) && (
-                <p className="text-xs text-destructive">{logoError || basicErrors?.logo?.message}</p>
-              )}
-            </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Organization Profile</CardTitle>
+        <CardDescription>
+          Provide the legal name, contact email, and branding details for your organizer entity.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-5">
+        {/* Logo Upload Section */}
+        <div className="flex flex-col gap-4 rounded-xl border border-dashed border-border bg-muted/20 p-4 sm:flex-row sm:items-center">
+          <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted shadow-xs">
+            {logoPreview ? (
+              <Image
+                src={logoPreview}
+                alt="Organization Logo"
+                className="size-full object-cover"
+                width={100}
+                height={100}
+              />
+            ) : (
+              <IconBuilding className="size-8 text-muted-foreground" />
+            )}
           </div>
 
+          <div className="flex flex-1 flex-col gap-1.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-semibold text-foreground">Organization Logo</span>
+              <span className="text-xs text-muted-foreground">(Optional, max 5MB)</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Upload a square logo (JPEG, PNG, or WebP) to display across your tickets, invoices, and organizer page.
+            </p>
+
+            <div className="flex items-center gap-2 pt-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  handleLogoChange(file);
+                }}
+              />
+              <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
+                <IconUpload data-icon="inline-start" />
+                {logoPreview ? "Change Logo" : "Upload Logo"}
+              </Button>
+              {logoPreview && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    handleLogoChange(null);
+                    if (fileInputRef.current) fileInputRef.current.value = "";
+                  }}
+                  className="text-destructive hover:bg-destructive/10"
+                >
+                  <IconX data-icon="inline-start" />
+                  Remove
+                </Button>
+              )}
+            </div>
+            {(logoError || basicErrors?.logo?.message) && (
+              <p className="text-xs text-destructive">{logoError || basicErrors?.logo?.message}</p>
+            )}
+          </div>
+        </div>
+
+        <FieldGroup className="gap-5">
           {/* Organization Name & Slug */}
           <div className="grid gap-4 sm:grid-cols-2">
             <Field data-invalid={Boolean(basicErrors?.name)}>
               <FieldLabel htmlFor="basicInfo.name">
                 Organization Name <span className="text-destructive">*</span>
               </FieldLabel>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
                   id="basicInfo.name"
                   placeholder="e.g. Acme Entertainment Group"
-                  className="pl-9"
+                  aria-invalid={Boolean(basicErrors?.name)}
                   {...register("basicInfo.name")}
                 />
-                <IconBuilding className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
+                <InputGroupAddon>
+                  <IconBuilding />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError errors={[basicErrors?.name]} />
             </Field>
 
             <Field data-invalid={Boolean(basicErrors?.slug)}>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <FieldLabel htmlFor="basicInfo.slug">Public URL Slug</FieldLabel>
-                <button
+                <Button
                   type="button"
+                  variant="link"
+                  size="sm"
                   onClick={handleGenerateSlug}
-                  className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                  className="h-auto p-0 text-primary"
                 >
-                  <IconSparkles className="size-3" />
+                  <IconSparkles data-icon="inline-start" />
                   Auto-fill
-                </button>
+                </Button>
               </div>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
                   id="basicInfo.slug"
                   placeholder="e.g. acme-entertainment-group"
-                  className="pl-9"
+                  aria-invalid={Boolean(basicErrors?.slug)}
                   {...register("basicInfo.slug")}
                 />
-                <IconLink className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
+                <InputGroupAddon>
+                  <IconLink />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError errors={[basicErrors?.slug]} />
             </Field>
           </div>
 
           {/* Industry Category & Sub-Category */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field data-invalid={Boolean(basicErrors?.categoryId)}>
-              <FieldLabel htmlFor="basicInfo.categoryId">Primary Industry Category</FieldLabel>
-              <div className="relative">
-                <select
-                  id="basicInfo.categoryId"
-                  value={selectedCategoryId ? Number(selectedCategoryId) : (defaultCat?.id ?? 1)}
-                  onChange={handleCategoryChange}
-                  className="h-9 w-full appearance-none rounded-lg border border-input bg-transparent px-3 pl-9 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                >
-                  {ORGANIZATION_CATEGORIES.map((cat) => (
-                    <option key={cat.id} value={cat.id} className="bg-popover text-popover-foreground">
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-                <IconCategory className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
-              <FieldDescription>Choose the primary sector your events fall under.</FieldDescription>
-              <FieldError errors={[basicErrors?.categoryId]} />
-            </Field>
+            <Controller
+              control={control}
+              name="basicInfo.categoryId"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="basicInfo.categoryId">Primary Industry Category</FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={String(field.value ?? "")}
+                    onValueChange={(value) => handleCategoryChange(Number(value))}
+                  >
+                    <SelectTrigger id="basicInfo.categoryId" className="w-full" aria-invalid={fieldState.invalid}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {ORGANIZATION_CATEGORIES.map((cat) => (
+                          <SelectItem key={cat.id} value={String(cat.id)}>
+                            {cat.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FieldDescription>Choose the primary sector your events fall under.</FieldDescription>
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+            />
 
-            <Field data-invalid={Boolean(basicErrors?.subCategoryId)}>
-              <FieldLabel htmlFor="basicInfo.subCategoryId">
-                Sub-Category <span className="text-destructive">*</span>
-              </FieldLabel>
-              <div className="relative">
-                <select
-                  id="basicInfo.subCategoryId"
-                  value={selectedSubCategoryId ? Number(selectedSubCategoryId) : (subCategories[0]?.id ?? 101)}
-                  onChange={handleSubCategoryChange}
-                  className="h-9 w-full appearance-none rounded-lg border border-input bg-transparent px-3 pl-9 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                >
-                  {subCategories.map((sub) => (
-                    <option key={sub.id} value={sub.id} className="bg-popover text-popover-foreground">
-                      {sub.name}
-                    </option>
-                  ))}
-                </select>
-                <IconCategory className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
-              <FieldDescription>Specialized domain for better event discovery.</FieldDescription>
-              <FieldError errors={[basicErrors?.subCategoryId]} />
-            </Field>
+            <Controller
+              control={control}
+              name="basicInfo.subCategoryId"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="basicInfo.subCategoryId">
+                    Sub-Category <span className="text-destructive">*</span>
+                  </FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={String(field.value ?? "")}
+                    onValueChange={(value) => handleSubCategoryChange(Number(value))}
+                  >
+                    <SelectTrigger id="basicInfo.subCategoryId" className="w-full" aria-invalid={fieldState.invalid}>
+                      <SelectValue placeholder="Select a sub-category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {subCategories.map((sub) => (
+                          <SelectItem key={sub.id} value={String(sub.id)}>
+                            {sub.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FieldDescription>Specialized domain for better event discovery.</FieldDescription>
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+            />
           </div>
 
           {/* Official Email & Official Phone */}
@@ -278,16 +305,18 @@ export function BasicInfoStep() {
               <FieldLabel htmlFor="basicInfo.email">
                 Official Organization Email <span className="text-destructive">*</span>
               </FieldLabel>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
                   id="basicInfo.email"
                   type="email"
                   placeholder="e.g. contact@acme.com"
-                  className="pl-9"
+                  aria-invalid={Boolean(basicErrors?.email)}
                   {...register("basicInfo.email")}
                 />
-                <IconMail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
+                <InputGroupAddon>
+                  <IconMail />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError errors={[basicErrors?.email]} />
             </Field>
 
@@ -295,15 +324,17 @@ export function BasicInfoStep() {
               <FieldLabel htmlFor="basicInfo.phoneNumber">
                 Official Phone Number <span className="text-destructive">*</span>
               </FieldLabel>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
                   id="basicInfo.phoneNumber"
                   placeholder="e.g. +1 555-0199 or +91 9876543210"
-                  className="pl-9"
+                  aria-invalid={Boolean(basicErrors?.phoneNumber)}
                   {...register("basicInfo.phoneNumber")}
                 />
-                <IconPhone className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
+                <InputGroupAddon>
+                  <IconPhone />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError errors={[basicErrors?.phoneNumber]} />
             </Field>
           </div>
@@ -311,23 +342,23 @@ export function BasicInfoStep() {
           {/* Organization Description */}
           <Field data-invalid={Boolean(basicErrors?.description)}>
             <FieldLabel htmlFor="basicInfo.description">Organization Overview / Bio</FieldLabel>
-            <div className="relative">
-              <Textarea
+            <InputGroup>
+              <InputGroupTextarea
                 id="basicInfo.description"
                 placeholder="Describe your organization, past events, mission, and the community you serve..."
                 rows={4}
-                className="resize-none"
+                aria-invalid={Boolean(basicErrors?.description)}
                 {...register("basicInfo.description")}
               />
-            </div>
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>Tell attendees and ticketing partners about your organization.</span>
-              <span>{(watch("basicInfo.description") || "").length} / 5000</span>
-            </div>
+              <InputGroupAddon align="block-end">
+                <InputGroupText className="tabular-nums">{description.length} / 5000</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+            <FieldDescription>Tell attendees and ticketing partners about your organization.</FieldDescription>
             <FieldError errors={[basicErrors?.description]} />
           </Field>
-        </CardContent>
-      </Card>
-    </div>
+        </FieldGroup>
+      </CardContent>
+    </Card>
   );
 }

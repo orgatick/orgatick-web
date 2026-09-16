@@ -11,6 +11,7 @@ import type {
 import { Field, FieldError, FieldLabel } from "@orgatick/ui/components/field";
 import { Input } from "@orgatick/ui/components/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@orgatick/ui/components/input-group";
 import { IconMapPin, IconMapPinFilled, IconSearch, IconChevronDown, IconCheck } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@orgatick/ui/components/popover";
 import { Button } from "@orgatick/ui/components/button";
@@ -296,7 +297,7 @@ export function AddressStep() {
             Enter the physical or registered headquarters address for official contracts, tax compliance, and invoices.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-5">
+        <CardContent className="flex flex-col gap-5">
           {/* Country, State, City Selection */}
           <div className="grid gap-4 sm:grid-cols-3">
             {/* Country */}
@@ -326,11 +327,11 @@ export function AddressStep() {
                       <span className="text-muted-foreground">Select Country</span>
                     )}
                   </span>
-                  <IconChevronDown className="size-4 opacity-50 shrink-0" />
+                  <IconChevronDown className="shrink-0 opacity-50" />
                 </PopoverTrigger>
                 <PopoverContent className="w-64 p-0 shadow-md">
                   <div className="flex items-center gap-2 border-b border-border px-2.5 py-1.5 bg-popover">
-                    <IconSearch className="size-3.5 text-muted-foreground shrink-0" />
+                    <IconSearch className="size-3.5 shrink-0 text-muted-foreground" />
                     <input
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
@@ -403,11 +404,11 @@ export function AddressStep() {
                       </span>
                     )}
                   </span>
-                  <IconChevronDown className="size-4 opacity-50 shrink-0" />
+                  <IconChevronDown className="shrink-0 opacity-50" />
                 </PopoverTrigger>
                 <PopoverContent className="w-64 p-0 shadow-md">
                   <div className="flex items-center gap-2 border-b border-border px-2.5 py-1.5 bg-popover">
-                    <IconSearch className="size-3.5 text-muted-foreground shrink-0" />
+                    <IconSearch className="size-3.5 shrink-0 text-muted-foreground" />
                     <input
                       value={divisionSearch}
                       onChange={(e) => setDivisionSearch(e.target.value)}
@@ -471,11 +472,11 @@ export function AddressStep() {
                       </span>
                     )}
                   </span>
-                  <IconChevronDown className="size-4 opacity-50 shrink-0" />
+                  <IconChevronDown className="shrink-0 opacity-50" />
                 </PopoverTrigger>
                 <PopoverContent className="w-64 p-0 shadow-md">
                   <div className="flex items-center gap-2 border-b border-border px-2.5 py-1.5 bg-popover">
-                    <IconSearch className="size-3.5 text-muted-foreground shrink-0" />
+                    <IconSearch className="size-3.5 shrink-0 text-muted-foreground" />
                     <input
                       value={citySearch}
                       onChange={(e) => setCitySearch(e.target.value)}
@@ -521,15 +522,17 @@ export function AddressStep() {
             <FieldLabel htmlFor="address.addressLine1">
               Street Address Line 1 <span className="text-destructive">*</span>
             </FieldLabel>
-            <div className="relative">
-              <Input
+            <InputGroup>
+              <InputGroupInput
                 id="address.addressLine1"
                 placeholder="House / Unit No., Building Name, Commercial Complex, Street"
-                className="pl-9"
+                aria-invalid={Boolean(addressErrors?.addressLine1)}
                 {...register("address.addressLine1")}
               />
-              <IconMapPin className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-            </div>
+              <InputGroupAddon>
+                <IconMapPin />
+              </InputGroupAddon>
+            </InputGroup>
             <FieldError errors={[addressErrors?.addressLine1]} />
           </Field>
 
@@ -548,15 +551,16 @@ export function AddressStep() {
           <div className="grid gap-4 sm:grid-cols-2">
             <Field data-invalid={Boolean(addressErrors?.landmark)}>
               <FieldLabel htmlFor="address.landmark">Landmark (Optional)</FieldLabel>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
                   id="address.landmark"
                   placeholder="e.g. Near World Trade Center, Opposite Metro Gate 3"
-                  className="pl-9"
                   {...register("address.landmark")}
                 />
-                <IconMapPinFilled className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              </div>
+                <InputGroupAddon>
+                  <IconMapPinFilled />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError errors={[addressErrors?.landmark]} />
             </Field>
 
