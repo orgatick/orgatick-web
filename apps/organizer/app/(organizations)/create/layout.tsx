@@ -4,7 +4,7 @@ import { Button } from "@orgatick/ui/components/button";
 
 export default function CreateOrganizationLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative min-h-screen bg-background flex flex-col">
+    <div className="relative min-h-full bg-background flex flex-col">
       {/* Top Navbar */}
       <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
@@ -30,12 +30,7 @@ export default function CreateOrganizationLayout({ children }: { children: React
       </header>
 
       {/* Main Content Area */}
-      <main className="relative z-10 flex-1 px-4">{children}</main>
-
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        <p>Orgatick Organizer System &copy; {new Date().getFullYear()} Orgatick Inc. All rights reserved.</p>
-      </footer>
+      <main className="relative h-full px-4">{children}</main>
     </div>
   );
 }

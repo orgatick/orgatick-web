@@ -23,7 +23,7 @@ export function getCountryFlagEmoji(countryCode?: string | null): string {
 }
 
 export interface AddressSelectProps {
-  name: keyof AddressFormValues;
+  name: string;
   label: string;
   placeholder?: string;
   searchPlaceholder?: string;
@@ -55,8 +55,11 @@ export function AddressSelect({
 }: AddressSelectProps) {
   const formContext = useFormContext<AddressFormValues>();
 
-  const fieldValue = formContext ? (formContext.watch(name) as string | null | undefined) : undefined;
-  const fieldError = formContext?.formState?.errors?.[name]?.message as string | undefined;
+  const fieldKey = name as keyof AddressFormValues;
+  const fieldValue = formContext ? (formContext.watch(fieldKey) as string | null | undefined) : undefined;
+  const fieldError = formContext?.formState?.errors
+    ? ((formContext.formState.errors as Record<string, { message?: unknown }>)[name]?.message as string | undefined)
+    : undefined;
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,11 +96,11 @@ export function AddressSelect({
       setOptions([]);
       setSelectedOption(null);
       if (formContext && fieldValue) {
-        formContext.setValue(name, null as never, { shouldValidate: true, shouldDirty: true });
+        formContext.setValue(fieldKey, null as never, { shouldValidate: true, shouldDirty: true });
       }
     }
     prevParentRef.current = parentValue;
-  }, [parentValue, formContext, name, fieldValue]);
+  }, [parentValue, formContext, fieldValue, fieldKey]);
 
   const fetchOptions = useCallback(
     async (query: string) => {
@@ -114,6 +117,17 @@ export function AddressSelect({
     },
     [loadOptions, name],
   );
+
+  // When a value is already preset (e.g. committed in a parent form) but no
+  // initialOption is given, fetch the option list once so the trigger can render
+  // the selected label without the user opening the popover first.
+  const didPresetFetch = useRef(false);
+  useEffect(() => {
+    if (!didPresetFetch.current && fieldValue && !initialOption && !selectedOption) {
+      didPresetFetch.current = true;
+      void fetchOptions("");
+    }
+  }, [fieldValue, initialOption, selectedOption, fetchOptions]);
 
   // Fetch when opened and focus search input
   const handleOpenChange = (open: boolean) => {
@@ -141,7 +155,7 @@ export function AddressSelect({
   const handleSelect = (option: AddressOption) => {
     setSelectedOption(option);
     if (formContext) {
-      formContext.setValue(name, option.value as never, { shouldValidate: true, shouldDirty: true });
+      formContext.setValue(fieldKey, option.value as never, { shouldValidate: true, shouldDirty: true });
     }
     onSelect?.(option);
     setIsOpen(false);
@@ -152,7 +166,7 @@ export function AddressSelect({
     e.stopPropagation();
     setSelectedOption(null);
     if (formContext) {
-      formContext.setValue(name, null as never, { shouldValidate: true, shouldDirty: true });
+      formContext.setValue(fieldKey, null as never, { shouldValidate: true, shouldDirty: true });
     }
     onSelect?.(null);
   };

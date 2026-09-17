@@ -21,12 +21,9 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconChecklist,
-  IconSparkles,
-  IconBuildingCommunity,
   IconShieldCheck,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
-import api from "@/lib/apis/auth.api";
 import { formDefaultValues } from "./_constents/defult-value";
 import { BasicInfoStep } from "./_steps/basic-info-step";
 import { AddressStep } from "./_steps/address-step";
@@ -79,12 +76,23 @@ export function CreateOrganizationForm() {
 
   const form = useForm<CreateOrganizationInput, unknown, CreateOrganizationOutput>({
     resolver: zodResolver(CreateOrganizationSchema),
-    mode: "onChange",
+    mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: formDefaultValues,
   });
 
   const currentStepConfig = FORM_STEPS[currentStep] ?? FORM_STEPS[0];
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Prevent Enter key (or anything else) from submitting the full form
+    // until the user actually reaches the review step.
+    if (currentStep < FORM_STEPS.length - 1) {
+      e.preventDefault();
+      void nextStep();
+      return;
+    }
+    void form.handleSubmit(onSubmit)(e);
+  };
 
   const nextStep = async () => {
     const stepConfig = FORM_STEPS[currentStep] ?? FORM_STEPS[0];
@@ -157,23 +165,10 @@ export function CreateOrganizationForm() {
 
   return (
     <FormProvider {...form}>
-      <div className="mx-auto w-full max-w-6xl">
-        {/* Page header */}
-        <div className="flex flex-col gap-2 pb-6 sm:pb-8">
-          <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
-            <IconBuildingCommunity className="size-3.5" />
-            Organizer Onboarding
-          </span>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Create your organization</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Set up your organizer profile, registered address, verification documents, and support team — it only takes
-            a few minutes.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
+      <div className="lg:h-[calc(100dvh-4rem)]">
+        <div className="flex flex-col gap-6 lg:h-full lg:items-start lg:gap-10 lg:overflow-hidden lg:flex-row">
           {/* Desktop sidebar stepper */}
-          <aside className="hidden w-64 shrink-0 lg:sticky lg:top-24 lg:block xl:w-72">
+          <aside className="hidden w-64 shrink-0 lg:sticky lg:top-0 lg:block xl:w-72">
             <nav aria-label="Progress" className="flex flex-col gap-1">
               {FORM_STEPS.map((step, index) => {
                 const StepIcon = step.icon;
@@ -233,7 +228,7 @@ export function CreateOrganizationForm() {
           </aside>
 
           {/* Mobile stepper + form column */}
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:pr-1">
             {/* Mobile progress header */}
             <div className="mb-6 lg:hidden">
               <ol className="flex items-center">
@@ -281,7 +276,7 @@ export function CreateOrganizationForm() {
               </div>
             </div>
 
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+            <form onSubmit={onFormSubmit} className="flex flex-col gap-6">
               {/* Step body */}
               <div key={currentStep} className="flex flex-col gap-6">
                 {currentStep === 0 && <BasicInfoStep />}
@@ -325,10 +320,7 @@ export function CreateOrganizationForm() {
                           Submitting...
                         </>
                       ) : (
-                        <>
-                          <IconSparkles data-icon="inline-start" />
-                          Complete &amp; Register
-                        </>
+                        <>Complete &amp; Register</>
                       )}
                     </Button>
                   )}

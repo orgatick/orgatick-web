@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import type { CreateOrganizationInput } from "@orgatick/contracts";
 import { Card, CardContent, CardHeader, CardTitle, CardAction } from "@orgatick/ui/components/card";
@@ -25,6 +26,7 @@ interface ReviewStepProps {
 
 export function ReviewStep({ onEditStep }: ReviewStepProps) {
   const { watch } = useFormContext<CreateOrganizationInput>();
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   const basicInfo = watch("basicInfo");
   const address = watch("address");
@@ -36,7 +38,15 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
   const subCategory = category?.subCategories.find((s) => s.id === Number(basicInfo?.subCategoryId));
 
   const logoFile = basicInfo?.logo;
-  const logoUrl = logoFile instanceof File ? URL.createObjectURL(logoFile) : null;
+
+  useEffect(() => {
+    if (logoFile instanceof File) {
+      const objectUrl = URL.createObjectURL(logoFile);
+      setLogoPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+    setLogoPreview(null);
+  }, [logoFile]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -72,9 +82,9 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
         <CardContent className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
-              {logoUrl ? (
+              {logoPreview ? (
                 // biome-ignore lint/performance/noImgElement: user-uploaded preview object URL
-                <img src={logoUrl} alt="Logo Preview" className="size-full object-cover" />
+                <img src={logoPreview} alt="Logo Preview" className="size-full object-cover" />
               ) : (
                 <IconBuilding className="size-6 text-muted-foreground" />
               )}

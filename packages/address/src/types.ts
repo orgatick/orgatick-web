@@ -6,6 +6,15 @@ import type {
   CreateAddressDto,
 } from "@orgatick/contracts";
 import type * as React from "react";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
+
+export type {
+  AddressCityRef,
+  AddressCountryRef,
+  AddressDivisionRef,
+  AddressResponse,
+  CreateAddressDto,
+} from "@orgatick/contracts";
 
 export type AddressVariant = "user" | "organization" | "event_venue" | "generic";
 
@@ -39,35 +48,25 @@ export interface AddressOption {
   prefix?: React.ReactNode;
 }
 
-export interface AddressFormValues extends CreateAddressDto {
-  /** Optional contextual fields for specific entity types */
-  label?: string | null; // e.g. "Home", "Office", "HQ"
-  venueName?: string | null; // e.g. "Royal Palace Hall" for event_venue
-  isDefault?: boolean;
-  divisionUuid2?: string | null; // Optional Level 2 / District
-}
-
-export interface AddressFormProps {
+export interface AddressFormProps<TFieldValues extends FieldValues> {
+  form: UseFormReturn<TFieldValues>;
+  name: keyof TFieldValues | string;
+  dataLoader?: AddressDataLoader;
   variant?: AddressVariant;
-  initialValues?: Partial<AddressFormValues> | Partial<AddressResponse>;
-  dataLoader: AddressDataLoader;
-  onSubmit: (values: AddressFormValues) => Promise<void> | void;
-  onCancel?: () => void;
-  isLoading?: boolean;
-  submitLabel?: string;
-  cancelLabel?: string;
+  showCity?: boolean;
+  showCoordinates?: boolean;
+  showMoreOptions?: boolean;
   className?: string;
-  showDistrict?: boolean;
 }
 
 export interface AddressCardProps {
-  address: AddressResponse | AddressFormValues;
+  address: AddressResponse | CreateAddressDto;
   variant?: AddressVariant;
   selected?: boolean;
-  onSelect?: (address: AddressResponse | AddressFormValues) => void;
-  onEdit?: (address: AddressResponse | AddressFormValues) => void;
-  onDelete?: (address: AddressResponse | AddressFormValues) => void;
-  onSetDefault?: (address: AddressResponse | AddressFormValues) => void;
+  onSelect?: (address: AddressResponse | CreateAddressDto) => void;
+  onEdit?: (address: AddressResponse | CreateAddressDto) => void;
+  onDelete?: (address: AddressResponse | CreateAddressDto) => void;
+  onSetDefault?: (address: AddressResponse | CreateAddressDto) => void;
   className?: string;
 }
 
@@ -77,19 +76,19 @@ export interface AddressDialogProps {
   title?: string;
   description?: string;
   variant?: AddressVariant;
-  initialValues?: Partial<AddressFormValues> | Partial<AddressResponse>;
+  initialValues?: Partial<CreateAddressDto> | Partial<AddressResponse>;
   dataLoader: AddressDataLoader;
-  onSubmit: (values: AddressFormValues) => Promise<void> | void;
+  onSubmit: (values: CreateAddressDto) => Promise<void> | void;
   showDistrict?: boolean;
 }
 
 export interface AddressPickerProps {
-  addresses: (AddressResponse | (AddressFormValues & { uuid?: string }))[];
+  addresses: (AddressResponse | (CreateAddressDto & { uuid?: string }))[];
   selectedUuid?: string | null;
-  onSelectAddress: (address: AddressResponse | (AddressFormValues & { uuid?: string })) => void;
+  onSelectAddress: (address: AddressResponse | (CreateAddressDto & { uuid?: string })) => void;
   onAddNewAddress?: () => void;
-  onEditAddress?: (address: AddressResponse | (AddressFormValues & { uuid?: string })) => void;
-  onDeleteAddress?: (address: AddressResponse | (AddressFormValues & { uuid?: string })) => void;
+  onEditAddress?: (address: AddressResponse | (CreateAddressDto & { uuid?: string })) => void;
+  onDeleteAddress?: (address: AddressResponse | (CreateAddressDto & { uuid?: string })) => void;
   variant?: AddressVariant;
   className?: string;
 }

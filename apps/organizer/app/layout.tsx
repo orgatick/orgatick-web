@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html lang="en" className={cn("h-full", "antialiased", "font-sans", sourceSans3.variable)}>
+    <html lang="en" className={cn("h-dvh", "antialiased", "font-sans", sourceSans3.variable)}>
       <body className="min-h-full flex flex-col">{!user ? <RestrictedAccess /> : children}</body>
     </html>
   );
