@@ -12,7 +12,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-full flex flex-col bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
       hello
     </div>
   );
