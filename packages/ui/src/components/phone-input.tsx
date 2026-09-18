@@ -29,7 +29,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = React.forwa
     <RPNInput.default
       ref={ref}
       className={cn(
-        "flex h-full w-full items-stretch overflow-hidden rounded-lg border border-input bg-background transition-colors focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/20 has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:ring-4 has-[input[aria-invalid=true]]:ring-destructive/20 dark:bg-input/30",
+        "flex h-full min-h-8 w-full items-stretch overflow-hidden rounded-lg border border-input bg-background transition-colors focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/20 has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:ring-4 has-[input[aria-invalid=true]]:ring-destructive/20 dark:bg-input/30",
         className,
       )}
       flagComponent={FlagComponent}
@@ -198,7 +198,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
   const Flag = flags[country];
 
   return (
-    <span className="flex shrink-0 overflow-hidden [&_svg:not([class*='size-'])]:size-full">
+    <span className="flex h-4 w-6 shrink-0 items-center justify-center overflow-hidden rounded-[3px] [&_svg:not([class*='size-'])]:h-full [&_svg:not([class*='size-'])]:w-full">
       {Flag && <Flag title={countryName} />}
     </span>
   );
