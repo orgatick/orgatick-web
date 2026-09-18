@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -244,7 +245,7 @@ export function MapLayersControl({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-1000">
         {showTileLayersDropdown && (
-          <>
+          <DropdownMenuGroup>
             <DropdownMenuLabel>{tileLayersLabel}</DropdownMenuLabel>
             <DropdownMenuRadioGroup
               value={selectedTileLayer}
@@ -258,11 +259,11 @@ export function MapLayersControl({
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
-          </>
+          </DropdownMenuGroup>
         )}
         {showTileLayersDropdown && showLayerGroupsDropdown && <DropdownMenuSeparator />}
         {showLayerGroupsDropdown && (
-          <>
+          <DropdownMenuGroup>
             <DropdownMenuLabel>{layerGroupsLabel}</DropdownMenuLabel>
             {layerGroups.map((layerGroup: MapLayerGroupOption) => (
               <DropdownMenuCheckboxItem
@@ -274,7 +275,7 @@ export function MapLayersControl({
                 {layerGroup.name}
               </DropdownMenuCheckboxItem>
             ))}
-          </>
+          </DropdownMenuGroup>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

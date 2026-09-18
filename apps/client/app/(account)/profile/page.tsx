@@ -75,7 +75,7 @@ export default async function ProfilePage() {
       <ProfileViewHeader user={user} />
 
       {/* Main Content Layout Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         {/* Main Profile Info Column (Server Presentation) */}
 
         <ProfileDetailsCard user={user} />

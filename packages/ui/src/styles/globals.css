@@ -136,6 +136,53 @@
   --sidebar-ring: #4d76d1;
 }
 
+@keyframes navbar-surface {
+  from {
+    border-color: transparent;
+    box-shadow: none;
+    background-color: color-mix(in oklch, var(--background) 55%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  to {
+    border-color: var(--border);
+    box-shadow:
+      0 4px 24px -12px color-mix(in oklch, var(--foreground) 18%, transparent),
+      inset 0 -1px 0 0 color-mix(in oklch, var(--border) 40%, transparent);
+    background-color: color-mix(in oklch, var(--background) 88%, transparent);
+    backdrop-filter: blur(16px);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .navbar-scroll {
+    animation: navbar-surface linear both;
+    animation-timeline: scroll();
+    animation-range: 0 96px;
+  }
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

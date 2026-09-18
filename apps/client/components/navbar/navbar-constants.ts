@@ -1,17 +1,31 @@
+import type { Icon } from "@tabler/icons-react";
 import {
   IconDevices,
   IconHelpCircle,
+  IconInfoCircle,
   IconLayoutDashboard,
+  IconMail,
   IconReceipt2,
   IconSettings,
+  IconSparkles,
   IconTicket,
   IconUser,
 } from "@tabler/icons-react";
+
+export const NAV_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export interface NavLinkItem {
   label: string;
   href: string;
   badge?: string;
+  icon?: Icon;
+}
+
+export interface UserMenuItem {
+  label: string;
+  href: string;
+  icon: Icon;
+  isExternal?: boolean;
 }
 
 export interface AuthUser {
@@ -24,14 +38,14 @@ export interface AuthUser {
 }
 
 export const MAIN_NAV_LINKS: NavLinkItem[] = [
-  { label: "Features", href: "/features" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Features", href: "/features", icon: IconSparkles },
+  { label: "Pricing", href: "/pricing", icon: IconReceipt2 },
+  { label: "About", href: "/about", icon: IconInfoCircle },
+  { label: "FAQ", href: "/faq", icon: IconHelpCircle },
+  { label: "Contact", href: "/contact", icon: IconMail },
 ];
 
-export const USER_MENU_ITEMS = [
+export const USER_MENU_ITEMS: UserMenuItem[] = [
   {
     label: "My Profile",
     href: "/profile",
