@@ -228,7 +228,7 @@ export function CreateOrganizationForm() {
           </aside>
 
           {/* Mobile stepper + form column */}
-          <div className="min-w-0 flex-1 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:pr-1">
+          <div className="min-w-0 flex-1">
             {/* Mobile progress header */}
             <div className="mb-6 lg:hidden">
               <ol className="flex items-center">
@@ -280,13 +280,9 @@ export function CreateOrganizationForm() {
               {/* Step body */}
               <div key={currentStep} className="flex flex-col gap-6">
                 {currentStep === 0 && <BasicInfoStep />}
-
                 {currentStep === 1 && <AddressStep />}
-
                 {currentStep === 2 && <DocumentsStep />}
-
                 {currentStep === 3 && <ContactsStep />}
-
                 {currentStep === 4 && <ReviewStep onEditStep={goToStep} />}
               </div>
 

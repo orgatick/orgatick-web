@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@orgatick/ui/components/select";
+import { PhoneInput } from "@orgatick/ui/components/phone-input";
 import {
   InputGroup,
   InputGroupAddon,
@@ -21,7 +22,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@orgatick/ui/components/input-group";
-import { IconBuilding, IconMail, IconPhone, IconUpload, IconX, IconSparkles, IconLink } from "@tabler/icons-react";
+import { IconBuilding, IconMail, IconUpload, IconX, IconSparkles, IconLink } from "@tabler/icons-react";
 import { ORGANIZATION_CATEGORIES } from "../_constents/categories";
 import Image from "next/image";
 
@@ -324,17 +325,12 @@ export function BasicInfoStep() {
               <FieldLabel htmlFor="basicInfo.phoneNumber">
                 Official Phone Number <span className="text-destructive">*</span>
               </FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="basicInfo.phoneNumber"
-                  placeholder="e.g. +1 555-0199 or +91 9876543210"
-                  aria-invalid={Boolean(basicErrors?.phoneNumber)}
-                  {...register("basicInfo.phoneNumber")}
-                />
-                <InputGroupAddon>
-                  <IconPhone />
-                </InputGroupAddon>
-              </InputGroup>
+
+              <PhoneInput
+                id="basicInfo.phoneNumber"
+                aria-invalid={Boolean(basicErrors?.phoneNumber)}
+                onChange={(e) => setValue("basicInfo.phoneNumber", e, { shouldValidate: true, shouldDirty: true })}
+              />
               <FieldError errors={[basicErrors?.phoneNumber]} />
             </Field>
           </div>
