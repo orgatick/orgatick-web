@@ -11,9 +11,9 @@ export const ORGANIZATION_CATEGORIES: CategoryOption[] = [
     name: "Conferences & Summits",
     description: "Tech, Business, Scientific & Professional Conferences",
     subCategories: [
-      { id: 101, name: "Technology & Software" },
-      { id: 102, name: "Business & Leadership" },
-      { id: 103, name: "Science & Healthcare" },
+      { id: 18, name: "Technology & Software" },
+      { id: 19, name: "Business & Leadership" },
+      { id: 20, name: "Science & Healthcare" },
       { id: 104, name: "Design & Product" },
     ],
   },

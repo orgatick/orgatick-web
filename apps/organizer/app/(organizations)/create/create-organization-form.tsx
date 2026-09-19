@@ -19,6 +19,7 @@ import { AddressStep } from "./_steps/address-step";
 import { DocumentsStep } from "./_steps/documents-step";
 import { ContactsStep } from "./_steps/contacts-step";
 import { ReviewStep } from "./_steps/review-step";
+import api from "@/lib/apis/auth.api";
 
 export function CreateOrganizationForm() {
   const router = useRouter();
@@ -95,10 +96,11 @@ export function CreateOrganizationForm() {
           formData.append(`document_${idx}`, doc.file);
         }
       });
+      console.log("Submitting organization data:", formData);
 
-      // await api.post("/organizations", formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
+      await api.post("/organizations", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       toast.success("Organization successfully registered!", {
         description: "Your organization application is currently under review.",
@@ -125,12 +127,12 @@ export function CreateOrganizationForm() {
 
         {/* Scrollable form column + sticky action bar */}
 
-        <form id={ORGANIZATION_FORM_ID} onSubmit={onFormSubmit} className="flex h-full flex-col overflow-hidden">
+        <form id={ORGANIZATION_FORM_ID} onSubmit={onFormSubmit} className="flex h-full flex-col ">
           <div className="flex flex-col gap-6 h-full">
             <div className="lg:hidden">
               <MobileStepProgress currentStep={currentStep} />
             </div>
-            <div key={currentStep} className="h-full overflow-hidden flex-1 py-2 px-1">
+            <div key={currentStep} className="h-full overflow-y-scroll flex-1 py-2 px-1">
               {currentStep === 0 && <BasicInfoStep />}
               {currentStep === 1 && <AddressStep />}
               {currentStep === 2 && <DocumentsStep />}
