@@ -26,7 +26,7 @@ export function SidebarNav({ collapsed }: { collapsed: boolean }) {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className={cn("w-full space-y-5", collapsed && "space-y-4")}
+      className={cn("w-full space-y-3", collapsed && "space-y-4")}
       aria-label="Sidebar"
     >
       {SIDEBAR_NAV_GROUPS.map((group) => (

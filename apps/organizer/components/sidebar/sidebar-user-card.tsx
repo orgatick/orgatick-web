@@ -9,6 +9,7 @@ import type { UserResponse } from "@orgatick/contracts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import api, { clearAccessToken } from "@/lib/apis/auth.api";
+import { LinkButton } from "../ui/link-button";
 
 export function SidebarUserCard({
   user,
@@ -62,17 +63,15 @@ export function SidebarUserCard({
       )}
 
       <div className={cn("flex items-center gap-0.5", collapsed && "flex-col")}>
-        <Button
-          type="button"
+        <LinkButton
           variant="ghost"
           size="icon-sm"
           aria-label="Settings"
-          title="Settings"
-          onClick={() => router.push("/settings")}
+          href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/settings`}
           className="text-muted-foreground hover:text-foreground"
         >
           <IconSettings className="size-4" />
-        </Button>
+        </LinkButton>
         <Button
           type="button"
           variant="ghost"

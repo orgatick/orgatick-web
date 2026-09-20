@@ -4,7 +4,7 @@ import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { type CreateOrganizationInput, OrganizationDocumentType } from "@orgatick/contracts";
 import { Field, FieldError, FieldLabel, FieldDescription } from "@orgatick/ui/components/field";
 import { Button } from "@orgatick/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { FormSection } from "../_components/form-section";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Alert, AlertTitle, AlertDescription } from "@orgatick/ui/components/alert";
 import {
@@ -91,23 +91,17 @@ export function DocumentsStep() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <CardTitle>Verification & Compliance Documents</CardTitle>
-            <CardDescription>
-              Upload official regulatory documents to verify your business identity and activate payouts.
-            </CardDescription>
-          </div>
-          <Badge variant="outline" className="w-fit gap-1 text-xs">
-            <IconFileCertificate className="text-primary" />
-            <span>{documents.length} / 5 Documents</span>
-          </Badge>
-        </div>
-      </CardHeader>
-
-      <CardContent className="flex flex-col gap-5">
+    <FormSection
+      title="Verification & Compliance Documents"
+      description="Upload official regulatory documents to verify your business identity and activate payouts."
+      action={
+        <Badge variant="outline" className="w-fit gap-1 text-xs">
+          <IconFileCertificate className="text-primary" />
+          <span>{documents.length} / 5 Documents</span>
+        </Badge>
+      }
+    >
+      <div className="flex flex-col gap-5">
         {/* Requirement Alert */}
         <Alert>
           <IconAlertCircle />
@@ -253,7 +247,7 @@ export function DocumentsStep() {
             Add Another Document ({fields.length}/5)
           </Button>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </FormSection>
   );
 }

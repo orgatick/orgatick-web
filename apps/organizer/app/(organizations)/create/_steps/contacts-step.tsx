@@ -4,7 +4,7 @@ import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { type CreateOrganizationInput, OrganizationSocialPlatform } from "@orgatick/contracts";
 import { Field, FieldError, FieldLabel } from "@orgatick/ui/components/field";
 import { Button } from "@orgatick/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { FormSection } from "../_components/form-section";
 import { Badge } from "@orgatick/ui/components/badge";
 import {
   Select,
@@ -30,9 +30,9 @@ import {
   IconShare,
   IconUser,
   IconMail,
-  IconPhone,
   IconCrown,
 } from "@tabler/icons-react";
+import { PhoneInput } from "@orgatick/ui/components/phone-input";
 
 export function getSocialIcon(platform: OrganizationSocialPlatform) {
   switch (platform) {
@@ -119,25 +119,19 @@ export function ContactsStep() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       {/* Social Links Section */}
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle>Social Media & Online Presence</CardTitle>
-              <CardDescription>
-                Connect your official web channels and social media handles (min 1, max 6).
-              </CardDescription>
-            </div>
-            <Badge variant="outline" className="w-fit gap-1 text-xs">
-              <IconShare className="text-primary" />
-              <span>{socialFields.length} / 6 Links</span>
-            </Badge>
-          </div>
-        </CardHeader>
-
-        <CardContent className="flex flex-col gap-4">
+      <FormSection
+        title="Social Media & Online Presence"
+        description="Connect your official web channels and social media handles (min 1, max 6)."
+        action={
+          <Badge variant="outline" className="w-fit gap-1 text-xs">
+            <IconShare className="text-primary" />
+            <span>{socialFields.length} / 6 Links</span>
+          </Badge>
+        }
+      >
+        <div className="flex flex-col gap-4">
           {socialErrors && !Array.isArray(socialErrors) && socialErrors.message && (
             <div className="rounded-lg bg-destructive/10 p-3 text-xs text-destructive">{socialErrors.message}</div>
           )}
@@ -228,27 +222,21 @@ export function ContactsStep() {
               Add Social Link ({socialFields.length}/6)
             </Button>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
 
       {/* Support & Representative Contacts Section */}
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle>Support & Representative Contacts</CardTitle>
-              <CardDescription>
-                Point of contact for customer support, ticket disputes, and event inquiries (min 1, max 6).
-              </CardDescription>
-            </div>
-            <Badge variant="outline" className="w-fit gap-1 text-xs">
-              <IconUser className="text-primary" />
-              <span>{contactFields.length} / 6 Contacts</span>
-            </Badge>
-          </div>
-        </CardHeader>
-
-        <CardContent className="flex flex-col gap-4">
+      <FormSection
+        title="Support & Representative Contacts"
+        description="Point of contact for customer support, ticket disputes, and event inquiries (min 1, max 6)."
+        action={
+          <Badge variant="outline" className="w-fit gap-1 text-xs">
+            <IconUser className="text-primary" />
+            <span>{contactFields.length} / 6 Contacts</span>
+          </Badge>
+        }
+      >
+        <div className="flex flex-col gap-4">
           {contactErrors && !Array.isArray(contactErrors) && contactErrors.message && (
             <div className="rounded-lg bg-destructive/10 p-3 text-xs text-destructive">{contactErrors.message}</div>
           )}
@@ -352,17 +340,11 @@ export function ContactsStep() {
                       <FieldLabel>
                         Direct Phone <span className="text-destructive">*</span>
                       </FieldLabel>
-                      <InputGroup>
-                        <InputGroupInput
-                          placeholder="e.g. +1 555-0123"
-                          aria-invalid={Boolean(contactError?.phoneNumber)}
-                          {...register(`supportContacts.${index}.phoneNumber`)}
-                        />
-                        <InputGroupAddon>
-                          <IconPhone />
-                        </InputGroupAddon>
-                      </InputGroup>
-                      <FieldError errors={[contactError?.phoneNumber]} />
+                      <PhoneInput
+                        placeholder="e.g. +1 555-0123"
+                        aria-invalid={Boolean(contactError?.phoneNumber)}
+                        onChange={(input) => setValue(`supportContacts.${index}.phoneNumber`, input)}
+                      />
                     </Field>
                   </div>
                 </div>
@@ -381,8 +363,8 @@ export function ContactsStep() {
               Add Another Contact ({contactFields.length}/6)
             </Button>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
     </div>
   );
 }

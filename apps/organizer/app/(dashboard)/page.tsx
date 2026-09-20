@@ -12,7 +12,7 @@ export default async function Home() {
     <div className="flex min-h-full w-full flex-col gap-6 p-4 sm:p-6 lg:p-8">
       <div className="flex flex-col gap-1">
         <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-primary">Organizer</p>
-        <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Welcome back 👋</h1>
+        <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Welcome back</h1>
         <p className="text-sm text-muted-foreground">Here&apos;s what&apos;s happening across your organization.</p>
       </div>
 

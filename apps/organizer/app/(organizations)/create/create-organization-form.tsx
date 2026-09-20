@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { AnimatePresence } from "motion/react";
 import {
   type CreateOrganizationInput,
   type CreateOrganizationOutput,
@@ -14,6 +15,7 @@ import { formDefaultValues } from "./_constents/defult-value";
 import { ORGANIZATION_FORM_ID, ORGANIZATION_FORM_STEPS, type OrganizationFormStep } from "./_constents/form-steps";
 import { ApplicationStepper, MobileStepProgress } from "./_components/application-stepper";
 import { FormActionBar } from "./_components/form-action-bar";
+import { SubmissionOverlay } from "./_components/submission-overlay";
 import { BasicInfoStep } from "./_steps/basic-info-step";
 import { AddressStep } from "./_steps/address-step";
 import { DocumentsStep } from "./_steps/documents-step";
@@ -21,11 +23,12 @@ import { ContactsStep } from "./_steps/contacts-step";
 import { ReviewStep } from "./_steps/review-step";
 import api from "@/lib/apis/auth.api";
 
+const ORGANIZATION_CREATE_TIMEOUT_MS = 120_000;
+
 export function CreateOrganizationForm() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<CreateOrganizationInput, unknown, CreateOrganizationOutput>({
     resolver: zodResolver(CreateOrganizationSchema),
@@ -40,13 +43,13 @@ export function CreateOrganizationForm() {
   const goToStep = (stepIndex: number) => {
     if (stepIndex >= 0 && stepIndex < ORGANIZATION_FORM_STEPS.length && stepIndex <= currentStep) {
       setCurrentStep(stepIndex);
-      scrollRef.current?.scrollTo({ top: 0 });
+      window.scrollTo({ top: 0 });
     }
   };
 
   const advanceTo = (stepIndex: number) => {
     setCurrentStep(stepIndex);
-    scrollRef.current?.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0 });
   };
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,13 +103,14 @@ export function CreateOrganizationForm() {
 
       await api.post("/organizations", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        timeout: ORGANIZATION_CREATE_TIMEOUT_MS,
       });
 
       toast.success("Organization successfully registered!", {
         description: "Your organization application is currently under review.",
       });
 
-      router.refresh();
+      router.push("/");
     } catch (err: unknown) {
       console.error("Error creating organization:", err);
       toast.info("Application submitted for processing!", {
@@ -119,26 +123,24 @@ export function CreateOrganizationForm() {
 
   return (
     <FormProvider {...form}>
-      <div className="flex h-full flex-col gap-6 lg:flex-row lg:gap-10">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
         {/* Desktop stepper */}
-        <aside className="hidden min-w-0 w-64 shrink-0 lg:block lg:overflow-y-auto xl:w-72">
+        <aside className="hidden min-w-0 w-64 shrink-0 lg:sticky lg:top-6 lg:block xl:w-72">
           <ApplicationStepper currentStep={currentStep} onGoToStep={goToStep} />
         </aside>
 
-        {/* Scrollable form column + sticky action bar */}
+        {/* Full-page form column + sticky action bar */}
+        <form id={ORGANIZATION_FORM_ID} onSubmit={onFormSubmit} className="flex w-full min-w-0 flex-col gap-6">
+          <div className="lg:hidden">
+            <MobileStepProgress currentStep={currentStep} />
+          </div>
 
-        <form id={ORGANIZATION_FORM_ID} onSubmit={onFormSubmit} className="flex h-full flex-col ">
-          <div className="flex flex-col gap-6 h-full">
-            <div className="lg:hidden">
-              <MobileStepProgress currentStep={currentStep} />
-            </div>
-            <div key={currentStep} className="h-full overflow-y-scroll flex-1 py-2 px-1">
-              {currentStep === 0 && <BasicInfoStep />}
-              {currentStep === 1 && <AddressStep />}
-              {currentStep === 2 && <DocumentsStep />}
-              {currentStep === 3 && <ContactsStep />}
-              {currentStep === 4 && <ReviewStep onEditStep={(index) => goToStep(index)} />}
-            </div>
+          <div key={currentStep} className="flex flex-col gap-8">
+            {currentStep === 0 && <BasicInfoStep />}
+            {currentStep === 1 && <AddressStep />}
+            {currentStep === 2 && <DocumentsStep />}
+            {currentStep === 3 && <ContactsStep />}
+            {currentStep === 4 && <ReviewStep onEditStep={(index) => goToStep(index)} />}
           </div>
 
           <FormActionBar
@@ -152,6 +154,8 @@ export function CreateOrganizationForm() {
           />
         </form>
       </div>
+
+      <AnimatePresence>{isSubmitting && <SubmissionOverlay key="organization-submission" />}</AnimatePresence>
     </FormProvider>
   );
 }

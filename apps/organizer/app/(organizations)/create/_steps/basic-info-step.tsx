@@ -5,7 +5,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import type { CreateOrganizationInput } from "@orgatick/contracts";
 import { Field, FieldError, FieldLabel, FieldDescription, FieldGroup } from "@orgatick/ui/components/field";
 import { Button } from "@orgatick/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@orgatick/ui/components/card";
+import { FormSection } from "../_components/form-section";
 import {
   Select,
   SelectContent,
@@ -115,15 +115,11 @@ export function BasicInfoStep() {
   const basicErrors = errors.basicInfo;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Organization Profile</CardTitle>
-        <CardDescription>
-          Provide the legal name, contact email, and branding details for your organizer entity.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-5">
-        {/* Logo Upload Section */}
+    <div className="flex flex-col gap-8">
+      <FormSection
+        title="Organization Logo"
+        description="Upload a square logo (JPEG, PNG, or WebP) to display across your tickets, invoices, and organizer page. Optional, max 5MB."
+      >
         <div className="flex flex-col gap-4 rounded-xl border border-dashed border-border bg-muted/20 p-4 sm:flex-row sm:items-center">
           <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted shadow-xs">
             {logoPreview ? (
@@ -184,7 +180,12 @@ export function BasicInfoStep() {
             )}
           </div>
         </div>
+      </FormSection>
 
+      <FormSection
+        title="Organization Profile Details"
+        description="Provide the legal name, official contact email, phone, and industry category for your organizer entity."
+      >
         <FieldGroup className="gap-5">
           {/* Organization Name & Slug */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -354,7 +355,7 @@ export function BasicInfoStep() {
             <FieldError errors={[basicErrors?.description]} />
           </Field>
         </FieldGroup>
-      </CardContent>
-    </Card>
+      </FormSection>
+    </div>
   );
 }

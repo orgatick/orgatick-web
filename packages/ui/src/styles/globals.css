@@ -198,6 +198,12 @@ html.theme-transition *::after {
   html {
     @apply font-sans;
   }
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, color-mix(in oklch, var(--foreground) 12%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 12%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
   .leaflet-container {
     @apply !bg-card !font-[inherit];
   }

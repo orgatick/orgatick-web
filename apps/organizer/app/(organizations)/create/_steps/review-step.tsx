@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import type { CreateOrganizationInput } from "@orgatick/contracts";
-import { Card, CardContent, CardHeader, CardTitle, CardAction } from "@orgatick/ui/components/card";
+import { FormSection } from "../_components/form-section";
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
 import { Separator } from "@orgatick/ui/components/separator";
@@ -60,26 +60,27 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
       </Alert>
 
       {/* 1. Basic Information Summary */}
-      <Card>
-        <CardHeader className="gap-1">
-          <CardTitle className="flex items-center gap-2">
+      <FormSection
+        title={
+          <span className="flex items-center gap-2">
             <IconBuilding className="size-4 text-primary" />
             Organization Profile
-          </CardTitle>
-          <CardAction>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => onEditStep(0)}
-              className="text-primary hover:bg-primary/10"
-            >
-              <IconEdit data-icon="inline-start" />
-              Edit
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+          </span>
+        }
+        action={
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onEditStep(0)}
+            className="text-primary hover:bg-primary/10"
+          >
+            <IconEdit data-icon="inline-start" />
+            Edit
+          </Button>
+        }
+      >
+        <div className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
               {logoPreview ? (
@@ -120,58 +121,60 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
               <p className="mt-1 leading-relaxed text-foreground">{basicInfo.description}</p>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
 
       {/* 2. Registered Address Summary */}
-      <Card>
-        <CardHeader className="gap-1">
-          <CardTitle className="flex items-center gap-2">
+      <FormSection
+        title={
+          <span className="flex items-center gap-2">
             <IconMapPin className="size-4 text-primary" />
             Registered Office Address
-          </CardTitle>
-          <CardAction>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => onEditStep(1)}
-              className="text-primary hover:bg-primary/10"
-            >
-              <IconEdit data-icon="inline-start" />
-              Edit
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">
+          </span>
+        }
+        action={
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onEditStep(1)}
+            className="text-primary hover:bg-primary/10"
+          >
+            <IconEdit data-icon="inline-start" />
+            Edit
+          </Button>
+        }
+      >
+        <div className="flex flex-col gap-2">
           <p className="font-medium text-foreground">{address?.addressLine1 || "—"}</p>
           {address?.addressLine2 && <p className="text-muted-foreground">{address.addressLine2}</p>}
           {address?.landmark && <p className="text-muted-foreground">Landmark: {address.landmark}</p>}
           {address?.postalCode && <p className="text-muted-foreground">Postal Code: {address.postalCode}</p>}
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
 
       {/* 3. Verification Documents Summary */}
-      <Card>
-        <CardHeader className="gap-1">
-          <CardTitle className="flex items-center gap-2">
+      <FormSection
+        title={
+          <span className="flex items-center gap-2">
             <IconFileText className="size-4 text-primary" />
             Verification Documents ({documents.length})
-          </CardTitle>
-          <CardAction>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => onEditStep(2)}
-              className="text-primary hover:bg-primary/10"
-            >
-              <IconEdit data-icon="inline-start" />
-              Edit
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">
+          </span>
+        }
+        action={
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onEditStep(2)}
+            className="text-primary hover:bg-primary/10"
+          >
+            <IconEdit data-icon="inline-start" />
+            Edit
+          </Button>
+        }
+      >
+        <div className="flex flex-col gap-2">
           {documents.map((doc) => {
             const hasFile = doc.file instanceof File;
             return (
@@ -197,30 +200,31 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
               </div>
             );
           })}
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
 
       {/* 4. Social Links & Support Contacts Summary */}
-      <Card>
-        <CardHeader className="gap-1">
-          <CardTitle className="flex items-center gap-2">
+      <FormSection
+        title={
+          <span className="flex items-center gap-2">
             <IconShare className="size-4 text-primary" />
             Social Links & Support Team
-          </CardTitle>
-          <CardAction>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => onEditStep(3)}
-              className="text-primary hover:bg-primary/10"
-            >
-              <IconEdit data-icon="inline-start" />
-              Edit
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+          </span>
+        }
+        action={
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onEditStep(3)}
+            className="text-primary hover:bg-primary/10"
+          >
+            <IconEdit data-icon="inline-start" />
+            Edit
+          </Button>
+        }
+      >
+        <div className="flex flex-col gap-4">
           <div>
             <span className="mb-2 block font-semibold text-foreground">Connected Channels</span>
             <div className="flex flex-wrap gap-2">
@@ -269,8 +273,8 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
               ))}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </FormSection>
     </div>
   );
 }

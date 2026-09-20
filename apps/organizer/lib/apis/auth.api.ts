@@ -81,8 +81,7 @@ api.interceptors.response.use(
         token?: string;
       }>(refreshUrl, {}, { withCredentials: true });
 
-      const newAccessToken = data.data?.token ?? data.token;
-      if (!newAccessToken) throw new Error("No access token returned from refresh endpoint");
+      const newAccessToken = data.data?.token ?? (data.token as string);
 
       setAccessToken(newAccessToken);
       isRefreshing = false;

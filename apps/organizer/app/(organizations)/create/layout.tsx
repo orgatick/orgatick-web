@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create Organization | Orgatick Organizer",
+  description: "Set up your organization, configure payout settings, and start publishing events on Orgatick.",
+};
+
 export default function CreateOrganizationLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative flex min-h-full flex-col bg-background lg:h-dvh lg:overflow-hidden">
+    <div className="relative flex h-full flex-col">
       {/* Main Content Area */}
-      <main className="min-h-0 flex-1 py-2">{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
     </div>
   );
 }

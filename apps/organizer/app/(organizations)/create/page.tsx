@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
 import { CreateOrganizationForm } from "./create-organization-form";
 import OrgatickLogo from "@orgatick/ui/assets/logo/orgatick-logo";
 import { Separator } from "@orgatick/ui/components/separator";
 
-export const metadata: Metadata = {
-  title: "Create Organization | Orgatick Organizer",
-  description: "Set up your organization, configure payout settings, and start publishing events on Orgatick.",
-};
-
 export default function CreateOrganizationPage() {
   return (
-    <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-5 sm:px-6 sm:py-8 lg:gap-6">
+    <div className="mx-auto flex h-full w-full max-w-7xl flex-col gap-5 px-2 py-6 sm:px-6 sm:py-8 lg:gap-6">
       <div className="shrink-0">
         <div className="flex items-center gap-3">
           <OrgatickLogo className="size-9" />

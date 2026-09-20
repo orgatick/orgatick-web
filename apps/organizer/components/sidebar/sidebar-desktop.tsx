@@ -41,7 +41,7 @@ export function SidebarDesktop({
         <SidebarBrand collapsed={collapsed} className="w-full" />
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-3 py-4">
+      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-3 py-2">
         <SidebarOrgSwitcher
           organizations={organizations}
           activeOrgId={activeOrgId}
