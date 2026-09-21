@@ -2,6 +2,7 @@ import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@orgatick/ui/lib/utils";
 import metadataConfig from "@/config/metadata";
+import Providers from "@/providers";
 
 const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
@@ -16,10 +17,12 @@ export const viewport = {
 
 export const metadata = metadataConfig;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", "font-sans", sourceSans3.variable)}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={cn("h-dvh", "antialiased", "font-sans", sourceSans3.variable)} suppressHydrationWarning>
+      <body className="min-h-full">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
