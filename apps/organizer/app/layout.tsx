@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import serverApi from "@/lib/apis/server-auth-api";
 import { RestrictedAccess } from "@/components/landing-page/restricted-access";
 import type { UserResponse } from "@orgatick/contracts";
+import Providers from "@/providers";
 
 const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
@@ -31,8 +32,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html lang="en" className={cn("h-dvh", "antialiased", "font-sans", sourceSans3.variable)}>
-      <body className="min-h-full flex flex-col px-2">{!user ? <RestrictedAccess /> : children}</body>
+    <html lang="en" className={cn("h-dvh", "antialiased", "font-sans", sourceSans3.variable)} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col px-2">
+        <Providers>{!user ? <RestrictedAccess /> : children}</Providers>
+      </body>
     </html>
   );
 }

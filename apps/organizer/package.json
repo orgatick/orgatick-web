@@ -13,7 +13,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
     "@orgatick/address": "workspace:*",
-    "@orgatick/contracts": "^0.1.30",
+    "@orgatick/contracts": "^0.1.39",
     "@orgatick/ui": "workspace:*",
     "@tabler/icons-react": "^3.46.0",
     "axios": "^1.19.0",

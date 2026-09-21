@@ -17,8 +17,8 @@ import {
   IconCrown,
   IconShieldCheck,
 } from "@tabler/icons-react";
-import { ORGANIZATION_CATEGORIES } from "../_constents/categories";
 import { getSocialIcon } from "./contacts-step";
+import { CategoryNames } from "@/components/category-names";
 
 interface ReviewStepProps {
   onEditStep: (stepIndex: number) => void;
@@ -33,9 +33,6 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
   const documents = watch("document") || [];
   const socialLinks = watch("socialLinks") || [];
   const supportContacts = watch("supportContacts") || [];
-
-  const category = ORGANIZATION_CATEGORIES.find((c) => c.id === Number(basicInfo?.categoryId));
-  const subCategory = category?.subCategories.find((s) => s.id === Number(basicInfo?.subCategoryId));
 
   const logoFile = basicInfo?.logo;
 
@@ -96,8 +93,10 @@ export function ReviewStep({ onEditStep }: ReviewStepProps) {
                 <p className="font-mono text-xs text-muted-foreground">orgatick.com/{basicInfo.slug}</p>
               )}
               <div className="flex flex-wrap gap-2 pt-1">
-                {category && <Badge variant="secondary">{category.name}</Badge>}
-                {subCategory && <Badge variant="outline">{subCategory.name}</Badge>}
+                <CategoryNames
+                  categoryId={(basicInfo?.categoryId as number | undefined) ?? null}
+                  subCategoryId={(basicInfo?.subCategoryId as number | undefined) ?? null}
+                />
               </div>
             </div>
           </div>

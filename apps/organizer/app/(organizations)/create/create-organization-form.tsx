@@ -31,7 +31,14 @@ export function CreateOrganizationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<CreateOrganizationInput, unknown, CreateOrganizationOutput>({
-    resolver: zodResolver(CreateOrganizationSchema),
+    resolver: zodResolver(CreateOrganizationSchema, {
+      error: (iss) => {
+        if (iss.path && iss.path.length === 2 && iss.path[0] === "basicInfo" && iss.path[1] === "subCategoryId") {
+          return { message: "Please select a sub-category." };
+        }
+        return undefined;
+      },
+    }),
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: formDefaultValues,
@@ -91,7 +98,7 @@ export function CreateOrganizationForm() {
       );
 
       if (data.basicInfo.logo instanceof File) {
-        formData.append("logo", data.basicInfo.logo);
+        formData.append("basicInfo.logo", data.basicInfo.logo);
       }
 
       data.document.forEach((doc, idx) => {
@@ -99,8 +106,6 @@ export function CreateOrganizationForm() {
           formData.append(`document_${idx}`, doc.file);
         }
       });
-      console.log("Submitting organization data:", formData);
-
       await api.post("/organizations", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: ORGANIZATION_CREATE_TIMEOUT_MS,
@@ -110,7 +115,7 @@ export function CreateOrganizationForm() {
         description: "Your organization application is currently under review.",
       });
 
-      router.push("/");
+      router.replace("/");
     } catch (err: unknown) {
       console.error("Error creating organization:", err);
       toast.info("Application submitted for processing!", {

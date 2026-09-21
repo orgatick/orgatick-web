@@ -6,14 +6,6 @@ import type { CreateOrganizationInput } from "@orgatick/contracts";
 import { Field, FieldError, FieldLabel, FieldDescription, FieldGroup } from "@orgatick/ui/components/field";
 import { Button } from "@orgatick/ui/components/button";
 import { FormSection } from "../_components/form-section";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@orgatick/ui/components/select";
 import { PhoneInput } from "@orgatick/ui/components/phone-input";
 import {
   InputGroup,
@@ -23,7 +15,7 @@ import {
   InputGroupTextarea,
 } from "@orgatick/ui/components/input-group";
 import { IconBuilding, IconMail, IconUpload, IconX, IconSparkles, IconLink } from "@tabler/icons-react";
-import { ORGANIZATION_CATEGORIES } from "../_constents/categories";
+import { CategorySelect } from "@/components/category-select";
 import Image from "next/image";
 
 function slugify(text: string): string {
@@ -41,6 +33,7 @@ export function BasicInfoStep() {
     control,
     watch,
     setValue,
+    clearErrors,
     formState: { errors },
   } = useFormContext<CreateOrganizationInput>();
 
@@ -49,7 +42,7 @@ export function BasicInfoStep() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const organizationName = watch("basicInfo.name");
-  const selectedCategoryId = watch("basicInfo.categoryId");
+  const selectedCategoryId = (watch("basicInfo.categoryId") as number | undefined) ?? undefined;
   const currentLogo = watch("basicInfo.logo");
   const description = watch("basicInfo.description") || "";
 
@@ -62,31 +55,11 @@ export function BasicInfoStep() {
     }
   }, [currentLogo]);
 
-  const defaultCat = ORGANIZATION_CATEGORIES[0];
-  const selectedCategory = ORGANIZATION_CATEGORIES.find((cat) => cat.id === Number(selectedCategoryId)) || defaultCat;
-  const subCategories = selectedCategory ? selectedCategory.subCategories : [];
-
   const handleGenerateSlug = () => {
     if (organizationName) {
       const generated = slugify(organizationName);
       setValue("basicInfo.slug", generated, { shouldValidate: true, shouldDirty: true });
     }
-  };
-
-  const handleCategoryChange = (catId: number) => {
-    setValue("basicInfo.categoryId", catId, { shouldValidate: true, shouldDirty: true });
-    const cat = ORGANIZATION_CATEGORIES.find((c) => c.id === catId);
-    const firstSub = cat?.subCategories[0];
-    if (firstSub) {
-      setValue("basicInfo.subCategoryId", firstSub.id, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  };
-
-  const handleSubCategoryChange = (subCatId: number) => {
-    setValue("basicInfo.subCategoryId", subCatId, { shouldValidate: true, shouldDirty: true });
   };
 
   const handleLogoChange = (file: File | null) => {
@@ -244,24 +217,21 @@ export function BasicInfoStep() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="basicInfo.categoryId">Primary Industry Category</FieldLabel>
-                  <Select
-                    name={field.name}
-                    value={String(field.value ?? "")}
-                    onValueChange={(value) => handleCategoryChange(Number(value))}
-                  >
-                    <SelectTrigger id="basicInfo.categoryId" className="w-full" aria-invalid={fieldState.invalid}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {ORGANIZATION_CATEGORIES.map((cat) => (
-                          <SelectItem key={cat.id} value={String(cat.id)}>
-                            {cat.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <CategorySelect
+                    id="basicInfo.categoryId"
+                    value={(field.value as number | null | undefined) ?? null}
+                    onValueChange={(id) => {
+                      field.onChange(id);
+                      setValue("basicInfo.subCategoryId", undefined as never, {
+                        shouldValidate: false,
+                        shouldDirty: true,
+                      });
+                      clearErrors("basicInfo.subCategoryId");
+                    }}
+                    level={1}
+                    placeholder="Select a category"
+                    ariaInvalid={fieldState.invalid}
+                  />
                   <FieldDescription>Choose the primary sector your events fall under.</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -276,24 +246,17 @@ export function BasicInfoStep() {
                   <FieldLabel htmlFor="basicInfo.subCategoryId">
                     Sub-Category <span className="text-destructive">*</span>
                   </FieldLabel>
-                  <Select
-                    name={field.name}
-                    value={String(field.value ?? "")}
-                    onValueChange={(value) => handleSubCategoryChange(Number(value))}
-                  >
-                    <SelectTrigger id="basicInfo.subCategoryId" className="w-full" aria-invalid={fieldState.invalid}>
-                      <SelectValue placeholder="Select a sub-category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {subCategories.map((sub) => (
-                          <SelectItem key={sub.id} value={String(sub.id)}>
-                            {sub.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <CategorySelect
+                    id="basicInfo.subCategoryId"
+                    value={(field.value as number | null | undefined) ?? null}
+                    onValueChange={field.onChange}
+                    level={2}
+                    parentId={selectedCategoryId}
+                    placeholder="Select a sub-category"
+                    disabled={!selectedCategoryId}
+                    disabledReason={!selectedCategoryId ? "Select a primary category first" : null}
+                    ariaInvalid={fieldState.invalid}
+                  />
                   <FieldDescription>Specialized domain for better event discovery.</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
