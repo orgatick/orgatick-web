@@ -15,6 +15,7 @@ import { serverFetchDashboardStats } from "@/lib/admin.api";
 import type { AdminOrganization, AdminUser } from "@/lib/types";
 import { PageHeader } from "@/components/page-header";
 import { StatCard } from "@/components/stat-card";
+import Image from "next/image";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -93,7 +94,7 @@ function RecentOrganizations({ organizations }: { organizations: AdminOrganizati
             <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-secondary text-secondary-foreground">
               {organization.logo ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={organization.logo} alt="" className="size-6 rounded object-cover" />
+                <Image src={organization.logo} alt="" className="size-6 rounded object-cover" />
               ) : (
                 <IconBuildingStore className="size-4" />
               )}

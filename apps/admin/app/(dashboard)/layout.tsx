@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
     user = null;
   }
 
-  if (!user || user.role !== "admin") {
+  if (user?.role !== "admin") {
     return <RestrictedAccess />;
   }
 
