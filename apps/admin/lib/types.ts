@@ -2,6 +2,78 @@ import type { UserRole, UserResponse } from "@orgatick/contracts";
 
 export type PlatformRole = UserRole;
 export type OrgStatus = "active" | "suspended" | "inactive";
+export type OrgVerificationStatus = "pending" | "verified" | "rejected";
+export type OrgDocumentStatus = "pending" | "approved" | "rejected" | "verified" | "replacement_requested";
+export type MemberStatus = "active" | "inactive";
+export type MemberRoleKey = "owner" | "admin" | "manager" | "member";
+
+export interface AdminStateRef {
+  blocked: boolean;
+  hidden: boolean;
+  archived: boolean;
+  adminReason?: string | null;
+  blockReason?: string | null;
+  hiddenReason?: string | null;
+  archivedReason?: string | null;
+  blockedAt?: string | null;
+  hiddenAt?: string | null;
+  archivedAt?: string | null;
+  closureReason?: string | null;
+  closureRequestedAt?: string | null;
+}
+
+export interface OrgDocumentRef {
+  id: string | number;
+  type: string;
+  fileUrl: string;
+  status: OrgDocumentStatus;
+  reviewNote?: string | null;
+  reviewedAt?: string | null;
+  createdAt: string;
+  uploader?: { id: string | number; name: string; email?: string | null } | null;
+  reviewer?: { id: string | number; name: string; email?: string | null } | null;
+}
+
+export interface AdminNoteEntry {
+  id: string | number;
+  note: string;
+  actorName?: string | null;
+  createdAt: string;
+}
+
+export interface StatusHistoryEntry {
+  id: string | number;
+  changeType: string;
+  fromStatus?: string | null;
+  toStatus?: string | null;
+  reason?: string | null;
+  actorName?: string | null;
+  createdAt: string;
+}
+
+export interface VerificationLogEntry {
+  id: string | number;
+  action: string;
+  note?: string | null;
+  actorName?: string | null;
+  createdAt: string;
+}
+
+export interface OwnershipHistoryEntry {
+  id: string | number;
+  action: string;
+  fromUserName?: string | null;
+  toUserName?: string | null;
+  reason?: string | null;
+  actorName?: string | null;
+  createdAt: string;
+}
+
+export interface OrgHistories {
+  status: StatusHistoryEntry[];
+  verification: VerificationLogEntry[];
+  ownership: OwnershipHistoryEntry[];
+}
 
 export interface AccountRef {
   id?: string | number;
@@ -110,6 +182,10 @@ export interface AdminOrganization {
   creator?: CreatorRef | null;
   stats?: OrgStats | null;
   verification?: VerificationRef | null;
+  adminState?: AdminStateRef | null;
+  documents?: OrgDocumentRef[];
+  notes?: AdminNoteEntry[];
+  histories?: OrgHistories;
   members?: MemberRef[];
 }
 
@@ -146,6 +222,10 @@ export type OrganizationListQuery = {
   limit?: number;
   search?: string;
   status?: OrgStatus;
+  verificationStatus?: OrgVerificationStatus;
+  categoryId?: number;
+  blocked?: boolean;
+  archived?: boolean;
   sortBy?: "created_at" | "name" | "id";
   sortOrder?: "ASC" | "DESC";
 };

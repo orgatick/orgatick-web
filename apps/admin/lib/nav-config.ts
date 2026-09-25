@@ -7,6 +7,7 @@ export interface SidebarNavItem {
   href: string;
   label: string;
   icon: Icon;
+  badge?: string;
   exact?: boolean;
 }
 
@@ -18,7 +19,7 @@ export interface SidebarNavGroup {
 export const SIDEBAR_NAV_GROUPS: SidebarNavGroup[] = [
   {
     label: "Overview",
-    items: [{ href: "/dashboard", label: "Dashboard", icon: IconLayoutDashboard, exact: true }],
+    items: [{ href: "/", label: "Dashboard", icon: IconLayoutDashboard, exact: true }],
   },
   {
     label: "Management",

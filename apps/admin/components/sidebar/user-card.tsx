@@ -4,11 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@orgatick/ui/components/ava
 import { Badge } from "@orgatick/ui/components/badge";
 import { Button } from "@orgatick/ui/components/button";
 import { cn } from "@orgatick/ui/lib/utils";
-import { IconLogout } from "@tabler/icons-react";
+import { IconLogout, IconSettings } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import baseApi from "@/lib/apis/base.api";
 import type { AdminUser } from "@/lib/types";
+import { LinkButton } from "@/components/link-button";
+
+const clientUrl = (process.env.NEXT_PUBLIC_CLIENT_URL ?? "https://orgatick.in").replace(/\/$/, "");
 
 export function SidebarUserCard({
   user,
@@ -63,6 +66,15 @@ export function SidebarUserCard({
       )}
 
       <div className={cn("flex items-center gap-0.5", collapsed && "flex-col")}>
+        <LinkButton
+          href={`${clientUrl}/settings`}
+          variant="ghost"
+          size="icon-sm"
+          ariaLabel="Account settings"
+          className="text-muted-foreground hover:text-foreground"
+        >
+          <IconSettings className="size-4" />
+        </LinkButton>
         <Button
           type="button"
           variant="ghost"

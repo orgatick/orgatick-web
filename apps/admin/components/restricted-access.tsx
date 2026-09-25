@@ -40,7 +40,7 @@ export function RestrictedAccess({ className }: { className?: string }) {
         </AlertDescription>
       </Alert>
 
-      <LinkButton href={process.env.NEXT_PUBLIC_CLIENT_URL} size="lg" className="gap-2 px-8 text-base">
+      <LinkButton href={`${process.env.NEXT_PUBLIC_CLIENT_URL}`} size="lg" className="gap-2 px-8 text-base">
         Go to orgatick.in
         <IconArrowRight data-icon="inline-end" />
       </LinkButton>
