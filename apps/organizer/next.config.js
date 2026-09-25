@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  allowedDevOrigins: ["10.54.4.173"],
+  allowedDevOrigins: ["dev-org.orgatick.site"],
 };
 
 export default nextConfig;

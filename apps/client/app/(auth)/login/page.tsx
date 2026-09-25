@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 import Header from "../_components/Header";
 import Link from "next/link";
-import { IconBrandGoogle } from "@tabler/icons-react";
-import { Button } from "@orgatick/ui/components/button";
 import LoginForm from "./components/login-form";
 import LoginSkeleton from "./components/login-skeleton";
+import GoogleLoginButton from "../_components/google-login-button";
 
 function page() {
   return (
@@ -29,12 +28,9 @@ function page() {
           </div>
         </div>
         <div className="w-full flex flex-col gap-4">
-          <div>
-            <Button className="w-full rounded-full text-xl h-14" variant={"outline"}>
-              <IconBrandGoogle size={18} className="mr-2" />
-              Continue with Google
-            </Button>
-          </div>
+          <Suspense fallback={<div className="h-14 w-full rounded-full bg-muted animate-pulse" />}>
+            <GoogleLoginButton />
+          </Suspense>
         </div>
       </div>
     </div>
