@@ -55,22 +55,16 @@ export async function requestOrganizationClosure(id: string, reason: string): Pr
 }
 
 export async function approveOrganizationClosure(id: string, note?: string): Promise<AdminOrganization> {
-  const response = await api.patch<ApiResponseData<AdminOrganization>>(
-    `/admin/organizations/${id}/closure/approve`,
-    {
-      note,
-    },
-  );
+  const response = await api.patch<ApiResponseData<AdminOrganization>>(`/admin/organizations/${id}/closure/approve`, {
+    note,
+  });
   return response.data.data;
 }
 
 export async function rejectOrganizationClosure(id: string, reason?: string): Promise<AdminOrganization> {
-  const response = await api.patch<ApiResponseData<AdminOrganization>>(
-    `/admin/organizations/${id}/closure/reject`,
-    {
-      reason,
-    },
-  );
+  const response = await api.patch<ApiResponseData<AdminOrganization>>(`/admin/organizations/${id}/closure/reject`, {
+    reason,
+  });
   return response.data.data;
 }
 
