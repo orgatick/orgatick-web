@@ -6,13 +6,7 @@ export default function NoOrganizationCard() {
   const createOrgHref = "/create";
 
   return (
-    <section className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-background px-4 py-16 sm:px-6 sm:py-24">
-      {/* Grid pattern */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)] dark:opacity-[0.05]"
-      />
-
+    <section className="relative isolate flex min-h-full items-center justify-center overflow-hidden">
       {/* Background fade */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background via-background/80 to-background" />
 

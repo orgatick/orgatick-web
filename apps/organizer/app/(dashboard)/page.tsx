@@ -1,3 +1,4 @@
+import serverApi from "@/lib/apis/server-auth-api";
 import { IconCalendarStar, IconTicket, IconUsers, IconWallet } from "@tabler/icons-react";
 
 const STATS = [
@@ -8,8 +9,13 @@ const STATS = [
 ];
 
 export default async function Home() {
+  const api = await serverApi();
+
+  const organization = (await api.get("/session/organizations")).data;
+  console.log(organization);
+
   return (
-    <div className="flex min-h-full w-full flex-col gap-6 p-4 sm:p-6 lg:p-8">
+    <div className="flex min-h-full w-full flex-col gap-6">
       <div className="flex flex-col gap-1">
         <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-primary">Organizer</p>
         <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Welcome back</h1>

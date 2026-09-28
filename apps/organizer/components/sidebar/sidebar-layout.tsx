@@ -15,7 +15,7 @@ interface SidebarLayoutProps {
 export function SidebarLayout({ user, organizations, children }: SidebarLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeOrgId, setActiveOrgId] = useState<string | number | null>(organizations[0]?.id ?? null);
+  const [activeOrgId, setActiveOrgId] = useState<string | number | null>(organizations[0]?.organization.id ?? null);
 
   return (
     <div className="flex h-dvh w-full overflow-hidden bg-background">

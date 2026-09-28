@@ -1,4 +1,10 @@
 import type { Icon } from "@tabler/icons-react";
+import type {
+  OrganizationMemberRole,
+  OrganizationMemberStatus,
+  OrganizationStatus,
+  OrganizationVerificationStatus,
+} from "@orgatick/contracts";
 import {
   IconChartBar,
   IconFileReport,
@@ -14,10 +20,46 @@ import {
 
 export const NAV_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-export interface SidebarOrganization {
+interface SidebarOrgRole {
+  id: string | number;
+  key: OrganizationMemberRole | (string & {});
+  name: string;
+}
+
+interface SidebarOrgRef {
   id: string | number;
   name: string;
+  slug?: string;
+}
+
+interface SidebarOrgStats {
+  totalEvents: number;
+  totalParticipants: number;
+  totalRevenue: string | number;
+}
+
+interface SidebarOrgVerification {
+  status: OrganizationVerificationStatus | (string & {});
+  rejectionReason?: string | null;
+}
+
+interface SidebarOrgDetail extends SidebarOrgRef {
   logo?: string | null;
+  status?: OrganizationStatus | (string & {});
+  allowPaidEvents?: boolean;
+  category?: SidebarOrgRef | null;
+  subCategory?: SidebarOrgRef | null;
+  verification?: SidebarOrgVerification | null;
+  stats?: SidebarOrgStats | null;
+}
+
+/** One entry of `GET /organizations/my` -> `data.items`. */
+export interface SidebarOrganization {
+  roleId: string | number;
+  role: SidebarOrgRole;
+  status: OrganizationMemberStatus | (string & {});
+  joinedAt?: string;
+  organization: SidebarOrgDetail;
 }
 
 export interface SidebarNavItem {

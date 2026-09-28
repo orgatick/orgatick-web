@@ -17,8 +17,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   let organizations: SidebarOrganization[] = [];
   try {
-    const response = await api.get("/organizations");
-    organizations = response.data.data?.items ?? [];
+    const response = await api.get("/organizations/my");
+    organizations = response.data.data ?? [];
   } catch {
     organizations = [];
   }

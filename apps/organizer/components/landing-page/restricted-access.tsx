@@ -5,20 +5,8 @@ import { RestrictedAccessIllustration } from "@orgatick/ui/assets/illustration/r
 
 export function RestrictedAccess() {
   return (
-    <section className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden px-4 py-16 sm:px-6 sm:py-24">
-      {/* Grid pattern */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.35] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]"
-      />
-
+    <section className="relative isolate flex min-h-full items-center justify-center overflow-hidden">
       <div className="container relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-        {/* Security Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-4 py-2 shadow-sm backdrop-blur-md">
-          <IconShieldLock className="size-4 text-primary" />
-          <span className="text-sm font-medium text-muted-foreground">Secured Admin System</span>
-        </div>
-
         {/* Illustration Hero */}
         <div className="relative mt-12 mb-10 sm:mt-14">
           {/* Glow behind */}
@@ -29,7 +17,7 @@ export function RestrictedAccess() {
             className="absolute -inset-4 -z-10 rounded-full border border-primary/10 bg-background/40 backdrop-blur-sm"
           />
 
-          <RestrictedAccessIllustration className="size-48 drop-shadow-xl sm:size-60" />
+          <RestrictedAccessIllustration className="size-44 drop-shadow-xl sm:size-60" />
 
           {/* Floating chip: verified */}
           <motion.div
@@ -88,7 +76,7 @@ export function RestrictedAccess() {
         </div>
 
         {/* System Notice */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-muted-foreground/70">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground/70">
           <IconShieldLock className="size-4" />
           admin.orgatick.in
           <span aria-hidden>·</span>
