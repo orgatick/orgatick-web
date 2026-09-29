@@ -1,5 +1,8 @@
 import serverApi from "@/lib/apis/server-auth-api";
+import { getCurrentOrganization, getVerificationStatus } from "@/lib/organization/current-organization";
+import { OrganizationVerificationStatus } from "@orgatick/contracts";
 import { IconCalendarStar, IconTicket, IconUsers, IconWallet } from "@tabler/icons-react";
+import { redirect } from "next/navigation";
 
 const STATS = [
   { label: "Total events", value: "—", icon: IconCalendarStar },
@@ -11,8 +14,10 @@ const STATS = [
 export default async function Home() {
   const api = await serverApi();
 
-  const organization = (await api.get("/session/organizations")).data;
-  console.log(organization);
+  const membership = await getCurrentOrganization(api);
+  if (membership && getVerificationStatus(membership) !== OrganizationVerificationStatus.VERIFIED) {
+    redirect("/verification");
+  }
 
   return (
     <div className="flex min-h-full w-full flex-col gap-6">

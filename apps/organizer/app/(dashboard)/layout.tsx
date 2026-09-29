@@ -29,7 +29,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <SidebarLayout user={user} organizations={organizations}>
-      {children}
+      <div className="pt-3">{children} </div>
     </SidebarLayout>
   );
 }

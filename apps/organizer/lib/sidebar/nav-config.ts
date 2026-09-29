@@ -41,6 +41,7 @@ interface SidebarOrgStats {
 interface SidebarOrgVerification {
   status: OrganizationVerificationStatus | (string & {});
   rejectionReason?: string | null;
+  verifiedAt?: string | null;
 }
 
 interface SidebarOrgDetail extends SidebarOrgRef {
