@@ -12,6 +12,7 @@ import {
   IconMessages,
   IconPlus,
   IconSettings,
+  IconShieldCheck,
   IconTicket,
   IconUsers,
   IconUsersGroup,
@@ -44,12 +45,26 @@ interface SidebarOrgVerification {
   verifiedAt?: string | null;
 }
 
+interface SidebarOrgAddress {
+  addressLine1?: string | null;
+  addressLine2?: string | null;
+  landmark?: string | null;
+  postalCode?: string | null;
+  formattedAddress?: string | null;
+}
+
 interface SidebarOrgDetail extends SidebarOrgRef {
   logo?: string | null;
   status?: OrganizationStatus | (string & {});
   allowPaidEvents?: boolean;
+  description?: string | null;
+  email?: string | null;
+  phoneNumber?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
   category?: SidebarOrgRef | null;
   subCategory?: SidebarOrgRef | null;
+  address?: SidebarOrgAddress | null;
   verification?: SidebarOrgVerification | null;
   stats?: SidebarOrgStats | null;
 }
@@ -101,6 +116,7 @@ export const SIDEBAR_NAV_GROUPS: SidebarNavGroup[] = [
     label: "Organization",
     items: [
       { href: "/team", label: "Team", icon: IconUsersGroup },
+      { href: "/verification", label: "Verification", icon: IconShieldCheck },
       { href: "/settings", label: "Settings", icon: IconSettings },
     ],
   },

@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en" className={cn("h-dvh", "antialiased", "font-sans", sourceSans3.variable)} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col px-4 sm:px-6">
+      <body className="min-h-full flex flex-col px-4 sm:px-0">
         <Providers>{!user ? <RestrictedAccess /> : children}</Providers>
       </body>
     </html>
